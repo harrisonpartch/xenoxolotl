@@ -1,0 +1,29 @@
+File Trap_20120815__145345.txt
+---------------------------
+
+LinuxAos (rev.4899)
+
+Trap   11 (Segmentation violation)
+SP = 00000000H, FP = EDBFB0D0H, PC = F75C0514H
+
+Unknown external procedure, pc = F75C0514
+Unknown external procedure, pc = F75EE1FA
+Unknown external procedure, pc = F75EEB76
+Unknown external procedure, pc = F75EEC09
+Unknown external procedure, pc = F75C6FD1
+Unknown external procedure, pc = EADCB325
+XNXLRender.mainloop:113 pc=18149 [000046E5H] = 18036 + 113 crc=60BB1208
+  @hiddenIRVar0=DCD68FC0H (Random.Generator)
+XNXLRender.Open:614 pc=18650 [000048DAH] = 18036 + 614 crc=60BB1208
+  @hiddenIRVar0=F0D0F0F0H (Kernel.Timer)
+  @hiddenIRVar1=DCD6CB40H (Random.Generator)
+  @hiddenIRVar2=EF2D0C40H (XNXLRender.Camera)
+Commands.Runner.@Body:527 pc=1984 [000007C0H] = 1457 + 527 crc=C12DD794
+Objects.BodyStarter:319 pc=3318 [00000CF6H] = 2999 + 319 crc=8B6328EE
+  p=F0E63AD0H (Objects.Process)
+  res=0
+  prevBP=-306203752
+
+
+----------------------------------------------------
+

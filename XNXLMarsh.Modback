@@ -1,0 +1,334 @@
+MODULE XNXLMarsh;
+IMPORT  XNXLBase , XNXLVoxel, XNXLVoxel4, XNXLLifeVox, XNXLTexVox, Random, 
+M2:=XNXLM3Space, XNXLM3Space, XNXLFRep, XNXLRotaVox, XNXLSierp, XNXLHalfSpace,XNXLUDPClient;
+
+TYPE Voxel=XNXLBase.Voxel;
+TYPE PT=XNXLBase.PT;
+TYPE  COLOR=XNXLBase.COLOR;  
+TYPE VA=ARRAY 5 OF Voxel;
+
+VAR
+	i,j,k,ii,jj,kk,iii,jjj,kkk,t,s: LONGINT;
+	cost: REAL;
+	up,flat,down,right,away,slant,p,pp,q,qq,center,undercenter, normal,xaxis,yaxis,zaxis: PT;
+	x3,sand, cell,corridor, pillar,cage,building,FLOWER, CRIMSONFLOWER : M2.cell;
+	five: M2.cell;
+	six,sixsix, sixsixsix: M2.cell;
+	skybox,skysabot, b3, b33, b333: XNXLM3Space.cell;
+	r,g,b: XNXLBase.COLOR;
+	red,blue,green: REAL;
+	EARTH: XNXLVoxel.DiffuseVox;
+	rand: Random.Generator;
+	EMPTY: M2.cell;
+	E: ARRAY 4 OF M2.cell;
+	x10,z10: M2.cell;
+	w10: M2.cell;
+	YELLOW: XNXLVoxel.DiffuseVox;
+	BLACK,GREY, WHITE,GREEN: XNXLVoxel.DiffuseVox;
+	 GREENO,PURPLE: XNXLVoxel.COutlineVox;
+	MIRROR,MCUBE: XNXLVoxel.DiffuseMVox;
+	PINK, BROWN: XNXLVoxel.OutlineVox;
+	NIGHT, TGREEN, TDGREEN, TYELLOW, TBROWN, TORANGE: XNXLVoxel.TransparaVox;
+	TWHITE, TBLACK: XNXLVoxel.TransparaVox;
+	RED, BLUE: XNXLVoxel.DiffuseVox;	
+	RDYELLOW: XNXLVoxel.TransparaVox;	
+	LW, LG: XNXLVoxel.TransparaVox;
+	TBLUE,TRED, TPURPLE,TCOLOR: XNXLVoxel.TransparaVox;
+	SRP:  ARRAY 4 OF M2.cell;
+	s3,s33,s333:XNXLSierp.Sierp;
+	sphere, sphere2: XNXLVoxel. DiffuseSphVox;
+	LIFE: XNXLLifeVox.RDVolVox;
+	L: XNXLLifeVox.LifeVox;
+	MPURPLE, MGREEN: XNXLVoxel.ColoredMVox;
+	sky: XNXLVoxel.ColoredVox;
+	sky1, sky2, sky3, sky4, TEX, weev, meeba,dotz,mutatis,qdog,sparx,galaxy,jwater,
+	penrose,slats,lobster,arrow,founder,rwal,gwal,bwal,
+	beholdthexenopus, googlepocalypse,firetile,rat,starfish,stone, linolium,formica, checkerfloor: XNXLTexVox.TexVox;
+	escherfiretile, serptile, stile: VA;
+	SIX: M2.cell;
+	azure,crimson,yellow: XNXLBase.COLOR;
+	cp: PT;
+	av: LONGINT;
+	title: XNXLBase.Name;
+	frame: ARRAY 8 OF CHAR;	
+	diameter:REAL;
+	blacktick:INTEGER;
+	fr: XNXLBase.FRF;
+	ball, whiteball: XNXLFRep.sphere;
+	plane:XNXLFRep.halfspace;
+	cyl: XNXLFRep.cyl;
+	lobsterplane,gorgeplane:XNXLFRep.landscape;
+	lobstercone: XNXLFRep.texturedcone;
+	hexgrid: XNXLFRep.hexgrid;
+	yel: XNXLFRep.ellipsoid;
+	tnoise: XNXLFRep.tilednoise;	
+	noise: XNXLFRep.noise;
+	cube: XNXLFRep.cube;
+	DAISY, D2,D3BLOOM: M2.cell;
+	checker: XNXLM3Space.cell;
+	QHOLDER:XNXLM3Space.cell;	
+	SP,SP2:M2.cell;
+	sperea,spereb: XNXLVoxel4.SphereInVox; 
+	mspere:XNXLVoxel4.MirrorSphereInVox;
+	Q,R,S,T,U,V:XNXLRotaVox.RVox;
+	alfBoxWorld,boxsky: XNXLM3Space.cell;
+	pa,pb: PT;
+	hs: XNXLHalfSpace.halfvox;
+	hsar: ARRAY 100 OF Voxel;
+	water: XNXLVoxel.WaterVox;
+	vlistN, vN*: INTEGER;
+	cursorsize*: LONGINT;
+
+PROCEDURE draw*;
+BEGIN
+(*	XNXLBase.world.stroke(XNXLBase.cursorPT,cursorsize,XNXLBase.vlist[vN]);	*)
+	XNXLUDPClient.stroke(XNXLBase.cursorPT,cursorsize,vN);	;
+END draw;
+
+PROCEDURE push(v: Voxel);
+BEGIN
+	XNXLBase.vlist[vlistN]:=v;
+	XNXLBase.cursorvox:=v;	
+	INC(vlistN);
+	vlistN:= vlistN MOD 20;
+		
+END push;
+
+PROCEDURE incVN*;
+BEGIN
+	vN:=vN+1;
+	vN:= vN MOD 20;
+	XNXLBase.cursorvox:=XNXLBase.vlist[vlistN];
+END incVN;
+
+PROCEDURE decVN*;
+BEGIN
+	vN:=vN-1;
+	vN:= vN MOD 20;
+	XNXLBase.cursorvox:=XNXLBase.vlist[vlistN];	
+END decVN;
+
+PROCEDURE drawavatar*;
+BEGIN
+	XNXLBase.world.stroke(XNXLBase.previouscursorPT,3000,EMPTY);	
+	IF XNXLBase.world.passprobe(XNXLBase.cursorPT.x,XNXLBase.cursorPT.y,XNXLBase.cursorPT.z) THEN
+		XNXLBase.world.stroke(XNXLBase.cursorPT,3000,XNXLBase.avatar)
+	END
+END drawavatar;
+
+PROCEDURE randPT*():PT;
+VAR
+	p:PT;
+BEGIN
+	p.x :=1/2+((1/2-rand.Uniform())*0.97);	
+	p.y := 1/2+((1/2-rand.Uniform())*0.97);
+	p.z := 1/2+((1/2-rand.Uniform())*0.97);	
+	RETURN p
+END randPT;
+
+PROCEDURE dawn*;
+BEGIN
+       rand:=XNXLBase.rand;	
+	xaxis:=XNXLBase.mkPT(1,0,0);
+	yaxis:=XNXLBase.mkPT(0,1,0);	
+	zaxis:=XNXLBase.mkPT(0,0,1);	
+	NEW(EMPTY);
+	EMPTY.passable:=TRUE; 
+	EMPTY.setcolor(0,0,0,0);
+	EMPTY.lock:=TRUE;
+	NEW(sky);
+	sky.setcolor(0,0,1);
+	sky.passable:=FALSE;
+	NEW(arrow,"next.png");
+	NEW(meeba,"XNXL.meeba.png");	
+	NEW(sparx,"plasma.png");
+	NEW(lobster,"XNXL.lobster.png");
+	NEW(founder,"XNXL.ourfounder.png");	
+	NEW(dotz,"XNXL.dotz.png");
+	push(arrow); push(meeba); push(sparx); push(lobster); push(founder); push(dotz);
+	NEW(mutatis,"XNXL.mutatis.png");
+	NEW(weev,"XNXL.Freeweev.jpg");	
+	NEW(qdog,"XNXL.qdog.png");	
+	NEW(galaxy,"XNXL.axolotl.jpg");	
+	NEW(gwal,"XNXL.meeba.png");
+	NEW(rwal,"XNXL.sparx.png");		
+	NEW(bwal,"XNXL.grass.png");	
+	NEW(checkerfloor,"XNXL.checkerfloor.png");	
+	NEW(stone,"XNXL.sand.png");	
+	NEW(sky2,"XNXL.sky2.jpg");	
+	NEW(sky3,"XNXL.sky3.jpg");	
+	NEW(sky4,"XNXL.sky4.jpg");	
+	NEW(TEX,"XNXL.tree.png");
+	NEW(sky4,"yessongs.jpg");	
+	NEW(formica,"XNXL.granite.png");
+	NEW(linolium,"XNXL.linolium.png");
+	NEW(rat,"rat.png");
+	rat.passable:=TRUE;
+(*	rat.transparent:=TRUE; *)
+	NEW(beholdthexenopus,"beholdthexenopus.png");
+	push(beholdthexenopus);
+	push(mutatis); push(qdog); push(weev); push(galaxy); push(EMPTY);
+	push(bwal); push(stone); push(sky2); push(sky3); push(sky4); push(formica);
+	NEW(starfish,"fruitstripe.png");		
+	NEW(MCUBE);	
+	push(MCUBE);
+	NEW(googlepocalypse, "XNXL.googlepocalypse.png ");
+	NEW(firetile, "XNXL.eschersquidtile.0.png");	
+	escherfiretile[0]:= firetile;
+	NEW(firetile, "XNXL.eschersquidtile.1.png");	
+	escherfiretile[1]:= firetile;
+	NEW(firetile, "XNXL.eschersquidtile.2.png");	
+	escherfiretile[2]:= firetile;
+	NEW(firetile, "XNXL.eschersquidtile.3.png");	
+	escherfiretile[3]:= firetile;
+	NEW(firetile, "XNXL.eschersquidtile.4.png");	
+	escherfiretile[4]:= firetile;		
+	NEW(slats,"XNXL.slats.png");	
+	TEX.passable:=TRUE;
+	NEW(MGREEN);
+	MGREEN.setcolor(1/4,0,0,1/3); 
+	
+	NEW(BLUE); 
+	BLUE.setcolor(3/6,4/6,1);
+	NEW(RED); 
+	RED.setcolor(1,0,0); 
+	NEW(MIRROR);
+	NEW(WHITE); 
+	WHITE.setcolor(1,1,1);
+	NEW(BLACK);
+	BLACK.setcolor(0.1,0.1,0.1);
+	
+	NEW(LIFE,EMPTY,sparx,EMPTY)	;
+	push(LIFE);
+	
+	WHITE.imposter:=BLUE;
+	NEW(GREEN); NEW(GREENO); NEW(PURPLE);
+	GREEN.setcolor(0.2,0.8,0.3); 
+	push(GREENO);		
+	GREENO.setcolor(0.8,1,0.8); 			
+	GREENO.setoutline(0,0,0,1/50);
+	GREENO.passable:=TRUE;
+	PURPLE.setcolor(1/2,1/2,1);	
+	PURPLE.setoutline(1,1,0,1/2);		
+	
+	NEW(YELLOW); NEW(BROWN);  
+		
+	YELLOW.setcolor(1,1,0); 
+	BROWN.setcolor(2/3,2/3,1); 
+
+
+	NEW(GREY);
+	GREY.setcolor(5/6, 5/6, 5/6);
+	NEW(PINK); PINK.setcolor(1,1,8/9);
+	PINK.setoutline(1,2/3,2/3);
+	NEW(TWHITE); 	TWHITE.setcolor(0.3,0.3,0.3,0);
+	TWHITE.passable:=TRUE;
+	XNXLBase.OPAQUE:=TWHITE;
+	NEW(TBLUE); TBLUE.setcolor(0,0,1,3); 	
+	NEW(TORANGE); TORANGE.setcolor(1,2/3,0,3);
+	NEW(GREEN); GREEN.setcolor(0,1,0);
+	NEW(TDGREEN); TDGREEN.setcolor(0,0.6,0,1);
+	NEW(TGREEN); TGREEN.setcolor(0,1,0,1);
+	push(TGREEN);
+	push(TDGREEN);	
+	NEW(TRED); TRED.setcolor(0.9,0.00,0.1, 0.9); 
+	NEW(TPURPLE); TPURPLE.setcolor(10,10,10,0);
+	NEW(TYELLOW); TYELLOW.setcolor(1.7,1.7,0,0); 
+	NEW(TBROWN); TBROWN.setcolor(2/3,2/3,0,10);
+	NEW(TBLACK);
+	TBLACK.setcolor(0,0,0,0.1);
+	push(TWHITE); push(TGREEN); push(TYELLOW); push(TORANGE);
+	TORANGE.passable:=FALSE;
+	TBLUE.passable:=FALSE;
+	NEW(NIGHT);
+	NIGHT.setcolor(1/3,5,3,2);
+	TRED.passable:=TRUE;
+	XNXLBase.setCOLOR(g,1,1,0);
+	XNXLBase.setCOLOR(r,1,1/3,0);
+	XNXLBase.setCOLOR(azure,1/4,1/4,1);
+	diameter:=1/3;
+	
+	XNXLBase.setPT(p,0.51,1/2,1/2);
+	NEW(DAISY); NEW(D2);NEW(cube);
+	
+	XNXLBase.setPT(center,1/2,1/2,1/2);
+	XNXLBase.setPT(undercenter,1/2,1/2,1/2);
+	XNXLBase.setPT(up,0,0,1);	
+	XNXLBase.setPT(down,0,0,-1);
+	XNXLBase.setPT(right,1,0,0);
+	XNXLBase.setPT(away,0,1,0);	
+	NEW(s3,RED,BLUE);
+	NEW(s33,s3,EMPTY);
+	NEW(s333,s33,s333);
+	s333.passable:=TRUE;
+	s33.passable:=TRUE;
+	NEW(x10);		
+	x10.passable:=TRUE; 
+	x10.setcolor(0,0,0,0.0); 
+	NEW(w10);		
+	w10.passable:=TRUE; 
+	FOR i :=1 TO 150 DO
+		w10.stroke(XNXLBase.randPT(),4,bwal)
+	END;
+	FOR i :=1 TO 100 DO
+		w10.stroke(XNXLBase.randPT(),4,stone)
+	END;	
+	FOR i :=1 TO 10 DO
+		w10.stroke(XNXLBase.randPT(),8,MCUBE)
+	END;
+	FOR i :=1 TO 40 DO
+		w10.stroke(XNXLBase.randPT(),4,w10)
+	END;	
+	push(w10);
+
+	NEW(gorgeplane,center,up,"XNXL.gorge.png","XNXL.gorge.png");
+	gorgeplane.vox:= dotz;
+	gorgeplane.imposter:=sky2;
+	x10.FRaster(gorgeplane,133);
+	NEW(noise);
+	noise.seed:=ENTIER(rand.Uniform()*100000);	
+	noise.octaves:=4;
+	noise.persistence:=4;
+	noise.a:=10;
+	noise.b:=10;
+	noise.c:=8;	
+	noise.vox:=sky2;
+	NEW(hexgrid, center,p,0.001);
+	hexgrid.vox:=sky2;
+(*	x10.FRaster(noise,40); *)
+	NEW(ball,center,0.65);
+	ball.setcolor(0,1,0);
+	NEW(w10);
+	w10.FRaster(ball,17);
+	w10.lock:=TRUE;	
+	push(w10);
+	center.z:=0;
+	NEW(ball,center,0.45);
+	ball.setcolor(0,1,1);
+	x10.FRaster(ball,17);
+	
+	
+	noise.seed:=ENTIER(rand.Uniform()*100000);	
+	noise.octaves:=4;
+	noise.persistence:=4;
+	noise.a:=5;
+	noise.b:=5;
+	noise.c:=5;	
+	noise.vox:=dotz;
+(*	x10.FRaster(noise,64); 	*)
+	
+	NEW(plane,center,up);
+	plane.vox:=dotz;
+	x10.FRaster(plane,17); 
+	
+	XNXLBase.world:=x10;
+END dawn;
+
+BEGIN
+	cursorsize:=1000;
+END XNXLMarsh.
+
+XNXL.ourfounder.png
+
+
+

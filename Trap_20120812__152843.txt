@@ -1,0 +1,45 @@
+File Trap_20120812__152843.txt
+---------------------------
+
+LinuxAos (rev.4899)
+
+Trap   11 (Segmentation violation)
+SP = 00000000H, FP = EEFEDFD0H, PC = F7605514H
+
+Unknown external procedure, pc = F7605514
+Unknown external procedure, pc = F76331FA
+Unknown external procedure, pc = F7633B76
+Unknown external procedure, pc = F761C5E8
+KbdMouse.PollXQueue:51 pc=94 [0000005EH] = 43 + 51 crc=4F5E3830
+  keycount=0
+  xr=0
+  yr=0
+  x=0
+  y=0
+  dz=0
+  i=0
+  rw=0
+  cw=0
+  keysym=0
+  xd=160537936 (09919D50H)
+  newxbuttons={}
+  bdiff={}
+  km=Rec@00000018H
+  kp=Rec@0000001CH
+  be=Rec@00000020H
+  em=Rec@00000024H
+  cm=Rec@00000028H
+  datal=0, 0, 0, 0, 0
+  cn=Rec@0000002CH
+  res=0
+  events=0
+  buffer=""
+KbdMouse.Poll.@Body:15 pc=35 [00000023H] = 20 + 15 crc=4F5E3830
+Objects.BodyStarter:319 pc=3318 [00000CF6H] = 2999 + 319 crc=8B6328EE
+  p=F72E4370H (Objects.Process)
+  res=0
+  prevBP=-285285480
+
+
+----------------------------------------------------
+

@@ -1,0 +1,43 @@
+File Trap_20120815__002330.txt
+---------------------------
+
+LinuxAos (rev.4899)
+
+Trap   11 (Segmentation violation)
+SP = 00000000H, FP = E8EA4F78H, PC = F73E409FH
+
+Unknown external procedure, pc = F73E409F
+Unknown external procedure, pc = F75C7F29
+Unknown external procedure, pc = F75C8211
+Unknown external procedure, pc = F75C8B76
+Unknown external procedure, pc = F75B15E8
+XNXLRender.PollXQueue:30 pc=13279 [000033DFH] = 13249 + 30 crc=60BB1208
+  keysym=65470 (0000FFBEH)
+  cm=Rec@00000124H
+  ke=Rec@00000154H
+  be=Rec@00000158H
+  cn=Rec@0000015CH
+  ee=Rec@00000160H
+  mne=Rec@00000164H
+  datal=0, 0, 0, 0, 0
+  atomName=00000000H (NIL)
+  x=0
+  y=0
+  xr=0
+  yr=0
+  warpedthemouse=FALSE
+XNXLRender.mainloop:156 pc=18192 [00004710H] = 18036 + 156 crc=60BB1208
+  @hiddenIRVar0=E2DA1640H (Random.Generator)
+XNXLRender.Open:614 pc=18650 [000048DAH] = 18036 + 614 crc=60BB1208
+  @hiddenIRVar0=F02CEAD0H (Kernel.Timer)
+  @hiddenIRVar1=E2DA3840H (Random.Generator)
+  @hiddenIRVar2=EF2AAC40H (XNXLRender.Camera)
+Commands.Runner.@Body:527 pc=1984 [000007C0H] = 1457 + 527 crc=C12DD794
+Objects.BodyStarter:319 pc=3318 [00000CF6H] = 2999 + 319 crc=8B6328EE
+  p=F262B370H (Objects.Process)
+  res=0
+  prevBP=-387296360
+
+
+----------------------------------------------------
+

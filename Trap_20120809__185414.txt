@@ -1,0 +1,163 @@
+File Trap_20120809__185414.txt
+---------------------------
+
+LinuxAos (rev.4899)
+
+Trap   5.-200122064  (unknown trap, division error?)
+SP = EDD31070H, FP = EDD311F8H, PC = F3F4F0A3H
+
+XNXLRender?.Camera.initrays:635 pc=4571 [000011DBH] = 3936 + 635 crc=60BB1208
+  reversej=30 (0000001EH)
+  i=92 (0000005CH)
+  j=45 (0000002DH)
+  theta=  4.066660E-001 (3ED03688H)
+  phi= -1.000002E-001
+  dtheta=  1.333333E-002 (3C5A740DH)
+  dphi=  1.333333E-002 (3C5A740EH)
+  lookperpray=Rec@00000008H
+  lookvector=Rec@00000010H
+  look=Rec@00000010H
+  camtweak=Rec@00000010H
+  d1=  0.000000E+000
+  d2=  0.000000E+000
+  d3=  0.000000E+000
+  w=  1.666667E+000 (3FD55555H)
+  h=  1.000000E+000 (3F800000H)
+  fward=Rec@00000010H
+  rward=Rec@00000010H
+  down=Rec@00000010H
+  down2=Rec@00000010H
+  rward2=Rec@00000010H
+  right=Rec@00000010H
+  @hiddenIRVar0=124 (0000007CH)
+  @hiddenIRVar1=74 (0000004AH)
+State XNXLRender?:
+  FRAMERATE=  6.500000E-001 (3F266666H)
+  rand=00000003H (NIL)
+  wcount=0
+  frame=0
+  tickframe=0
+  frames=0, 0, 0, 0, 0, 0, 0, 0...
+  movierecording=FALSE
+  movieplaying=FALSE
+  frtrace=FALSE
+  foveate=FALSE
+  foveasize=0
+  fovealeft=0
+  fovearight=100 (00000064H)
+  foveadown=0
+  foveaup=0
+  DEATH=FALSE
+  wLOOK=FALSE
+  MOUSEDOWN=FALSE
+  PAUSE=FALSE
+  tracetiled=FALSE
+  avtoggle=FALSE
+  capturethemouse=FALSE
+  framecount=256 (00000100H)
+  multicore=TRUE
+  filtor=FALSE
+  uplock=FALSE
+  rollcam=FALSE
+  suppressz=FALSE
+  camrotinertia=  2.350989E-038 (01000000H)
+  framedt=  0.000000E+000
+  pkeys={19, 22..23, 25, 30}
+  pointerx=0
+  pointerdx=0
+  pointery=0
+  pointerdy=0
+  R1=  0.000000E+000
+  R2=  0.000000E+000
+  xbuttons={19, 22..23, 25, 30}
+  timeStart=1125515264 (43160000H)
+  timer=00000000H (NIL)
+  compstatus=Rec@00000028H
+  update=0
+  MMseen=FALSE
+  MRseen=FALSE
+  noEventCount=0
+  display=0
+  screen=0
+  win=155811688 (09497F68H)
+  glctx=0
+  fullscreen=TRUE
+  fullwindow=192
+  windecorations=FALSE
+  doubleBuffered=2
+  winAttr=Rec@0000002CH
+  wmDelete=0
+  W=0
+  H=0
+  width=0
+  height=0
+  mousex=450 (000001C2H)
+  mousey=300 (0000012CH)
+  desktopMode=Rec@00000030H
+  event=Rec@00000034H
+  keySymbol=0, 0, 0, 0, 0, 0, 0, 0...
+  currX=0
+  currY=0
+  alive=FALSE
+  debug=FALSE
+  debugevents=FALSE
+  drawMode=0
+  texture=0, 0, 16777216 (01000000H)
+  LightAmbient=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  LightDiffuse=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  LightPosition=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  LightAmbient2=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  LightDiffuse2=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  LightPosition2=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  red=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  green=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  blue=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  lightPos=  0.000000E+000,   0.000000E+000,   0.000000E+000,   0.000000E+000
+  xrot=  0.000000E+000
+  yrot=  0.000000E+000
+  zrot=  0.000000E+000
+  axis=00X
+  z=  0.000000E+000
+  zee=  0.000000E+000
+  xspeed=  0.000000E+000
+  yspeed=  0.000000E+000
+  light=FALSE
+  blend=FALSE
+  raster=FALSE
+  filter=0
+  ptlist=0
+  CAPTUREMOUSE=FALSE
+  GO=FALSE
+  TRAIL=FALSE
+  AVATAR=FALSE
+  SCULL=FALSE
+  ZENITHER=FALSE
+  camera=00000000H (NIL)
+  fogdensity=  0.000000E+000
+  leftsticky=  0.000000E+000
+  upsticky=  1.100000E-001 (3DE147AEH)
+  centerx=734445436 (2BC6BF7CH)
+  centery=734445436 (2BC6BF7CH)
+  MB=0
+  GLIDE=  2.101948E-043 (00000096H)
+XNXLRender?.Camera.tick:426 pc=8775 [00002247H] = 8349 + 426 crc=60BB1208
+  oldcam=Rec@00000010H
+  a=  7.130115E-005 (38958783H)
+  b= -2.831563E-004
+  c=  9.995735E-003 (3C23C527H)
+  maxspeed=  0.000000E+000
+XNXLRender?.mainloop:108 pc=18144 [000046E0H] = 18036 + 108 crc=60BB1208
+  @hiddenIRVar0=DCE6D920H (Random.Generator)
+XNXLRender?.Open:614 pc=18650 [000048DAH] = 18036 + 614 crc=60BB1208
+  @hiddenIRVar0=F020C5B0H (Kernel.Timer)
+  @hiddenIRVar1=DCE77880H (Random.Generator)
+  @hiddenIRVar2=EF380680H (XNXLRender?.Camera)
+Commands.Runner.@Body:527 pc=1984 [000007C0H] = 1457 + 527 crc=C12DD794
+Objects.BodyStarter:319 pc=3318 [00000CF6H] = 2999 + 319 crc=8B6328EE
+  p=F3F4C0B0H (Objects.Process)
+  res=0
+  prevBP=-304933992
+
+
+----------------------------------------------------
+

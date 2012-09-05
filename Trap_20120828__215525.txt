@@ -1,0 +1,1203 @@
+File Trap_20120828__215525.txt
+---------------------------
+
+LinuxAos (rev.4899)
+
+Trap   11 (Segmentation violation)
+SP = 00000000H, FP = DCFFA000H, PC = E0F40BB3H
+
+XNXLBase.mkPT:5 pc=6219 [0000184BH] = 6214 + 5 crc=2D4A37AB
+  x=  0.000000E+000
+  y=  0.000000E+000
+  z=  9.172893E-001 (3F6AD378H)
+  p=Rec@00000004H
+State XNXLBase:
+  voxelist=F25BED60H (NXWCxXWLIcD2LegvoGXXBiQ.Serp), D20D8D40H (XNXLLifeVox.RDVolVox), EF471600H (XNXLRotaVox.RVox), EF4C5180H (XNXLRotaVox.RVox), 00000000H (NIL), 00000000H (NIL), 00000000H (NIL), 00000000H (NIL)...
+  fog= -3.560025E+033
+  rlimit=0
+  iterlimit=-1
+  speed=            NaN
+  frame=1 (00000001H)
+  rand=F72F6B98H (UNKNOWN)
+  worldalive=247
+  gravity=  0.000000E+000
+  fuzzon=FALSE
+  STOP=FALSE
+  singleray=Rec@0000005CH
+  blankray=Rec@0000005CH
+  Face=0, 0, 0, 0, 0, 0
+  EMPTY=00000000H (NIL)
+  OPAQUE=BF800000H (NIL)
+  deathflag=FALSE
+  rays=00000000H (NIL)
+  frays=00000000H (NIL)
+  core0rays=BF800000H (NIL)
+  core1rays=3F800000H (NIL)
+  LOOK=Rec@0000005CH
+  LLOOK=Rec@0000005CH
+  image=00000000H (NIL)
+  fimage=00000000H (NIL)
+  world=00000000H (NIL)
+  injection=00000000H (NIL)
+  cameraPT=Rec@00000004H
+  cursorPT=Rec@00000004H
+  previouscursorPT=Rec@00000004H
+  Origin=Rec@00000004H
+  cursorvox=00000000H (NIL)
+  aperture=Rec@00000010H
+  m2sdelta=  5.221826E-001 (3F05ADC2H)
+  m3sdelta=  5.051488E-001 (3F01516FH)
+  DTL=1058024050 (3F102A72H)
+  DTL2=1057336770 (3F05ADC2H)
+  avatar=3F01516FH (NIL)
+  cursordist=  5.631477E-001 (3F102A72H)
+  RVR=FALSE
+  vlist=F0665F20H (XNXLTexVox.TexVox), F06AD0C0H (XNXLTexVox.TexVox), F06F2860H (XNXLTexVox.TexVox), F0738DC0H (XNXLTexVox.TexVox), F05F1A80H (XNXLTexVox.TexCubeVox), F17FE6A0H (XNXLTexVox.TexVox), F1DE7040H (XNXLTexVox.TexVox), F1EF1AE0H (XNXLTexVox.TexVox)...
+  copy=Rec@00000020H
+XNXLM3Space.cell.passprobe:410 pc=7691 [00001E0BH] = 7281 + 410 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.917289E+000 (403AB4DEH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.972430E+000 (403E3C4AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.990810E+000 (3FFED2DCH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.663603E+000 (3FD4F0F4H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.554534E+000 (40237D7EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.851511E+000 (40367F2AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.950504E+000 (3FF9AA1CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.650168E+000 (3FD338B4H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  5.500560E-001 (3F0CD078H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.183352E+000 (3F977814H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  3.944507E-001 (3EC9F570H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.131484E+000 (40086A3AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.710495E+000 (402D78BEH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  9.034982E-001 (3F674BA8H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.301166E+000 (3FA68C9CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.433722E+000 (401BC21AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.811241E+000 (3FE7D6BCH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.603747E+000 (4026A3CAH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  8.679156E-001 (3F5E2FB8H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.893052E-001 (3E941FD0H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  9.643507E-002 (3DC57FC0H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  3.214502E-002 (3D03AA80H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.010715E+000 (3F815F1CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.336905E+000 (40158FDAH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.778968E+000 (3FE3B53CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.592989E+000 (4025F38AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.864330E+000 (3FEEA25CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.621443E+000 (3FCF8B74H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.540481E+000 (4022973EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  8.468270E-001 (3F58C9A8H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.822757E-001 (3E908670H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  9.409189E-002 (3DC0B340H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  3.136396E-002 (3D007780H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.010455E+000 (3F815694H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  3.368182E-001 (3EAC7370H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.112273E+000 (3F8E5EF4H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.370758E+000 (3FAF74FCH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.456919E+000 (401D3E2AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.818973E+000 (40346A0EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.939658E+000 (3FF846B4H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  6.465526E-001 (3F258478H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.215518E+000 (400DCB0AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  7.385058E-001 (3F3D0EB8H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.246169E+000 (3F9F8274H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.415390E+000 (3FB52B7CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.471797E+000 (401E31EAH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.823932E+000 (3FE9769CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  6.079774E-001 (3F1BA468H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.026591E-001 (3E4F85E0H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  6.755304E-002 (3D8A5940H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.251768E-002 (3CB87700H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  7.505894E-003 (3BF5F400H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.501965E-003 (3B23F800H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  8.339882E-004 (3A5AA000H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.000278E+000 (3F80091CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.333426E+000 (401556DAH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.777809E+000 (4031C79EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.925936E+000 (3FF68514H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.641979E+000 (4029162EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.880660E+000 (40385CBAH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.960220E+000 (3FFAE87CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.653407E+000 (3FD3A2D4H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.551136E+000 (402345CEH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.850379E+000 (40366C9AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.950126E+000 (3FF99DBCH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.650042E+000 (3FD33494H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.550014E+000 (4023336EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.850005E+000 (3FECCCF4H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.616668E+000 (3FCEEEFCH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  5.388894E-001 (3F09F4A8H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.179630E+000 (3F96FE1CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.393210E+000 (40192A5AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.797737E+000 (3FE61C3CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  5.992455E-001 (3F196828H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.199749E+000 (3F99915CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.399916E+000 (4019983AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  7.999721E-001 (3F4CCAF8H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.666574E-001 (3E888750H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.088886E+000 (4005B04EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.696295E+000 (402C901AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.898765E+000 (3FF30ABCH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.632922E+000 (3FD10394H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.544307E+000 (3FC5ABDCH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.514769E+000 (4020F1FAH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.838256E+000 (4035A5FEH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.946085E+000 (403C8CAAH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.982028E+000 (403ED98EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  9.940095E-001 (3F7E7768H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  3.313365E-001 (3EA9A4F0H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.104455E-001 (3DE23140H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.036815E+000 (40025B2EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.678938E+000 (3FD6E774H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  5.596461E-001 (3F0F44F8H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.865487E-001 (3E3F06A0H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  6.218290E-002 (3D7EB380H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.020728E+000 (4001539AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.673576E+000 (402B1BDEH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.891192E+000 (3FF21294H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.630397E+000 (4028586EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  8.767991E-001 (3F6075E8H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.922664E-001 (3E95A3F0H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  9.742212E-002 (3DC78540H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  3.247404E-002 (3D050380H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.082468E-002 (3C315A00H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.003608E+000 (3F80763CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.334536E+000 (4015690AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.778179E+000 (3FE39B5CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.592726E+000 (4025EF3AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  8.642421E-001 (3F5D3EF8H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.880807E-001 (3E937F50H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.096027E+000 (4006254EH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.698676E+000 (402CB71AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  8.995585E-001 (3F664978H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.299853E+000 (3FA66194H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.433284E+000 (401BBAEEH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.811095E+000 (3FE7D1F4H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.603698E+000 (4026A2FEH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.867899E+000 (40378BAAH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  9.559665E-001 (3F74BA38H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.318655E+000 (3FA8C9B4H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  4.395518E-001 (3EE10CF0H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.465173E-001 (3E1608A0H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  4.883909E-002 (3D480B80H)
+  i=0
+  j=0
+  k=0
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.016280E+000 (3F821574H)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.338760E+000 (3FAB5C7CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  2.446253E+000 (401C8F6AH)
+  i=0
+  j=0
+  k=2 (00000002H)
+  @hiddenIRVar0=Rec@00000004H
+XNXLM3Space.cell.passprobe:520 pc=7801 [00001E79H] = 7281 + 520 crc=1E2D5449
+  p=Rec@00000004H
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  Z=  1.815418E+000 (3FE85F9CH)
+  i=0
+  j=0
+  k=1 (00000001H)
+  @hiddenIRVar0=Rec@00000004H
+...
+
+----------------------------------------------------
+

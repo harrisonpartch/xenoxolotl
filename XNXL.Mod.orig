@@ -1,0 +1,16 @@
+MODULE XNXL;
+
+CONST
+
+	W*=153;
+	H*= 153
+
+END XNXL.
+
+W AND H MUST BE MULTIPLES OF 9
+
+Compiler.Compile  
+XNXL.Mod
+XNXLBase.Mod
+XNXLRetinaLinear.Mod
+XNXLRender.Mod
