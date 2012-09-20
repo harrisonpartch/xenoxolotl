@@ -13,11 +13,11 @@ TYPE
 	Pcushort = POINTER TO ARRAY OF INTEGER;
 
 	Bool = X11.Bool;
-
+	
 	DisplayPtr = X11.DisplayPtr;
 	Time = X11.Time;
 	Window = X11.Window;
-
+	
 CONST
 	X_XF86VidModeQueryVersion*     = 0;
 	X_XF86VidModeGetModeLine*      = 1;
@@ -75,7 +75,7 @@ TYPE
 		hsyncstart* : INTEGER; (* Horizontal sync start *)
 		hsyncend * : INTEGER;  (* Horizontal sync end *)
 		htotal * : INTEGER;  (* Total horizontal pixels *)
-		hskew * : INTEGER;
+		hskew * : INTEGER; 
 		vdisplay * : INTEGER; (* Number of display pixels vertically *)
 		vsyncstart * : INTEGER; (* Vertical sync start *)
 		vsyncend * : INTEGER;  (* Vertical sync start *)
@@ -94,7 +94,7 @@ TYPE
 		hsyncstart * : INTEGER; (* Horizontal sync start *)
 		hsyncend * : INTEGER;  (* Horizontal sync end *)
 		htotal * : INTEGER; (* Total horizontal pixels *)
-		hskew * : INTEGER;
+		hskew * : INTEGER; 
 		vdisplay * : INTEGER; (* Number of display pixels vertically *)
 		vsyncstart * : INTEGER;  (* Vertical sync start *)
 		vsyncend * : INTEGER; (* Vertical sync start *)
@@ -141,15 +141,15 @@ TYPE
 
 VAR
 
-	XF86VidModeQueryVersion- : PROCEDURE {C} (dpy: DisplayPtr; VAR majorVersion : LONGINT; VAR minorVersion : LONGINT) : Bool;
+	XF86VidModeQueryVersion- : PROCEDURE {C} (dpy: DisplayPtr; VAR majorVersion : LONGINT; VAR minorVersion : LONGINT) : Bool; 
 	XF86VidModeQueryExtension- : PROCEDURE {C} (dpy : DisplayPtr; VAR eventBaseReturn : LONGINT; VAR errorBaseReturn : LONGINT ) : Bool;
-	XF86VidModeSetClientVersion- : PROCEDURE {C} (dpy : DisplayPtr) : Bool;
+	XF86VidModeSetClientVersion- : PROCEDURE {C} (dpy : DisplayPtr) : Bool; 
 	XF86VidModeGetModeLine- : PROCEDURE {C} ( dpy : DisplayPtr; screen : LONGINT; VAR dotclockReturn : LONGINT; VAR modeline :  XF86VidModeModeLine) : Bool;
-	XF86VidModeGetAllModeLines- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT;  VAR modecountReturn : LONGINT; modelinesPtr : ADDRESS (*PPPXF86VidModeModeInfo*) ) : Bool;
-	XF86VidModeAddModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR new_modeline : XF86VidModeModeInfo; VAR after_modeline : XF86VidModeModeInfo ) : Bool;
-	XF86VidModeDeleteModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeInfo ) : Bool;
-	XF86VidModeModModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeLine) : Bool;
-	XF86VidModeValidateModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeInfo ) : LONGINT (* Api.Status *);
+	XF86VidModeGetAllModeLines- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT;  VAR modecountReturn : LONGINT; modelinesPtr : ADDRESS (*PPPXF86VidModeModeInfo*) ) : Bool; 
+	XF86VidModeAddModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR new_modeline : XF86VidModeModeInfo; VAR after_modeline : XF86VidModeModeInfo ) : Bool; 
+	XF86VidModeDeleteModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeInfo ) : Bool; 
+	XF86VidModeModModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeLine) : Bool; 
+	XF86VidModeValidateModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeInfo ) : LONGINT (* Api.Status *);  
 	XF86VidModeSwitchMode- : PROCEDURE {C} ( dpy : DisplayPtr; screen : LONGINT; zoom : LONGINT ) : Bool;
 	XF86VidModeSwitchToMode- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeInfo ) : Bool;
 	XF86VidModeLockModeSwitch- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; lock : LONGINT) : Bool;
@@ -158,7 +158,7 @@ VAR
 	XF86VidModeSetViewPort- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; x : LONGINT; y : LONGINT ) : Bool;
 	XF86VidModeGetDotClocks- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR flagsReturn : SET; VAR numberOffClocksReturn : LONGINT;  VAR maxDotClockReturn : LONGINT;
 	    clocksReturn : ADDRESS (*Xlib.PPcint *) ) : Bool;
-	XF86VidModeGetGamma- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR gamma : XF86VidModeGamma ) : Bool;
+	XF86VidModeGetGamma- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR gamma : XF86VidModeGamma ) : Bool; 
 	XF86VidModeSetGamma- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR gamma : XF86VidModeGamma ) : Bool;
 	XF86VidModeSetGammaRamp-: PROCEDURE {C} ( dpy : DisplayPtr; screen : LONGINT; asize : LONGINT; redarray : Pcushort; greenarray : Pcushort; bluearray : Pcushort ) : Bool;
 	XF86VidModeGetGammaRamp- : PROCEDURE {C} ( dpy : DisplayPtr; screen : LONGINT; asize : LONGINT; redarray : Pcushort;  greenarray : Pcushort; bluearray : Pcushort ) : Bool;
@@ -181,7 +181,7 @@ BEGIN
 END XF86VidModeSelectPrevMode;
 
 PROCEDURE VidModeGetAllModeLines*(display: DisplayPtr; screen: LONGINT; VAR vidlines: PPXF86VidModeModeInfo): LONGINT;
-VAR
+VAR 
       mlines1: PPXF86VidModeModeInfo;
       mlinesadr: ADDRESS;
       mcount: LONGINT;
@@ -190,11 +190,11 @@ VAR
 BEGIN
 X11.Lock;
 
-(* get  TXF86VidModeModeInfo*** info   C structure array  *)
+(* get  TXF86VidModeModeInfo*** info   C structure array  *) 
 res := XF86VidModeGetAllModeLines(display, screen, mcount, SYSTEM.ADR(mlinesadr));
 
 mlines1 := SYSTEM.VAL(PPXF86VidModeModeInfo, mlinesadr-16); (*  ????  *)
- IF mlines1 = NIL THEN
+ IF mlines1 = NIL THEN 
 	vidlines := NIL;
 	RETURN res;
  END;
@@ -202,7 +202,7 @@ mlines1 := SYSTEM.VAL(PPXF86VidModeModeInfo, mlinesadr-16); (*  ????  *)
 NEW(vidlines, mcount); (* create oberon friendly array, and copy to it*)
  FOR i:=0 TO mcount-1 DO vidlines[i] := mlines1[i];  END;
 
- X11.Free(mlinesadr);
+ X11.Free(mlinesadr); 
  X11.Unlock;
  mlines1 := NIL;
  RETURN res;
@@ -213,7 +213,7 @@ PROCEDURE LoadX11Functions;
 BEGIN {EXCLUSIVE}
 	xlib := Unix.Dlopen( libXxf86vm, 2 );
 	ASSERT(xlib # 0, 301);
-
+	
 	Unix.Dlsym( xlib, "XF86VidModeQueryVersion", SYSTEM.VAL( ADDRESS, XF86VidModeQueryVersion));
 	Unix.Dlsym( xlib, "XF86VidModeQueryExtension", SYSTEM.VAL( ADDRESS, XF86VidModeQueryExtension));
 	Unix.Dlsym( xlib, "XF86VidModeSetClientVersion", SYSTEM.VAL( ADDRESS, XF86VidModeSetClientVersion));
@@ -221,7 +221,7 @@ BEGIN {EXCLUSIVE}
 	Unix.Dlsym( xlib, "XF86VidModeGetAllModeLines", SYSTEM.VAL( ADDRESS, XF86VidModeGetAllModeLines));
 	Unix.Dlsym( xlib, "XF86VidModeAddModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeAddModeLine));
 	Unix.Dlsym( xlib, "XF86VidModeDeleteModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeDeleteModeLine));
-	Unix.Dlsym( xlib, "XF86VidModeModModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeModModeLine));
+	Unix.Dlsym( xlib, "XF86VidModeModModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeModModeLine));	
 	Unix.Dlsym( xlib, "XF86VidModeValidateModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeValidateModeLine));
 	Unix.Dlsym( xlib, "XF86VidModeSwitchMode", SYSTEM.VAL( ADDRESS, XF86VidModeSwitchMode));
 	Unix.Dlsym( xlib, "XF86VidModeSwitchToMode", SYSTEM.VAL( ADDRESS, XF86VidModeSwitchToMode));
@@ -233,7 +233,7 @@ BEGIN {EXCLUSIVE}
 	Unix.Dlsym( xlib, "XF86VidModeGetGamma", SYSTEM.VAL( ADDRESS, XF86VidModeGetGamma));
 	Unix.Dlsym( xlib, "XF86VidModeSetGamma", SYSTEM.VAL( ADDRESS, XF86VidModeSetGamma));
 	Unix.Dlsym( xlib, "XF86VidModeSetGammaRamp", SYSTEM.VAL( ADDRESS, XF86VidModeSetGammaRamp));
-	Unix.Dlsym( xlib, "XF86VidModeGetGammaRamp", SYSTEM.VAL( ADDRESS, XF86VidModeGetGammaRamp));
+	Unix.Dlsym( xlib, "XF86VidModeGetGammaRamp", SYSTEM.VAL( ADDRESS, XF86VidModeGetGammaRamp));	
 	Unix.Dlsym( xlib, "XF86VidModeGetGammaRampSize", SYSTEM.VAL( ADDRESS, XF86VidModeGetGammaRampSize));
 	Unix.Dlsym( xlib, "XF86VidModeGetPermissions", SYSTEM.VAL( ADDRESS, XF86VidModeGetPermissions));
 
@@ -259,39 +259,39 @@ END XF86VMode.
 
 Arguments:
 display
-    Specifies the connection to the X server.
+    Specifies the connection to the X server. 
 screen
-    Specifies which screen number the setting apply to.
+    Specifies which screen number the setting apply to. 
 event_base_return
-    Returns the base event number for the extension.
+    Returns the base event number for the extension. 
 error_base_return
-    Returns the base error number for the extension.
+    Returns the base error number for the extension. 
 major_version_return
-    Returns the major version number of the extension.
+    Returns the major version number of the extension. 
 minor_version_return
-    Returns the minor version number of the extension.
+    Returns the minor version number of the extension. 
 dotclock_return
-    Returns the clock for the mode line.
+    Returns the clock for the mode line. 
 modecount_return
-    Returns the number of video modes available in the server.
+    Returns the number of video modes available in the server. 
 zoom
-    If greater than zero, indicates that the server should switch to the next mode, otherwise switch to the previous mode.
+    If greater than zero, indicates that the server should switch to the next mode, otherwise switch to the previous mode. 
 lock
-    Indicates that mode switching should be locked, if non-zero.
+    Indicates that mode switching should be locked, if non-zero. 
 modeline
-    Specifies or returns the timing values for a video mode.
+    Specifies or returns the timing values for a video mode. 
 modesinfo
-    Returns the timing values and dotclocks for all of the available video modes.
+    Returns the timing values and dotclocks for all of the available video modes. 
 monitor
-    Returns information about the monitor.
+    Returns information about the monitor. 
 x
-    Specifies the desired X location for the viewport.
+    Specifies the desired X location for the viewport. 
 x_return
-    Returns the current X location of the viewport.
+    Returns the current X location of the viewport. 
 y
-    Specifies the desired Y location for the viewport.
+    Specifies the desired Y location for the viewport. 
 y_return
-    Returns the current Y location of the viewport.
+    Returns the current Y location of the viewport. 
 
 *)
 

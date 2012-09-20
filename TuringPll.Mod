@@ -5,9 +5,9 @@ IMPORT
 	WM := WMWindowManager, Math;
 
 CONST
-	M =250; 
+	M =150; 
 	M2 = M DIV 2;
-	SIZE =2;
+	SIZE =1;
 
 TYPE Twindow* =  OBJECT(WM.BufferWindow)
 VAR
@@ -74,7 +74,7 @@ BEGIN
 			
 			mesh1[i, j] := mesh1[i, j] + n1[i, j]/400- mesh2[i, j];
 			mesh2[i, j] := mesh2[i, j] +  mesh1[i, j]/200 - 0.002;
-		(*	mesh2[i, j] := ABS(mesh2[i, j] +  mesh1[i, j] / 10 - (Math.sqrt((M2-i)*(M2-i)+(M2-j)*(M2-j))/333 + 0.001)); *)
+(*			mesh2[i, j] := ABS(mesh2[i, j] +  mesh1[i, j] / 10 - (Math.sqrt((M2-i)*(M2-i)+(M2-j)*(M2-j))/333 + 0.001)); *)
 			IF mesh1[i, j] < 0 THEN mesh1[i, j] := 0 END;
 			IF mesh2[i, j] < 0 THEN mesh2[i, j] := 0 END;
 			IF mesh1[i, j] > 1 THEN mesh1[i, j] := 1 END;

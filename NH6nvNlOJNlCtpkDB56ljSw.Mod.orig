@@ -1,5 +1,5 @@
 MODULE NH6nvNlOJNlCtpkDB56ljSw;
-IMPORT XNXLBase, XNXLAudio, XNXLGL, XNXLTexVox, XNXLMath, Raster, Graphics := WMGraphics, Random, Math,Out := KernelLog; 
+IMPORT XNXLBase, XNXLAudio,XNXLTexVox,  XNXLVoxel, XNXLVoxel4, XNXLMath, Raster, Graphics := WMGraphics, Random, Math,Out := KernelLog; 
 
 TYPE PT=XNXLBase.PT;
 TYPE Ray = XNXLBase.Ray;
@@ -109,11 +109,21 @@ BEGIN
 END mirror;
 END TexMirVox;
   
-VAR vox: XNXLTexVox.TexVox;
+VAR 
+	insect: XNXLTexVox.TexCubeVox;
+	bivox: XNXLVoxel.BiVox;
+	RED,YELLOW: XNXLVoxel.DiffuseVox;
+	grid: XNXLVoxel.GridVox;
 PROCEDURE thisvox*():XNXLBase.Voxel;
 BEGIN
-	IF vox=NIL THEN NEW(vox,'beholdthexenopus.png'); vox.txTF:=TRUE; vox.TSCALE:=100000  END;
-	RETURN vox
+	IF bivox=NIL THEN 
+		NEW(insect,'granite'); 
+		insect.texscale(1000);
+		NEW(grid);	
+		NEW(bivox);
+		bivox.set(grid,insect); 
+	END;
+	RETURN insect
 END thisvox;
 
  END NH6nvNlOJNlCtpkDB56ljSw. 

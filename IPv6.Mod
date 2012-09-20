@@ -1,5 +1,5 @@
 MODULE IPv6; (** AUTHOR "Erwin Betschart"; PURPOSE "IP protocol version 6"; *)
-(*woohoo*)
+
 IMPORT SYSTEM, Machine, Kernel, Objects, Modules, Strings, KernelLog, Network, IP, Plugins;
 
 CONST

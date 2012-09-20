@@ -1,18 +1,18 @@
-MODULE X11KeySymDef;
+MODULE X11KeySymDef; 
 
 	(* #include keysymdef.h *)
 	(***********************************************************
 	Copyright 1987, 1994, 1998  The Open Group
-
+	
 	Permission to use, copy, modify, distribute, and sell this software and its
 	documentation for any purpose is hereby granted without fee, provided that
 	the above copyright notice appear in all copies and that both that
 	copyright notice and this permission notice appear in supporting
 	documentation.
-
+	
 	The above copyright notice and this permission notice shall be included
 	in all copies or substantial portions of the Software.
-
+	
 	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
 	OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -20,17 +20,17 @@ MODULE X11KeySymDef;
 	OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 	ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 	OTHER DEALINGS IN THE SOFTWARE.
-
+	
 	Except as contained in this notice, the name of The Open Group shall
 	not be used in advertising or otherwise to promote the sale, use or
 	other dealings in this Software without prior written authorization
 	from The Open Group.
-
-
+	
+	
 	Copyright 1987 by Digital Equipment Corporation, Maynard, Massachusetts
-
+	
 	                        All Rights Reserved
-
+	
 	Permission to use, copy, modify, and distribute this software and its
 	documentation for any purpose and without fee is hereby granted,
 	provided that the above copyright notice appear in all copies and that
@@ -38,7 +38,7 @@ MODULE X11KeySymDef;
 	supporting documentation, and that the name of Digital not be
 	used in advertising or publicity pertaining to distribution of the
 	software without specific, written prior permission.
-
+	
 	DIGITAL DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
 	ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL
 	DIGITAL BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR
@@ -46,9 +46,9 @@ MODULE X11KeySymDef;
 	WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
 	ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
 	SOFTWARE.
-
+	
 	******************************************************************)
-
+	
 	(*
 	 * The "X11 Window System Protocol" standard defines in Appendix A the
 	 * keysym codes. These 29-bit integer values identify characters or
@@ -76,7 +76,7 @@ MODULE X11KeySymDef;
 	 * Unicode number plus 0x01000000. The keysym values in the range
 	 * 0x01000100 to 0x0110ffff are reserved to represent Unicode
 	 * characters in the range U+0100 to U+10FFFF.
-	 *
+	 * 
 	 * While most newer Unicode-based X11 clients do already accept
 	 * Unicode-mapped keysyms in the range 0x01000100 to 0x0110ffff, it
 	 * will remain necessary for clients -- in the interest of
@@ -112,17 +112,17 @@ MODULE X11KeySymDef;
 	 *     in the repo git://anongit.freedesktop.org/xorg/doc/xorg-docs
 	 *
 	 *)
-
-	CONST
+	
+	CONST 
 	 XK_VoidSymbol* = 0FFFFFFH;  (* Void symbol *)
-
+	
 	(* #ifdef XK_MISCELLANY *)
 	(*
 	 * TTY function keys, cleverly chosen to map to ASCII, for convenience of
 	 * programming, but could have been arbitrary (at the cost of lookup
 	 * tables in client code).
 	 *)
-
+	
 	 XK_BackSpace* = 0FF08H;  (* Back space, back char *)
 	 XK_Tab* = 0FF09H;
 	 XK_Linefeed* = 0FF0AH;  (* Linefeed, LF *)
@@ -133,19 +133,19 @@ MODULE X11KeySymDef;
 	 XK_Sys_Req* = 0FF15H;
 	 XK_Escape* = 0FF1BH;
 	 XK_Delete* = 0FFFFH;  (* Delete, rubout *)
-
-
-
+	
+	
+	
 	(* International & multi-key character composition *)
-
+	
 	 XK_Multi_key* = 0FF20H;  (* Multi-key character compose *)
 	 XK_Codeinput* = 0FF37H;
 	 XK_SingleCandidate* = 0FF3CH;
 	 XK_MultipleCandidate* = 0FF3DH;
 	 XK_PreviousCandidate* = 0FF3EH;
-
+	
 	(* Japanese keyboard support *)
-
+	
 	 XK_Kanji* = 0FF21H;  (* Kanji, Kanji convert *)
 	 XK_Muhenkan* = 0FF22H;  (* Cancel Conversion *)
 	 XK_Henkan_Mode* = 0FF23H;  (* Start/Stop Conversion *)
@@ -166,11 +166,11 @@ MODULE X11KeySymDef;
 	 XK_Kanji_Bangou* = 0FF37H;  (* Codeinput *)
 	 XK_Zen_Koho* = 0FF3DH;  (* Multiple/All Candidate(s) *)
 	 XK_Mae_Koho* = 0FF3EH;  (* Previous Candidate *)
-
+	
 	(* 0xff31 thru 0xff3f are under XK_KOREAN *)
-
+	
 	(* Cursor control & motion *)
-
+	
 	 XK_Home* = 0FF50H;
 	 XK_Left* = 0FF51H;  (* Move left, left arrow *)
 	 XK_Up* = 0FF52H;  (* Move up, up arrow *)
@@ -182,10 +182,10 @@ MODULE X11KeySymDef;
 	 XK_Page_Down* = 0FF56H;
 	 XK_End* = 0FF57H;  (* EOL *)
 	 XK_Begin* = 0FF58H;  (* BOL *)
-
-
+	
+	
 	(* Misc functions *)
-
+	
 	 XK_Select* = 0FF60H;  (* Select, mark *)
 	 XK_Print* = 0FF61H;
 	 XK_Execute* = 0FF62H;  (* Execute, run, do *)
@@ -200,9 +200,9 @@ MODULE X11KeySymDef;
 	 XK_Mode_switch* = 0FF7EH;  (* Character set switch *)
 	 XK_script_switch* = 0FF7EH;  (* Alias for mode_switch *)
 	 XK_Num_Lock* = 0FF7FH;
-
+	
 	(* Keypad functions, keypad numbers cleverly chosen to map to ASCII *)
-
+	
 	 XK_KP_Space* = 0FF80H;  (* Space *)
 	 XK_KP_Tab* = 0FF89H;
 	 XK_KP_Enter* = 0FF8DH;  (* Enter *)
@@ -230,7 +230,7 @@ MODULE X11KeySymDef;
 	 XK_KP_Subtract* = 0FFADH;
 	 XK_KP_Decimal* = 0FFAEH;
 	 XK_KP_Divide* = 0FFAFH;
-
+	
 	 XK_KP_0* = 0FFB0H;
 	 XK_KP_1* = 0FFB1H;
 	 XK_KP_2* = 0FFB2H;
@@ -241,16 +241,16 @@ MODULE X11KeySymDef;
 	 XK_KP_7* = 0FFB7H;
 	 XK_KP_8* = 0FFB8H;
 	 XK_KP_9* = 0FFB9H;
-
-
-
+	
+	
+	
 	(*
 	 * Auxiliary functions; note the duplicate definitions for left and right
 	 * function keys;  Sun keyboards and a few other manufacturers have such
 	 * function key groups on the left and/or right sides of the keyboard.
 	 * We've not found a keyboard with more than 35 function keys total.
 	 *)
-
+	
 	 XK_F1* = 0FFBEH;
 	 XK_F2* = 0FFBFH;
 	 XK_F3* = 0FFC0H;
@@ -311,16 +311,16 @@ MODULE X11KeySymDef;
 	 XK_R14* = 0FFDFH;
 	 XK_F35* = 0FFE0H;
 	 XK_R15* = 0FFE0H;
-
+	
 	(* Modifiers *)
-
+	
 	 XK_Shift_L* = 0FFE1H;  (* Left shift *)
 	 XK_Shift_R* = 0FFE2H;  (* Right shift *)
 	 XK_Control_L* = 0FFE3H;  (* Left control *)
 	 XK_Control_R* = 0FFE4H;  (* Right control *)
 	 XK_Caps_Lock* = 0FFE5H;  (* Caps lock *)
 	 XK_Shift_Lock* = 0FFE6H;  (* Shift lock *)
-
+	
 	 XK_Meta_L* = 0FFE7H;  (* Left meta *)
 	 XK_Meta_R* = 0FFE8H;  (* Right meta *)
 	 XK_Alt_L* = 0FFE9H;  (* Left alt *)
@@ -330,13 +330,13 @@ MODULE X11KeySymDef;
 	 XK_Hyper_L* = 0FFEDH;  (* Left hyper *)
 	 XK_Hyper_R* = 0FFEEH;  (* Right hyper *)
 	(* #endif *) (* XK_MISCELLANY *)
-
+	
 	(*
 	 * Keyboard (XKB) Extension function and modifier keys
 	 * (from Appendix C of "The X Keyboard Extension: Protocol Specification")
 	 * Byte 3* = 0xfe
 	 *)
-
+	
 	(* #ifdef XK_XKB_KEYS *)
 	 XK_ISO_Lock* = 0FE01H;
 	 XK_ISO_Level2_Latch* = 0FE02H;
@@ -357,7 +357,7 @@ MODULE X11KeySymDef;
 	 XK_ISO_First_Group_Lock* = 0FE0DH;
 	 XK_ISO_Last_Group* = 0FE0EH;
 	 XK_ISO_Last_Group_Lock* = 0FE0FH;
-
+	
 	 XK_ISO_Left_Tab* = 0FE20H;
 	 XK_ISO_Move_Line_Up* = 0FE21H;
 	 XK_ISO_Move_Line_Down* = 0FE22H;
@@ -379,7 +379,7 @@ MODULE X11KeySymDef;
 	 XK_ISO_Emphasize* = 0FE32H;
 	 XK_ISO_Center_Object* = 0FE33H;
 	 XK_ISO_Enter* = 0FE34H;
-
+	
 	 XK_dead_grave* = 0FE50H;
 	 XK_dead_acute* = 0FE51H;
 	 XK_dead_circumflex* = 0FE52H;
@@ -415,7 +415,7 @@ MODULE X11KeySymDef;
 	 XK_dead_invertedbreve* = 0FE6DH;
 	 XK_dead_belowcomma* = 0FE6EH;
 	 XK_dead_currency* = 0FE6FH;
-
+	
 	(* dead vowels for universal syllable entry *)
 	 XK_dead_a1* = 0FE80H;
 	 XK_dead_A* = 0FE81H;
@@ -429,13 +429,13 @@ MODULE X11KeySymDef;
 	 XK_dead_U* = 0FE89H;
 	 XK_dead_small_schwa* = 0FE8AH;
 	 XK_dead_capital_schwa* = 0FE8BH;
-
+	
 	 XK_First_Virtual_Screen* = 0FED0H;
 	 XK_Prev_Virtual_Screen* = 0FED1H;
 	 XK_Next_Virtual_Screen* = 0FED2H;
 	 XK_Last_Virtual_Screen* = 0FED4H;
 	 XK_Terminate_Server* = 0FED5H;
-
+	
 	 XK_AccessX_Enable* = 0FE70H;
 	 XK_AccessX_Feedback_Enable* = 0FE71H;
 	 XK_RepeatKeys_Enable* = 0FE72H;
@@ -447,7 +447,7 @@ MODULE X11KeySymDef;
 	 XK_Overlay1_Enable* = 0FE78H;
 	 XK_Overlay2_Enable* = 0FE79H;
 	 XK_AudibleBell_Enable* = 0FE7AH;
-
+	
 	 XK_Pointer_Left* = 0FEE0H;
 	 XK_Pointer_Right* = 0FEE1H;
 	 XK_Pointer_Up* = 0FEE2H;
@@ -474,19 +474,19 @@ MODULE X11KeySymDef;
 	 XK_Pointer_Drag3* = 0FEF7H;
 	 XK_Pointer_Drag4* = 0FEF8H;
 	 XK_Pointer_Drag5* = 0FEFDH;
-
+	
 	 XK_Pointer_EnableKeys* = 0FEF9H;
 	 XK_Pointer_Accelerate* = 0FEFAH;
 	 XK_Pointer_DfltBtnNext* = 0FEFBH;
 	 XK_Pointer_DfltBtnPrev* = 0FEFCH;
-
+	
 	(* #endif *) (* XK_XKB_KEYS *)
-
+	
 	(*
 	 * 3270 Terminal Keys
 	 * Byte 3* = 0xfd
 	 *)
-
+	
 	(* #ifdef XK_3270 *)
 	 XK_3270_Duplicate* = 0FD01H;
 	 XK_3270_FieldMark* = 0FD02H;
@@ -519,7 +519,7 @@ MODULE X11KeySymDef;
 	 XK_3270_PrintScreen* = 0FD1DH;
 	 XK_3270_Enter* = 0FD1EH;
 	(* #endif *) (* XK_3270 *)
-
+	
 	(*
 	 * Latin 1
 	 * (ISO/IEC 8859-1* = Unicode U+0020..U+00FF)
@@ -623,7 +623,7 @@ MODULE X11KeySymDef;
 	 XK_bar* = 0007CH;  (* U+007C VERTICAL LINE *)
 	 XK_braceright* = 0007DH;  (* U+007D RIGHT CURLY BRACKET *)
 	 XK_asciitilde* = 0007EH;  (* U+007E TILDE *)
-
+	
 	 XK_nobreakspace* = 000A0H;  (* U+00A0 NO-BREAK SPACE *)
 	 XK_exclamdown* = 000A1H;  (* U+00A1 INVERTED EXCLAMATION MARK *)
 	 XK_cent* = 000A2H;  (* U+00A2 CENT SIGN *)
@@ -725,12 +725,12 @@ MODULE X11KeySymDef;
 	 XK_thorn2* = 000FEH;  (* U+00FE LATIN SMALL LETTER THORN *)
 	 XK_ydiaeresis1* = 000FFH;  (* U+00FF LATIN SMALL LETTER Y WITH DIAERESIS *)
 	(* #endif *) (* XK_LATIN1 *)
-
+	
 	(*
 	 * Latin 2
 	 * Byte 3* = 1
 	 *)
-
+	
 	(* #ifdef XK_LATIN2 *)
 	 XK_Aogonek* = 001A1H;  (* U+0104 LATIN CAPITAL LETTER A WITH OGONEK *)
 	 XK_breve* = 001A2H;  (* U+02D8 BREVE *)
@@ -790,12 +790,12 @@ MODULE X11KeySymDef;
 	 XK_tcedilla1* = 001FEH;  (* U+0163 LATIN SMALL LETTER T WITH CEDILLA *)
 	 XK_abovedot* = 001FFH;  (* U+02D9 DOT ABOVE *)
 	(* #endif *) (* XK_LATIN2 *)
-
+	
 	(*
 	 * Latin 3
 	 * Byte 3* = 2
 	 *)
-
+	
 	(* #ifdef XK_LATIN3 *)
 	 XK_Hstroke* = 002A1H;  (* U+0126 LATIN CAPITAL LETTER H WITH STROKE *)
 	 XK_Hcircumflex* = 002A6H;  (* U+0124 LATIN CAPITAL LETTER H WITH CIRCUMFLEX *)
@@ -820,13 +820,13 @@ MODULE X11KeySymDef;
 	 XK_ubreve1* = 002FDH;  (* U+016D LATIN SMALL LETTER U WITH BREVE *)
 	 XK_scircumflex1* = 002FEH;  (* U+015D LATIN SMALL LETTER S WITH CIRCUMFLEX *)
 	(* #endif *) (* XK_LATIN3 *)
-
-
+	
+	
 	(*
 	 * Latin 4
 	 * Byte 3* = 3
 	 *)
-
+	
 	(* #ifdef XK_LATIN4 *)
 	 XK_kra* = 003A2H;  (* U+0138 LATIN SMALL LETTER KRA *)
 	 XK_kappa* = 003A2H;  (* deprecated *)
@@ -865,7 +865,7 @@ MODULE X11KeySymDef;
 	 XK_utilde1* = 003FDH;  (* U+0169 LATIN SMALL LETTER U WITH TILDE *)
 	 XK_umacron1* = 003FEH;  (* U+016B LATIN SMALL LETTER U WITH MACRON *)
 	(* #endif *) (* XK_LATIN4 *)
-
+	
 	(*
 	 * Latin 8
 	 *)
@@ -897,23 +897,23 @@ MODULE X11KeySymDef;
 	 XK_tabovedot1* = 01001E6BH;  (* U+1E6B LATIN SMALL LETTER T WITH DOT ABOVE *)
 	 XK_ycircumflex1* = 01000177H;  (* U+0177 LATIN SMALL LETTER Y WITH CIRCUMFLEX *)
 	(* #endif *) (* XK_LATIN8 *)
-
+	
 	(*
 	 * Latin 9
 	 * Byte 3* = 0x13
 	 *)
-
+	
 	(* #ifdef XK_LATIN9 *)
 	 XK_OE* = 013BCH;  (* U+0152 LATIN CAPITAL LIGATURE OE *)
 	 XK_oe1* = 013BDH;  (* U+0153 LATIN SMALL LIGATURE OE *)
 	 XK_Ydiaeresis* = 013BEH;  (* U+0178 LATIN CAPITAL LETTER Y WITH DIAERESIS *)
 	(* #endif *) (* XK_LATIN9 *)
-
+	
 	(*
 	 * Katakana
 	 * Byte 3* = 4
 	 *)
-
+	
 	(* #ifdef XK_KATAKANA *)
 	 XK_overline* = 0047EH;  (* U+203E OVERLINE *)
 	 XK_kana_fullstop* = 004A1H;  (* U+3002 IDEOGRAPHIC FULL STOP *)
@@ -986,12 +986,12 @@ MODULE X11KeySymDef;
 	 XK_semivoicedsound* = 004DFH;  (* U+309C KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK *)
 	 XK_kana_switch* = 0FF7EH;  (* Alias for mode_switch *)
 	(* #endif *) (* XK_KATAKANA *)
-
+	
 	(*
 	 * Arabic
 	 * Byte 3* = 5
 	 *)
-
+	
 	(* #ifdef XK_ARABIC *)
 	 XK_Farsi_0* = 010006F0H;  (* U+06F0 EXTENDED ARABIC-INDIC DIGIT ZERO *)
 	 XK_Farsi_1* = 010006F1H;  (* U+06F1 EXTENDED ARABIC-INDIC DIGIT ONE *)
@@ -1085,7 +1085,7 @@ MODULE X11KeySymDef;
 	 XK_Arabic_heh_goal* = 010006C1H;  (* U+06C1 ARABIC LETTER HEH GOAL *)
 	 XK_Arabic_switch* = 0FF7EH;  (* Alias for mode_switch *)
 	(* #endif *) (* XK_ARABIC *)
-
+	
 	(*
 	 * Cyrillic
 	 * Byte 3* = 6
@@ -1113,7 +1113,7 @@ MODULE X11KeySymDef;
 	 XK_Cyrillic_che_vertstroke1* = 010004B9H;  (* U+04B9 CYRILLIC SMALL LETTER CHE WITH VERTICAL STROKE *)
 	 XK_Cyrillic_SHHA* = 010004BAH;  (* U+04BA CYRILLIC CAPITAL LETTER SHHA *)
 	 XK_Cyrillic_shha1* = 010004BBH;  (* U+04BB CYRILLIC SMALL LETTER SHHA *)
-
+	
 	 XK_Cyrillic_SCHWA* = 010004D8H;  (* U+04D8 CYRILLIC CAPITAL LETTER SCHWA *)
 	 XK_Cyrillic_schwa1* = 010004D9H;  (* U+04D9 CYRILLIC SMALL LETTER SCHWA *)
 	 XK_Cyrillic_I_macron* = 010004E2H;  (* U+04E2 CYRILLIC CAPITAL LETTER I WITH MACRON *)
@@ -1122,7 +1122,7 @@ MODULE X11KeySymDef;
 	 XK_Cyrillic_o_bar1* = 010004E9H;  (* U+04E9 CYRILLIC SMALL LETTER BARRED O *)
 	 XK_Cyrillic_U_macron* = 010004EEH;  (* U+04EE CYRILLIC CAPITAL LETTER U WITH MACRON *)
 	 XK_Cyrillic_u_macron1* = 010004EFH;  (* U+04EF CYRILLIC SMALL LETTER U WITH MACRON *)
-
+	
 	 XK_Serbian_dje1* = 006A1H;  (* U+0452 CYRILLIC SMALL LETTER DJE *)
 	 XK_Macedonia_gje1* = 006A2H;  (* U+0453 CYRILLIC SMALL LETTER GJE *)
 	 XK_Cyrillic_io1* = 006A3H;  (* U+0451 CYRILLIC SMALL LETTER IO *)
@@ -1233,13 +1233,13 @@ MODULE X11KeySymDef;
 	 XK_Cyrillic_CHE* = 006FEH;  (* U+0427 CYRILLIC CAPITAL LETTER CHE *)
 	 XK_Cyrillic_HARDSIGN* = 006FFH;  (* U+042A CYRILLIC CAPITAL LETTER HARD SIGN *)
 	(* #endif *) (* XK_CYRILLIC *)
-
+	
 	(*
 	 * Greek
 	 * (based on an early draft of, and not quite identical to, ISO/IEC 8859-7)
 	 * Byte 3* = 7
 	 *)
-
+	
 	(* #ifdef XK_GREEK *)
 	 XK_Greek_ALPHAaccent* = 007A1H;  (* U+0386 GREEK CAPITAL LETTER ALPHA WITH TONOS *)
 	 XK_Greek_EPSILONaccent* = 007A2H;  (* U+0388 GREEK CAPITAL LETTER EPSILON WITH TONOS *)
@@ -1317,13 +1317,13 @@ MODULE X11KeySymDef;
 	 XK_Greek_omega* = 007F9H;  (* U+03C9 GREEK SMALL LETTER OMEGA *)
 	 XK_Greek_switch* = 0FF7EH;  (* Alias for mode_switch *)
 	(* #endif *) (* XK_GREEK *)
-
+	
 	(*
 	 * Technical
 	 * (from the DEC VT330/VT420 Technical Character Set, http://vt100.net/charsets/technical.html)
 	 * Byte 3* = 8
 	 *)
-
+	
 	(* #ifdef XK_TECHNICAL *)
 	 XK_leftradical* = 008A1H;  (* U+23B7 RADICAL SYMBOL BOTTOM *)
 	 XK_topleftradical* = 008A2H;  (*(U+250C BOX DRAWINGS LIGHT DOWN AND RIGHT)*)
@@ -1375,13 +1375,13 @@ MODULE X11KeySymDef;
 	 XK_rightarrow* = 008FDH;  (* U+2192 RIGHTWARDS ARROW *)
 	 XK_downarrow* = 008FEH;  (* U+2193 DOWNWARDS ARROW *)
 	(* #endif *) (* XK_TECHNICAL *)
-
+	
 	(*
 	 * Special
 	 * (from the DEC VT100 Special Graphics Character Set)
 	 * Byte 3* = 9
 	 *)
-
+	
 	(* #ifdef XK_SPECIAL *)
 	 XK_blank* = 009DFH;
 	 XK_soliddiamond* = 009E0H;  (* U+25C6 BLACK DIAMOND *)
@@ -1408,14 +1408,14 @@ MODULE X11KeySymDef;
 	 XK_topt* = 009F7H;  (* U+252C BOX DRAWINGS LIGHT DOWN AND HORIZONTAL *)
 	 XK_vertbar* = 009F8H;  (* U+2502 BOX DRAWINGS LIGHT VERTICAL *)
 	(* #endif *) (* XK_SPECIAL *)
-
+	
 	(*
 	 * Publishing
 	 * (these are probably from a long forgotten DEC Publishing
 	 * font that once shipped with DECwrite)
 	 * Byte 3* = 0x0a
 	 *)
-
+	
 	(* #ifdef XK_PUBLISHING *)
 	 XK_emspace* = 00AA1H;  (* U+2003 EM SPACE *)
 	 XK_enspace* = 00AA2H;  (* U+2002 EN SPACE *)
@@ -1501,12 +1501,12 @@ MODULE X11KeySymDef;
 	 XK_doublelowquotemark* = 00AFEH;  (* U+201E DOUBLE LOW-9 QUOTATION MARK *)
 	 XK_cursor* = 00AFFH;
 	(* #endif *) (* XK_PUBLISHING *)
-
+	
 	(*
 	 * APL
 	 * Byte 3* = 0x0b
 	 *)
-
+	
 	(* #ifdef XK_APL *)
 	 XK_leftcaret* = 00BA3H;  (*(U+003C LESS-THAN SIGN)*)
 	 XK_rightcaret* = 00BA6H;  (*(U+003E GREATER-THAN SIGN)*)
@@ -1528,12 +1528,12 @@ MODULE X11KeySymDef;
 	 XK_lefttack* = 00BDCH;  (* U+22A3 LEFT TACK *)
 	 XK_righttack* = 00BFCH;  (* U+22A2 RIGHT TACK *)
 	(* #endif *) (* XK_APL *)
-
+	
 	(*
 	 * Hebrew
 	 * Byte 3* = 0x0c
 	 *)
-
+	
 	(* #ifdef XK_HEBREW *)
 	 XK_hebrew_doublelowline* = 00CDFH;  (* U+2017 DOUBLE LOW LINE *)
 	 XK_hebrew_aleph* = 00CE0H;  (* U+05D0 HEBREW LETTER ALEF *)
@@ -1576,12 +1576,12 @@ MODULE X11KeySymDef;
 	 XK_hebrew_taf* = 00CFAH;  (* deprecated *)
 	 XK_Hebrew_switch* = 0FF7EH;  (* Alias for mode_switch *)
 	(* #endif *) (* XK_HEBREW *)
-
+	
 	(*
 	 * Thai
 	 * Byte 3* = 0x0d
 	 *)
-
+	
 	(* #ifdef XK_THAI *)
 	 XK_Thai_kokai* = 00DA1H;  (* U+0E01 THAI CHARACTER KO KAI *)
 	 XK_Thai_khokhai* = 00DA2H;  (* U+0E02 THAI CHARACTER KHO KHAI *)
@@ -1668,14 +1668,14 @@ MODULE X11KeySymDef;
 	 XK_Thai_lekpaet* = 00DF8H;  (* U+0E58 THAI DIGIT EIGHT *)
 	 XK_Thai_lekkao* = 00DF9H;  (* U+0E59 THAI DIGIT NINE *)
 	(* #endif *) (* XK_THAI *)
-
+	
 	(*
 	 * Korean
 	 * Byte 3* = 0x0e
 	 *)
-
+	
 	(* #ifdef XK_KOREAN *)
-
+	
 	 XK_Hangul* = 0FF31H;  (* Hangul start/stop(toggle) *)
 	 XK_Hangul_Start* = 0FF32H;  (* Hangul start *)
 	 XK_Hangul_End* = 0FF33H;  (* Hangul end, English start *)
@@ -1692,7 +1692,7 @@ MODULE X11KeySymDef;
 	 XK_Hangul_PreviousCandidate* = 0FF3EH;  (* Previous candidate *)
 	 XK_Hangul_Special* = 0FF3FH;  (* Special symbols *)
 	 XK_Hangul_switch* = 0FF7EH;  (* Alias for mode_switch *)
-
+	
 	(* Hangul Consonant Characters *)
 	 XK_Hangul_Kiyeog* = 00EA1H;
 	 XK_Hangul_SsangKiyeog* = 00EA2H;
@@ -1724,7 +1724,7 @@ MODULE X11KeySymDef;
 	 XK_Hangul_Tieut* = 00EBCH;
 	 XK_Hangul_Phieuf* = 00EBDH;
 	 XK_Hangul_Hieuh* = 00EBEH;
-
+	
 	(* Hangul Vowel Characters *)
 	 XK_Hangul_A* = 00EBFH;
 	 XK_Hangul_AE* = 00EC0H;
@@ -1747,7 +1747,7 @@ MODULE X11KeySymDef;
 	 XK_Hangul_EU* = 00ED1H;
 	 XK_Hangul_YI* = 00ED2H;
 	 XK_Hangul_I* = 00ED3H;
-
+	
 	(* Hangul syllable-final (JongSeong) Characters *)
 	 XK_Hangul_J_Kiyeog* = 00ED4H;
 	 XK_Hangul_J_SsangKiyeog* = 00ED5H;
@@ -1776,7 +1776,7 @@ MODULE X11KeySymDef;
 	 XK_Hangul_J_Tieut* = 00EECH;
 	 XK_Hangul_J_Phieuf* = 00EEDH;
 	 XK_Hangul_J_Hieuh* = 00EEEH;
-
+	
 	(* Ancient Hangul Consonant Characters *)
 	 XK_Hangul_RieulYeorinHieuh* = 00EEFH;
 	 XK_Hangul_SunkyeongeumMieum* = 00EF0H;
@@ -1785,25 +1785,25 @@ MODULE X11KeySymDef;
 	 XK_Hangul_KkogjiDalrinIeung* = 00EF3H;
 	 XK_Hangul_SunkyeongeumPhieuf* = 00EF4H;
 	 XK_Hangul_YeorinHieuh* = 00EF5H;
-
+	
 	(* Ancient Hangul Vowel Characters *)
 	 XK_Hangul_AraeA* = 00EF6H;
 	 XK_Hangul_AraeAE* = 00EF7H;
-
+	
 	(* Ancient Hangul syllable-final (JongSeong) Characters *)
 	 XK_Hangul_J_PanSios* = 00EF8H;
 	 XK_Hangul_J_KkogjiDalrinIeung* = 00EF9H;
 	 XK_Hangul_J_YeorinHieuh* = 00EFAH;
-
+	
 	(* Korean currency symbol *)
 	 XK_Korean_Won* = 00EFFH;  (*(U+20A9 WON SIGN)*)
-
+	
 	(* #endif *) (* XK_KOREAN *)
-
+	
 	(*
 	 * Armenian
 	 *)
-
+	
 	(* #ifdef XK_ARMENIAN *)
 	 XK_Armenian_ligature_ew* = 01000587H;  (* U+0587 ARMENIAN SMALL LIGATURE ECH YIWN *)
 	 XK_Armenian_full_stop* = 01000589H;  (* U+0589 ARMENIAN FULL STOP *)
@@ -1896,11 +1896,11 @@ MODULE X11KeySymDef;
 	 XK_Armenian_fe* = 01000586H;  (* U+0586 ARMENIAN SMALL LETTER FEH *)
 	 XK_Armenian_apostrophe* = 0100055AH;  (* U+055A ARMENIAN APOSTROPHE *)
 	(* #endif *) (* XK_ARMENIAN *)
-
+	
 	(*
 	 * Georgian
 	 *)
-
+	
 	(* #ifdef XK_GEORGIAN *)
 	 XK_Georgian_an* = 010010D0H;  (* U+10D0 GEORGIAN LETTER AN *)
 	 XK_Georgian_ban* = 010010D1H;  (* U+10D1 GEORGIAN LETTER BAN *)
@@ -1942,11 +1942,11 @@ MODULE X11KeySymDef;
 	 XK_Georgian_hoe* = 010010F5H;  (* U+10F5 GEORGIAN LETTER HOE *)
 	 XK_Georgian_fi* = 010010F6H;  (* U+10F6 GEORGIAN LETTER FI *)
 	(* #endif *) (* XK_GEORGIAN *)
-
+	
 	(*
 	 * Azeri (and other Turkic or Caucasian languages)
 	 *)
-
+	
 	(* #ifdef XK_CAUCASUS *)
 	(* latin *)
 	 XK_Xabovedot* = 01001E8AH;  (* U+1E8A LATIN CAPITAL LETTER X WITH DOT ABOVE *)
@@ -1968,11 +1968,11 @@ MODULE X11KeySymDef;
 	 XK_Lbelowdot* = 01001E36H;  (* U+1E36 LATIN CAPITAL LETTER L WITH DOT BELOW *)
 	 XK_lbelowdot* = 01001E37H;  (* U+1E37 LATIN SMALL LETTER L WITH DOT BELOW *)
 	(* #endif *) (* XK_CAUCASUS *)
-
+	
 	(*
 	 * Vietnamese
 	 *)
-
+	
 	(* #ifdef XK_VIETNAMESE *)
 	 XK_Abelowdot* = 01001EA0H;  (* U+1EA0 LATIN CAPITAL LETTER A WITH DOT BELOW *)
 	 XK_abelowdot* = 01001EA1H;  (* U+1EA1 LATIN SMALL LETTER A WITH DOT BELOW *)
@@ -2066,9 +2066,9 @@ MODULE X11KeySymDef;
 	 XK_ohorn* = 010001A1H;  (* U+01A1 LATIN SMALL LETTER O WITH HORN *)
 	 XK_Uhorn* = 010001AFH;  (* U+01AF LATIN CAPITAL LETTER U WITH HORN *)
 	 XK_uhorn* = 010001B0H;  (* U+01B0 LATIN SMALL LETTER U WITH HORN *)
-
+	
 	(* #endif *) (* XK_VIETNAMESE *)
-
+	
 	(* #ifdef XK_CURRENCY *)
 	 XK_EcuSign* = 010020A0H;  (* U+20A0 EURO-CURRENCY SIGN *)
 	 XK_ColonSign* = 010020A1H;  (* U+20A1 COLON SIGN *)
@@ -2084,7 +2084,7 @@ MODULE X11KeySymDef;
 	 XK_DongSign* = 010020ABH;  (* U+20AB DONG SIGN *)
 	 XK_EuroSign* = 020ACH;  (* U+20AC EURO SIGN *)
 	(* #endif *) (* XK_CURRENCY *)
-
+	
 	(* #ifdef XK_MATHEMATICAL *)
 	(* one, two and three are defined above. *)
 	 XK_zerosuperior* = 01002070H;  (* U+2070 SUPERSCRIPT ZERO *)
@@ -2118,9 +2118,9 @@ MODULE X11KeySymDef;
 	 XK_approxeq* = 01002248H;  (* U+2245 ALMOST EQUAL TO *)
 	 XK_notapproxeq* = 01002247H;  (* U+2247 NOT ALMOST EQUAL TO *)
 	 XK_notidentical* = 01002262H;  (* U+2262 NOT IDENTICAL TO *)
-	 XK_stricteq* = 01002263H;  (* U+2263 STRICTLY EQUIVALENT TO *)
+	 XK_stricteq* = 01002263H;  (* U+2263 STRICTLY EQUIVALENT TO *)          
 	(* #endif *) (* XK_MATHEMATICAL *)
-
+	
 	(* #ifdef XK_BRAILLE *)
 	 XK_braille_dot_1* = 0FFF1H;
 	 XK_braille_dot_2* = 0FFF2H;
@@ -2389,14 +2389,14 @@ MODULE X11KeySymDef;
 	 XK_braille_dots_2345678* = 010028FEH;  (* U+28fe BRAILLE PATTERN DOTS-2345678 *)
 	 XK_braille_dots_12345678* = 010028FFH;  (* U+28ff BRAILLE PATTERN DOTS-12345678 *)
 	(* #endif *) (* XK_BRAILLE *)
-
+	
 	(*
 	 * Sinhala (http://unicode.org/charts/PDF/U0D80.pdf)
 	 * http://www.nongnu.org/sinhala/doc/transliteration/sinhala-transliteration_6.html
 	 *)
-
+	
 	(* #ifdef XK_SINHALA *)
-
+	 
 	 XK_Sinh_ng* = 01000D82H;  (* U+0D82 SINHALA ANUSVARAYA *)
 	 XK_Sinh_h2* = 01000D83H;  (* U+0D83 SINHALA VISARGAYA *)
 	 XK_Sinh_a* = 01000D85H;  (* U+0D85 SINHALA AYANNA *)

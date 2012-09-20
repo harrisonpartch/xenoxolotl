@@ -3,7 +3,7 @@ IMPORT SYSTEM, Kernel, Modules,Objects, Random, XNXLMarsh,
  Out := KernelLog, Math, Base:=XNXLBase,  XNXLMath,  XNXLRetina,Heaps,
 	 X11,  Api := X11Api, GL:=OpenGL, GLC := OpenGLConst, Inputs, KS := X11KeySymDef, V := XF86VMode;
 
-CONST PX=3; (* image size multiplier *)
+CONST PX=2; (* image size multiplier *)
 	ML = 0;  MM = 1;  MR = 2;
 	Button1Bit = 8; Button2Bit = 9; Button3Bit =10;
 	ShiftKeyBit = 0;  ShiftLokBit = 1;  ControlKeyBit = 2;  Mod1KeyBit = 3;
@@ -338,11 +338,8 @@ PROCEDURE up (ph: REAL);
 BEGIN
 	cvu:=cvu+ph;
 	cameraphi := cameraphi + cvu;
-	IF cameraphi > 1.6 THEN 
-		cameraphi := 1.6 
-	ELSIF cameraphi < -1.6 THEN 
-		cameraphi := -1.6 
-	END 	
+	IF cameraphi > 1.6 THEN cameraphi := 1.6 END;
+	IF cameraphi < -1.6 THEN cameraphi := -1.6 END 	
 END up;
 
 PROCEDURE tick;
@@ -958,7 +955,7 @@ BEGIN
 			END;
 			i3:=i3+PX
 		END;
-		IF ~(XNXLRetina.SACCADE OR XNXLRetina.SACCADE1)THEN
+		IF ~(TRUE OR XNXLRetina.SACCADE OR XNXLRetina.SACCADE1)THEN
 			i3:=Base.W;
 			FOR i:= 0 TO Base.W-1 DO 
 				j3:=Base.H;
@@ -1000,7 +997,7 @@ END mainloop;
 PROCEDURE Open* ;
 BEGIN
 	Out.Char('*');	
-	InitWindow(450,300, 'XENOXOLOTL' );	
+	InitWindow(PX*Base.W, PX*Base.H,'XENOXOLOTL' );	
 	InitGL; 	
 	NEW(timer); 
 	XNXLMarsh.dawn;	
@@ -1009,7 +1006,7 @@ BEGIN
 	foveasize := 100;
 	multicore:=TRUE;
 	camrotinertia:=100;
-	Base.DTL:=1500;
+	Base.DTL:=150;
 	Base.DTL2:=10;
 	Base.gravity:=0.00001;
 	Base.cursordist:=0.01;

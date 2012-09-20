@@ -153,8 +153,8 @@ BEGIN
 (** *)
 PROCEDURE Play*;
 BEGIN
-	AL.alSourcePlay(source);
-	ALWriteError("Playing Error: ");
+(*	AL.alSourcePlay(source);
+	ALWriteError("Playing Error: "); *)
 END Play;
 
 PROCEDURE IncGain*;
@@ -192,7 +192,7 @@ VAR
 	res : AL.ALboolean;
 	s: ARRAY 32 OF CHAR;
 BEGIN
-	IF device # 0 THEN 
+(*	IF device # 0 THEN 
 		KernelLog.String("Device already Open" ); KernelLog.Ln;
 		RETURN 
 	END;
@@ -221,6 +221,7 @@ BEGIN
 	(* load sound decoder *)
 	decoder := Codecs.GetAudioDecoder("WAV");		
 		KernelLog.String("Device Opened" ); KernelLog.Ln; 	
+*)
 END OpenDevice;
 
 (** *)
@@ -250,3 +251,4 @@ OpenDevice
 END XNXLAudio.
 
 SystemTools.Free XNXLAudio ~
+XNXLAudio.OpenDevice ~

@@ -1,7 +1,7 @@
-MODULE XNXLM2Space;
+MODULE XNXLM3Space;
 IMPORT Base:=XNXLBase, XNXLE, XNXLFRep, Math, Out := KernelLog, Streams,Strings;
 
-CONST M=2;
+CONST M=3;
 	MMO=M-1;
 	CUBERADIUS=0.75;   (*change to sqrt(3)/2 ???*)
 	NL=Base.NL;
@@ -18,6 +18,7 @@ TYPE NCube=Base.NCube;
 TYPE cell* = OBJECT(Base.Cell);
 VAR
 	blox*: ARRAY M,M,M OF Voxel;
+	nblox: ARRAY M,M,M OF PT;
 	probelock*:BOOLEAN;
 
 PROCEDURE Shade (VAR ray: Ray);
@@ -53,6 +54,7 @@ BEGIN
 	IF ~out THEN
 		v:= blox[ijk.i,ijk.j,ijk.k];
 		IF (v#NIL) THEN
+			ray.normal:=nblox[ijk.i,ijk.j,ijk.k];
 			ray.lxyz.x := ABS(xyz.x - ijk.i);  
 			ray.lxyz.y := ABS(xyz.y - ijk.j);
 			ray.lxyz.z := ABS(xyz.z - ijk.k);
@@ -147,6 +149,7 @@ BEGIN
 					END;	
 					v := blox[ijk.i,ijk.j,ijk.k];						
 					IF (v#NIL) THEN
+						ray.normal:=nblox[ijk.i,ijk.j,ijk.k];
 						ray.lxyz.x := ABS(xyz.x - ijk.i);  
 						ray.lxyz.y := ABS(xyz.y - ijk.j);
 						ray.lxyz.z := ABS(xyz.z - ijk.k);
@@ -389,7 +392,14 @@ BEGIN
 					NEW(c);
 					c.setcolor(red,green,blue,black,alpha);
 					c.imposter:=blox[i,j,k];	
-					c.fill(blox[i,j,k]);
+					IF blox[i,j,k].emptysplit THEN 
+						FOR ii := 0 TO MMO DO FOR jj := 0 TO MMO DO FOR kk:= 0 TO MMO DO
+							NEW(c2);
+							blox[i,j,k]:=c2
+						END END END;
+					ELSE
+						c.fill(blox[i,j,k])
+					END;
 					blox[i,j,k]:=c;
 					p.x:=p.x-i; p.y:=p.y-j; p.z:=p.z-k;
 					c.strokerec(p, resolution,nextscale,voxel);
@@ -493,14 +503,8 @@ BEGIN
 			p.x:=origin.x+(i+1/2)/MS; p.y:=origin.y+(j+1/2)/MS; p.z:=origin.z+(k+1/2)/MS;
 			d2s:=f.d2s(p);		
 			IF ABS(d2s)<CRDNS THEN 
-				v:=f.voxel(p);
-				IF v#NIL THEN 
-					(* IF v IS cell THEN v:=v.deepcopy() END; *)
-					blox[i,j,k]:=v;	
-				ELSE
-					v:=f.ncube(p);
-					blox[i,j,k]:=v;
-				END
+				blox[i,j,k]:=f.voxel(p);
+				nblox[i,j,k]:=f.normal(p);
 			END	
 		END END END
 	END; 
@@ -549,15 +553,9 @@ BEGIN
 			p.x:=origin.x+(i+1/2)/MS; p.y:=origin.y+(j+1/2)/MS; p.z:=origin.z+(k+1/2)/MS;
 			d2s:=f.d2s(p);		
 			IF ABS(d2s)<CRDNS THEN 
-				v:=f.voxel(p);
-			IF v#NIL THEN 
-					(* IF v IS cell THEN v:=v.deepcopy() END; *)
-					blox[i,j,k]:=v;	
-				ELSE
-					v:=f.ncube(p);
-					blox[i,j,k]:=v;
-				END
-			END 	
+				blox[i,j,k]:=f.voxel(p);
+				nblox[i,j,k]:=f.normal(p);
+			END	
 		END END END
 	END; 
 END FRasterrecSolid;
@@ -816,7 +814,7 @@ END init;
 END torus;
 
 
-END XNXLM2Space.
+END XNXLM3Space.
 
 
 

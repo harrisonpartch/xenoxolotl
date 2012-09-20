@@ -208,8 +208,8 @@ END sprout;
 
 PROCEDURE play*();
 BEGIN
-	XNXLAudio.LoadWav("grain.wav");
-	XNXLAudio.Play
+(*	XNXLAudio.LoadWav("grain.wav");
+	XNXLAudio.Play *)
 END play;
 
 END Voxel; 

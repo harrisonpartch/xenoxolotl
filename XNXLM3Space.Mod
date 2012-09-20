@@ -18,7 +18,6 @@ TYPE NCube=Base.NCube;
 TYPE cell* = OBJECT(Base.Cell);
 VAR
 	blox*: ARRAY M,M,M OF Voxel;
-	nblox: ARRAY M,M,M OF PT;
 	probelock*:BOOLEAN;
 
 PROCEDURE Shade (VAR ray: Ray);
@@ -54,7 +53,6 @@ BEGIN
 	IF ~out THEN
 		v:= blox[ijk.i,ijk.j,ijk.k];
 		IF (v#NIL) THEN
-			ray.normal:=nblox[ijk.i,ijk.j,ijk.k];
 			ray.lxyz.x := ABS(xyz.x - ijk.i);  
 			ray.lxyz.y := ABS(xyz.y - ijk.j);
 			ray.lxyz.z := ABS(xyz.z - ijk.k);
@@ -149,7 +147,6 @@ BEGIN
 					END;	
 					v := blox[ijk.i,ijk.j,ijk.k];						
 					IF (v#NIL) THEN
-						ray.normal:=nblox[ijk.i,ijk.j,ijk.k];
 						ray.lxyz.x := ABS(xyz.x - ijk.i);  
 						ray.lxyz.y := ABS(xyz.y - ijk.j);
 						ray.lxyz.z := ABS(xyz.z - ijk.k);
@@ -503,8 +500,14 @@ BEGIN
 			p.x:=origin.x+(i+1/2)/MS; p.y:=origin.y+(j+1/2)/MS; p.z:=origin.z+(k+1/2)/MS;
 			d2s:=f.d2s(p);		
 			IF ABS(d2s)<CRDNS THEN 
-				blox[i,j,k]:=f.voxel(p);
-				nblox[i,j,k]:=f.normal(p);
+				v:=f.voxel(p);
+				IF v#NIL THEN 
+					(* IF v IS cell THEN v:=v.deepcopy() END; *)
+					blox[i,j,k]:=v;	
+				ELSE
+					v:=f.ncube(p);
+					blox[i,j,k]:=v;
+				END
 			END	
 		END END END
 	END; 
@@ -553,9 +556,15 @@ BEGIN
 			p.x:=origin.x+(i+1/2)/MS; p.y:=origin.y+(j+1/2)/MS; p.z:=origin.z+(k+1/2)/MS;
 			d2s:=f.d2s(p);		
 			IF ABS(d2s)<CRDNS THEN 
-				blox[i,j,k]:=f.voxel(p);
-				nblox[i,j,k]:=f.normal(p);
-			END	
+				v:=f.voxel(p);
+			IF v#NIL THEN 
+					(* IF v IS cell THEN v:=v.deepcopy() END; *)
+					blox[i,j,k]:=v;	
+				ELSE
+					v:=f.ncube(p);
+					blox[i,j,k]:=v;
+				END
+			END 	
 		END END END
 	END; 
 END FRasterrecSolid;

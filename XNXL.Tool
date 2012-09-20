@@ -1,4 +1,5 @@
 WINAOS AND LINUXAOS: Compiler.Compile 
+XNXLAudio.Mod
 XNXL.Mod
 XNXLBase.Mod
 XNXLE.Mod 
@@ -16,7 +17,6 @@ XNXLHalfSpace.Mod
 XNXLLifeVox.Mod
 XNXLRotaVox.Mod
 XNXLSierp.Mod
-XNXLAudio.Mod
 XNXLEngrainer.Mod
 XNXLSaboteur.Mod
 XNXLNCompiler.Mod

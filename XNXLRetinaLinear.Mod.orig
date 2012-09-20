@@ -5,9 +5,9 @@ TYPE
 	Ray=Base.Ray;
 	PT=Base.PT;
 CONST
-	TW=Base.W25;
-	TH=Base.H25;
-	ST=5;
+	TW=Base.W DIV 3;
+	TH=Base.H DIV 3;
+	ST=3;
 
 TYPE Subtile*=OBJECT		(* 5x5 ray tile. Traces with edge detection/interpolation *)
 VAR
@@ -124,9 +124,18 @@ PROCEDURE gotilesgo;
 VAR
 	i,j: INTEGER;
 BEGIN
-	FOR i:= 0 TO TW-1  DO
-		FOR j:= 0 TO TH-1 DO
-			tile[i,j].go;
+	IF SACCADE OR SACCADE1 THEN
+		FOR i:= 0 TO TW-1  DO
+			FOR j:= 0 TO TH-1 DO
+				tile[i,j].go;
+			END
+		END
+	ELSE
+		FOR i:= 0 TO TW-1  DO
+			FOR j:= 0 TO TH-1 DO
+				tile[i,j].go;
+				ftile[i,j].go;
+			END
 		END
 	END
 END gotilesgo;
@@ -138,7 +147,11 @@ BEGIN
 	zeroTD;
 	gotilesgo; 
 	BEGIN{EXCLUSIVE} 
+		IF SACCADE OR SACCADE1 THEN
 			AWAIT(tilesdone=TW*TH) 
+		ELSE
+			AWAIT(tilesdone=2*TW*TH) 
+		END
 	END
 END go;
 

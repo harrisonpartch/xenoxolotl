@@ -40,6 +40,7 @@ CONST
 VAR 
 	radius*, rsquared*: REAL;
 	center*:PT;
+	NC: ARRAY N,N OF NCube;
 
 PROCEDURE &init*(c:PT; r: REAL);
 VAR
@@ -58,6 +59,18 @@ BEGIN
 	bbc2.y:=c.y+r;
 	bbc2.z:=c.z+r;	
 	center:=c;	
+	mir:=0.8;
+	FOR i:=0 TO NMO DO 
+		theta := twopi*i/N;
+		FOR j:=0 TO NMO DO
+			phi := twopi*j/N;
+			normal.x := Math.cos(theta)*Math.sin(phi);
+			normal.y := Math.sin(theta)*Math.sin(phi);
+			normal.z := Math.cos(theta);
+			color.red:=1;
+			NEW(NC[i,j],normal,color);
+		END
+	END				
 END init;
 
 PROCEDURE getcolor*(p:PT):Color;
@@ -70,6 +83,15 @@ BEGIN
 	c.blue:=p.z;	
 	RETURN c
 END getcolor;
+
+PROCEDURE ncube*(p:PT):Voxel;
+VAR	theta, phi: REAL;
+	normal: PT;
+	i,j: INTEGER;
+BEGIN	
+	normal:=Base.subPT(p,center);
+	RETURN NIL			
+END ncube;
 
 PROCEDURE reset*(c:PT; r: REAL);
 BEGIN

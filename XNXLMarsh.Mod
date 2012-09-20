@@ -334,17 +334,17 @@ BEGIN
 
 	NEW(LIFE,axolotl,NIL,die);
 	LIFE.passable:=TRUE;
-	Base.setPT(center,1/2,1/2,1/2);	push(LIFE);	
+	push(LIFE);
 	Base.setPT(slant,1,1,1);
-	NEW(hs,grass,center,slant);
+	NEW(hs,tigerlily,center,slant);
 	push(hs);
 	NEW(z10);
+	Base.setPT(center,1/2,1/2,1/2);
 	xaxis:=Base.mkPT(1,0,0);
 	yaxis:=Base.mkPT(0,1,0);	
 	zaxis:=Base.mkPT(0,0,1);	
 	NEW(plane,center,zaxis);
-	plane.setvoxel(sand);	
-	NEW(dieone);
+	plane.setvoxel(conglomerate);	
 	NEW(noise);
 	noise.setvoxel(granite);
 	noise.seed:=54362;
@@ -353,21 +353,23 @@ BEGIN
 	noise.a:=3;
 	noise.b:=3;
 	noise.c:=3;
-	z10.FRasterSolid(plane,9);		
-	z10.FRasterSolid(noise,9);		
-	noise.setvoxel(greenball);
+	z10.FRasterSolid(plane,27);		
+	z10.FRasterSolid(noise,81);		
+	NEW(noise);
+	noise.setvoxel(sand);
 	noise.seed:=54362;
 	noise.octaves:=4;
 	noise.persistence:=5;
-	noise.a:=1;
-	noise.b:=1;
-	noise.c:=1;   
-	z10.FRasterSolid(noise,9);		
-     Base.setPT(center,1/2,1/2,1/2);
+	noise.a:=6;
+	noise.b:=6;
+	noise.c:=6;   
+	z10.setcolor(1,1,1,1,1);
+	z10.FRasterSolid(noise,81);		
+      Base.setPT(center,1/2,1/2,1/2);
 	Base.world:=z10; 	
-(*	engrain;  
+	engrain;  
 	sprout;	
-*)	push(Base.world);
+	push(Base.world);
 	NEW(cursormark,"harrisonavatar.png");
 	push(cursormark);
 	NEW(x10);
@@ -391,7 +393,7 @@ BEGIN
 	push(manifesto);
 	sparx.passable:=TRUE;
 	sparx.emptysplit:=TRUE;
-  END dawn;
+END dawn;
 
 BEGIN
 	cursorsize:=243*9;

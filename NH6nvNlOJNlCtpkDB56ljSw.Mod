@@ -123,7 +123,7 @@ BEGIN
 		NEW(bivox);
 		bivox.set(grid,insect); 
 	END;
-	RETURN insect
+	RETURN bivox
 END thisvox;
 
  END NH6nvNlOJNlCtpkDB56ljSw. 
