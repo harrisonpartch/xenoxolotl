@@ -1,7 +1,7 @@
 MODULE XNXLM3Space;
 IMPORT Base:=XNXLBase, XNXLE, XNXLFRep, Math, Out := KernelLog, Streams,Strings;
 
-CONST M=3;
+CONST M=4;
 	MMO=M-1;
 	CUBERADIUS=0.75;   (*change to sqrt(3)/2 ???*)
 	NL=Base.NL;
@@ -43,7 +43,7 @@ BEGIN
 	xyz.y := ABS(ray.lxyz.y-offset.y) * M  - ray.ddxyz.y;		
 	xyz.z := ABS(ray.lxyz.z-offset.z)* M  - ray.ddxyz.z; 
 	pushxyz:=xyz;	
-	IF (ray.length*ray.scale>ray.dtl) THEN
+	IF (ray.length*ray.scale>Base.DTL) THEN
 		IF imposter#NIL THEN
 			imposter.Shade(ray)	
 		END
@@ -140,7 +140,7 @@ BEGIN
 			IF ray.bla>0.01 THEN	
 				bounds(ijk.i,ijk.j,ijk.k, out);
 				IF ~out  THEN
-					IF (ray.length*ray.scale>ray.dtl) THEN
+					IF (ray.length*ray.scale>Base.DTL) THEN
 							v:=imposter
 					ELSE	
 						v:= blox[ijk.i,ijk.j,ijk.k]
@@ -684,7 +684,6 @@ BEGIN
 	IF (ray.length*ray.scale>Base.DTL)&(imposter#NIL) THEN
 		imposter.Shade(ray)	
 	ELSE		
-
 	XNXLE.E(xyz,ijk);
 	bounds(ijk.i,ijk.j,ijk.k,out);
 	IF ~out THEN

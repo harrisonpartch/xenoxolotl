@@ -97,14 +97,13 @@ VAR
 	 RED,YELLOW: XNXLVoxel.DiffuseVox;
 PROCEDURE  thisvox*():XNXLBase.Voxel;
 BEGIN
-	RETURN bivox
+	RETURN die
 END thisvox;
 
 BEGIN
 	NEW(YELLOW); 
 	YELLOW.setcolor(1/2,1/2,0);
-	NEW(die,'die');
-	die.texscale(1000);
+	NEW(die,'mule');
 	NEW(bivox,die,YELLOW);
 	bivox.D2:=7/12;
 

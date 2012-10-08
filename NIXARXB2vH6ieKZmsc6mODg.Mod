@@ -41,7 +41,7 @@ END Shade;
 
 END TransparaVox;  
   
-VAR vox:M3.cell;
+VAR vox:TransparaVox;
 PROCEDURE thisvox*():XNXLBase.Voxel;
 BEGIN
 	RETURN vox
@@ -49,5 +49,5 @@ END thisvox;
 
 BEGIN
 NEW(vox); 
-vox.setcolor(10000,10000,10000,10000,0) 
+vox.setcolor(0,0,500,500);
 END NIXARXB2vH6ieKZmsc6mODg. 

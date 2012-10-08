@@ -2,8 +2,8 @@ MODULE XNXL;
 
 CONST
 
-	W*=125;
-	H*= 100
+	W*=200;
+	H*=200
 
 END XNXL.
 

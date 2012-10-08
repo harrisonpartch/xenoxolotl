@@ -14,7 +14,7 @@ VAR
 	dot,d: REAL;
 	inside: BOOLEAN;
 BEGIN
-(*	CASE ray.face OF
+	CASE ray.face OF
 		0: inside := TRUE
 		|1: nx := -1
 		|2: ny := -1
@@ -23,10 +23,10 @@ BEGIN
 		|5: ny := 1
 		|6: nz := 1
 	ELSE
-	END; *)
-	ray.normal.x:=1/2-ray.lxyz.x;
-	ray.normal.y:=1/2-ray.lxyz.y;	
-	ray.normal.z:=1/2-ray.lxyz.z;	
+	END; 
+	ray.normal.x:=ray.lxyz.x-1/2;
+	ray.normal.y:=ray.lxyz.y-1/2;	
+	ray.normal.z:=ray.lxyz.z-1/2;	
 	Base.normalizePT(ray.normal);
 	ray.ra := ray.ra- 0.1; 
 	ray.ga := ray.ga- 0.1; 
@@ -59,7 +59,9 @@ VAR
 	vox:  DiffuseMVox;
 PROCEDURE thisvox*():Base.Voxel;
 BEGIN
-	IF vox= NIL THEN NEW(vox) END;
 	RETURN vox
 END thisvox;
- END Nr3kPtbyEYLFK3AN2UUVrqg. 
+
+BEGIN
+	NEW(vox) 
+END Nr3kPtbyEYLFK3AN2UUVrqg. 

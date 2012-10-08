@@ -1,4 +1,6 @@
-WINAOS AND LINUXAOS: Compiler.Compile 
+SystemTools.DoCommands
+SystemTools.Timer start ~
+Compiler.Compile 
 XNXLAudio.Mod
 XNXL.Mod
 XNXLBase.Mod
@@ -23,12 +25,12 @@ XNXLNCompiler.Mod
 XNXLMarsh.Mod
 XNXLRender.Mod 
 ~
-
+SystemTools.Show Time elapsed: ~ SystemTools.Ln ~
+SystemTools.Timer elapsed ~ SystemTools.Ln ~~
 
 XNXLRender.Open ~
 
 SystemTools.FreeDownTo  XNXL~
-
 
 OpenAL.Tool
 OpenGL.Tool

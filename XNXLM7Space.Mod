@@ -1,5 +1,5 @@
 MODULE XNXLM7Space;
-IMPORT XNXLBase, XNXLE, XNXLFRep, M2:=XNXLM2Space, Out := KernelLog (*DebugLog*);
+IMPORT Base:=XNXLBase, XNXLE, XNXLFRep, M2:=XNXLM2Space, Out := KernelLog (*DebugLog*);
 
 CONST 	M=7;
 	MMO=M-1;
@@ -7,13 +7,13 @@ CONST 	M=7;
 	AIR=0;
 	WATER=1;	
 
-TYPE PT = XNXLBase.PT;
-TYPE COLOR = XNXLBase.COLOR;
-TYPE Ray = XNXLBase.Ray;
-TYPE Voxel = XNXLBase.Voxel;
-TYPE FR = XNXLBase.FR;
+TYPE PT = Base.PT;
+TYPE COLOR = Base.Color;
+TYPE Ray = Base.Ray;
+TYPE Voxel = Base.Voxel;
+TYPE FR = Base.FR;
 
-TYPE cell* = OBJECT(XNXLFRep.MSV);
+TYPE cell* = OBJECT(Base.Cell);
 VAR
 	blox*: ARRAY M,M,M OF Voxel;
 	bloxnorm: ARRAY M,M,M OF PT;
@@ -25,7 +25,7 @@ PROCEDURE & init*;
 BEGIN
 	passable:=TRUE;
 	complex:=TRUE;
-	imposter:=XNXLBase.EMPTY;
+	imposter:=Base.EMPTY;
 	substance:=AIR;
 END init;
 
@@ -43,12 +43,13 @@ BEGIN
 	END END END;		
 END copyclear;
 
-PROCEDURE setcolor* (r,g,b,bl: REAL); 
+PROCEDURE setcolor* (r,g,b,bl,a: REAL); 
 BEGIN
 	red:= r;
 	green := g;
 	blue := b;
 	black:= bl;
+	alpha:=a;
 END setcolor;
 
 PROCEDURE bounds* (i, j, k: LONGINT; VAR out: BOOLEAN);
@@ -83,7 +84,7 @@ VAR
 	i,j,k: INTEGER;
 BEGIN
 	FOR i := 0 TO MMO DO FOR j := 0 TO MMO DO FOR k:= 0 TO MMO DO
-		IF XNXLBase.rand.Uniform()<p THEN blox[i,j,k] := v END
+		IF Base.rand.Uniform()<p THEN blox[i,j,k] := v END
 	END END END
 END fillwithprobability;
 
@@ -119,8 +120,8 @@ END fillcqr3;
 
 PROCEDURE Shade (VAR ray: Ray);
 VAR
-	pushxyz, newxyz, xyz: XNXLBase.PT;
-	ijk: XNXLBase.IPT;
+	pushxyz, newxyz, xyz: Base.PT;
+	ijk: Base.IPT;
 	drx, dry, drz, dr,rr,gr,br,blr: REAL;
 	out,shadenil,A,B,C: BOOLEAN;
 	v: Voxel;
@@ -131,7 +132,7 @@ BEGIN
 	xyz.x := ray.lxyz.x * M  - ray.ddxyz.x;  (* ray.lxyz could be renamed to ray.pushxyz *)
 	xyz.y := ray.lxyz.y * M  - ray.ddxyz.y;		
 	xyz.z := ray.lxyz.z * M  - ray.ddxyz.z; 
-	IF (ray.length*ray.scale>XNXLBase.DTL)&(imposter#NIL) THEN
+	IF (ray.length*ray.scale>Base.DTL)&(imposter#NIL) THEN
 		imposter.Shade(ray)	
 	ELSE	
 	
@@ -145,7 +146,7 @@ BEGIN
 			ray.lxyz.y := ABS(xyz.y - ijk.j);
 			ray.lxyz.z := ABS(xyz.z - ijk.k);
 			ray.bloxnorm:=bloxnorm[ijk.i,ijk.j,ijk.k];
-			ray.popdelta := XNXLBase.Origin; (* because many shaders don't set it and it *)
+			ray.popdelta := Base.Origin; (* because many shaders don't set it and it *)
 			v.Shade(ray);					(* must be (0,0,0) in that case       *)
 			xyz.x := xyz.x + ray.popdelta.x;    
 			xyz.y := xyz.y + ray.popdelta.y;
@@ -175,44 +176,44 @@ BEGIN
 				dr := drx;
 				IF ray.di THEN 
 					INC(ijk.i, 1);
-					ray.face := 1; ray.normal:= XNXLBase.Face[0] 
+					ray.face := 1; ray.normal:= Base.Face[0] 
 				ELSE 
 					INC(ijk.i, -1);
-					ray.face := 4; ray.normal:= XNXLBase.Face[3] 
+					ray.face := 4; ray.normal:= Base.Face[3] 
 				END;
 				newxyz.x := xyz.x + drx * ray.dxyz.x; newxyz.y := xyz.y + drx * ray.dxyz.y; newxyz.z  := xyz.z + drx * ray.dxyz.z	
 			ELSIF A&~B THEN
 				dr := drz;
 				IF ray.dk THEN 
 					INC(ijk.k, 1);
-					ray.face := 3; ray.normal:= XNXLBase.Face[2] 
+					ray.face := 3; ray.normal:= Base.Face[2] 
 				ELSE
 					INC(ijk.k, -1);
-					ray.face := 6; ray.normal:= XNXLBase.Face[5]
+					ray.face := 6; ray.normal:= Base.Face[5]
 				END;
 				newxyz.x := xyz.x + drz * ray.dxyz.x; newxyz.y := xyz.y + drz * ray.dxyz.y; newxyz.z  := xyz.z + drz * ray.dxyz.z
 			ELSIF C THEN
 				dr := dry;
 				IF ray.dj THEN 
 					INC(ijk.j, 1);
-					ray.face := 2; ray.normal:= XNXLBase.Face[1] 
+					ray.face := 2; ray.normal:= Base.Face[1] 
 				ELSE 
 					INC(ijk.j, -1);
-					ray.face := 5; ray.normal:= XNXLBase.Face[4] 
+					ray.face := 5; ray.normal:= Base.Face[4] 
 				END;
 				newxyz.x := xyz.x + dry * ray.dxyz.x; newxyz.y := xyz.y + dry * ray.dxyz.y; newxyz.z  := xyz.z+ dry * ray.dxyz.z
 			ELSE
 				dr := drz;		
 				IF ray.dk  THEN 
 					INC(ijk.k, 1);
-					ray.face := 3; ray.normal:= XNXLBase.Face[2] 
+					ray.face := 3; ray.normal:= Base.Face[2] 
 				ELSE
 					INC(ijk.k, -1);
-					ray.face := 6; ray.normal:= XNXLBase.Face[5]
+					ray.face := 6; ray.normal:= Base.Face[5]
 				END;
 				newxyz.x := xyz.x + drz * ray.dxyz.x; newxyz.y := xyz.y + drz * ray.dxyz.y; newxyz.z  := xyz.z + drz * ray.dxyz.z
 			END;
-			vdepth:=XNXLBase.distance(newxyz,xyz);
+			vdepth:=Base.distance(newxyz,xyz);
 			ray.xyz.x:=ray.xyz.x +((newxyz.x-xyz.x)+ray.ddxyz.x)/ray.scale;
 			ray.xyz.y:=ray.xyz.y +((newxyz.y-xyz.y)+ray.ddxyz.y)/ray.scale;			
 			ray.xyz.z:=ray.xyz.z +((newxyz.z-xyz.z)+ray.ddxyz.z)/ray.scale;			
@@ -229,7 +230,7 @@ BEGIN
 			END;			
 			bounds(ijk.i,ijk.j,ijk.k, out);
 			IF ~out  THEN
-				IF (ray.length*ray.length*ray.length*ray.scale>XNXLBase.DTL) THEN
+				IF (ray.length*ray.length*ray.length*ray.scale>Base.DTL) THEN
 					v:=imposter
 				ELSE	
 					v:= blox[ijk.i,ijk.j,ijk.k]
@@ -240,7 +241,7 @@ BEGIN
 					ray.lxyz.y := ABS(xyz.y - ijk.j);
 					ray.lxyz.z := ABS(xyz.z - ijk.k);
 					ray.bloxnorm:=bloxnorm[ijk.i,ijk.j,ijk.k];
-					ray.popdelta := XNXLBase.Origin; (* because many shaders don't set it and it *)
+					ray.popdelta := Base.Origin; (* because many shaders don't set it and it *)
 					v.Shade(ray);					(* must be (0,0,0) in that case       *)
 					xyz.x := xyz.x + ray.popdelta.x;    
 					xyz.y := xyz.y + ray.popdelta.y;
@@ -258,35 +259,33 @@ BEGIN
 	ray.scale := ray.scale/M;
 END Shade;
 
-PROCEDURE probe(x,y,z: REAL):Voxel;
+(*PROCEDURE probe(p:PT):Voxel;
 VAR
 	X,Y,Z: REAL;
 	i,j,k: LONGINT;
 BEGIN
-	XNXLBase.clamp3(x,y,z);
-	X := x*M; Y := y*M; Z := z*M;
+	X := p.x*M; Y := p.y*M; Z := p.z*M;	
 	i := ENTIER(X); 
 	j := ENTIER(Y);
 	k := ENTIER(Z);
-	IF blox[i,j,k]#NIL THEN RETURN(blox[i,j,k].probe(X-i, Y-j, Z-k)) END;
+	IF blox[i,j,k]#NIL THEN RETURN(blox[i,j,k].probe(Base.mkPT(X-i, Y-j, Z-k))) END;
 	RETURN(SELF);
 END probe;
-
-PROCEDURE passprobe(x,y,z: REAL):BOOLEAN;
+*)
+PROCEDURE passprobe(p:PT):BOOLEAN;
 VAR
 	X,Y,Z: REAL;	
 	i,j,k: LONGINT;
 BEGIN
-	XNXLBase.clamp3(x,y,z);
-	X := x*M; Y := y*M; Z := z*M;
+(*	X := p.x*M; Y := p.y*M; Z := p.z*M;
 	i := ENTIER(X); 
 	j := ENTIER(Y);
 	k := ENTIER(Z);
 	IF blox[i,j,k]=NIL THEN 
 		RETURN TRUE
 	ELSE
-		RETURN(blox[i,j,k].passprobe(X-i, Y-j, Z-k)) 
-	END
+		RETURN(blox[i,j,k].passprobe(Base.mkPT(X-i, Y-j, Z-k))) 
+	END *)
 END passprobe;
 
 PROCEDURE stroke*(p:PT; resolution:LONGINT; voxel:Voxel);
@@ -295,7 +294,7 @@ VAR
 	c: cell;
 	v:Voxel;
 BEGIN
-	XNXLBase.clamPT(p);
+	Base.clamPT(p);
 	 strokerec(p,resolution,1,voxel);
 END stroke;
 
@@ -333,7 +332,7 @@ END strokerec;
 
 PROCEDURE clear*(p:PT; level: LONGINT);
 BEGIN
-	IF  (level>=1) & XNXLBase.inzerodotdotonePT(p) THEN
+	IF  (level>=1) & Base.inzerodotdotonePT(p) THEN
 		clearrec(p, level);
 	END
 END clear;
@@ -342,7 +341,7 @@ PROCEDURE clearrec(p:PT; level: LONGINT);
 VAR
 	i,j,k: LONGINT;
 BEGIN
-	XNXLBase.clamPT(p);
+	Base.clamPT(p);
 	p.x:=p.x*M;
 	p.y:=p.y*M;
 	p.z:=p.z*M;
@@ -351,10 +350,10 @@ BEGIN
 		(* we're here. *)
 		blox[i,j,k]:=NIL
 	ELSE
-		IF blox[i,j,k]#NIL THEN
+	(*	IF blox[i,j,k]#NIL THEN
 			blox[i,j,k].clearrec(p,level-1)
 		END
-	END
+*)	END
 END clearrec;
 
 PROCEDURE line*(a,b: PT; level: LONGINT; v: Voxel);
@@ -374,11 +373,11 @@ BEGIN
 		delta := 0;
 	END;
 	IF delta > 0 THEN
-		n := ENTIER(XNXLBase.distance(a,b)/delta);
+		n := ENTIER(Base.distance(a,b)/delta);
 		tx := b.x; ty := b.y; tz := b.z;
 		dxdt := (a.x-b.x)/n; dydt := (a.y-b.y)/n; dzdt := (a.z-b.z)/n; 
 		FOR t := 0 TO n DO
-			XNXLBase.setPT(p,tx, ty, tz);
+			Base.setPT(p,tx, ty, tz);
 			stroke(p, level,v);
 			tx := tx + dxdt; ty := ty + dydt; tz := tz+dzdt;
 		END		
@@ -403,11 +402,11 @@ BEGIN
 		delta := 0;
 	END;
 	IF delta > 0 THEN
-		n := ENTIER(XNXLBase.distance(a,b)/delta);
+		n := ENTIER(Base.distance(a,b)/delta);
 		tx := b.x; ty := b.y; tz := b.z;
 		dxdt := (a.x-b.x)/n; dydt := (a.y-b.y)/n; dzdt := (a.z-b.z)/n; 
 		FOR t := 0 TO n DO
-			XNXLBase.setPT(p,tx, ty, tz);
+			Base.setPT(p,tx, ty, tz);
 			stroke(p, level,v);
 			tx := tx + dxdt; ty := ty + dydt; tz := tz+dzdt;
 		END		
@@ -437,14 +436,13 @@ BEGIN
 				IF blox[i,j,k]=NIL THEN 
 					NEW(newcell);
 					blox[i,j,k]:=newcell;
-					newcell.setcolor(red,green,blue,black);
-					newcell.substance:=substance;
+					newcell.setcolor(red,green,blue,black,1);
 					newcell.imposter:=f.getimposter(p);
 					newcell.FRasterrec(f,resolution,o,nextscale);
 				ELSE
 				 	v:=blox[i,j,k];  (* compiler disallows type tests and guards on array elements *)
-				 	IF v IS XNXLFRep.MSV THEN
-				 		WITH v:XNXLFRep.MSV DO
+				 	IF v IS Base.Cell THEN
+				 		WITH v:Base.Cell DO
 				 			v.FRasterrec(f,resolution,o,nextscale);
 				 		END
 				 	END
@@ -495,14 +493,13 @@ BEGIN
 				IF blox[i,j,k]=NIL THEN
 					NEW(newcell);
 					blox[i,j,k]:=newcell;
-					newcell.setcolor(red,green,blue,black);
+					newcell.setcolor(red,green,blue,black,1);
 					newcell.imposter:=f.getimposter(p);
-					newcell.substance:=substance;
 					newcell.FRasterrecSolid(f,resolution,o,nextscale);
 				ELSE
 				 	v:=blox[i,j,k];  (* compiler disallows type tests and guards on array elements *)
-				 	IF v IS XNXLFRep.MSV THEN
-				 		WITH v:XNXLFRep.MSV DO
+				 	IF v IS Base.Cell THEN
+				 		WITH v:Base.Cell DO
 				 			v.FRasterrecSolid(f,resolution,o,nextscale);
 				 		END
 				 	END
@@ -549,7 +546,7 @@ VAR c: cell;
 	i,j,k: INTEGER;
 BEGIN
 	NEW(c);
-	c.setcolor(red,green,blue,black);
+	c.setcolor(red,green,blue,black,alpha);
 	FOR i:=0 TO MMO DO
 		FOR j := 0 TO MMO DO
 			FOR k := 0 TO MMO DO
@@ -591,8 +588,8 @@ TYPE sky*= OBJECT(cell);
 
 PROCEDURE Shade (VAR ray: Ray);
 VAR
-	pushxyz, newxyz, xyz: XNXLBase.PT;
-	ijk: XNXLBase.IPT;
+	pushxyz, newxyz, xyz: Base.PT;
+	ijk: Base.IPT;
 	drx, dry, drz, dr,rr,gr,br,blr: REAL;
 	out,shadenil,A,B,C: BOOLEAN;
 	v: Voxel;
@@ -607,7 +604,7 @@ BEGIN
 	XNXLE.E(xyz,ijk);
 	bounds(ijk.i,ijk.j,ijk.k,out);
 	IF ~out  THEN
-		IF (ray.length*ray.length*ray.scale>XNXLBase.DTL) THEN
+		IF (ray.length*ray.length*ray.scale>Base.DTL) THEN
 			v:=imposter
 		ELSE	
 			v:= blox[ijk.i,ijk.j,ijk.k]
@@ -616,7 +613,7 @@ BEGIN
 			ray.lxyz.x := ABS(xyz.x - ijk.i);  
 			ray.lxyz.y := ABS(xyz.y - ijk.j);
 			ray.lxyz.z := ABS(xyz.z - ijk.k);
-			ray.popdelta := XNXLBase.Origin; (* because many shaders don't set it and it *)
+			ray.popdelta := Base.Origin; (* because many shaders don't set it and it *)
 			v.Shade(ray);					(* must be (0,0,0) in that case       *)
 			xyz.x := xyz.x + ray.popdelta.x;    
 			xyz.y := xyz.y + ray.popdelta.y;
@@ -646,44 +643,44 @@ BEGIN
 				dr := drx;
 				IF ray.di THEN 
 					INC(ijk.i, 1);
-					ray.face := 1; ray.normal:= XNXLBase.Face[0] 
+					ray.face := 1; ray.normal:= Base.Face[0] 
 				ELSE 
 					INC(ijk.i, -1);
-					ray.face := 4; ray.normal:= XNXLBase.Face[3] 
+					ray.face := 4; ray.normal:= Base.Face[3] 
 				END;
 				newxyz.x := xyz.x + drx * ray.dxyz.x; newxyz.y := xyz.y + drx * ray.dxyz.y; newxyz.z  := xyz.z + drx * ray.dxyz.z	
 			ELSIF A&~B THEN
 				dr := drz;
 				IF ray.dk THEN 
 					INC(ijk.k, 1);
-					ray.face := 3; ray.normal:= XNXLBase.Face[2] 
+					ray.face := 3; ray.normal:= Base.Face[2] 
 				ELSE
 					INC(ijk.k, -1);
-					ray.face := 6; ray.normal:= XNXLBase.Face[5]
+					ray.face := 6; ray.normal:= Base.Face[5]
 				END;
 				newxyz.x := xyz.x + drz * ray.dxyz.x; newxyz.y := xyz.y + drz * ray.dxyz.y; newxyz.z  := xyz.z + drz * ray.dxyz.z
 			ELSIF C THEN
 				dr := dry;
 				IF ray.dj THEN 
 					INC(ijk.j, 1);
-					ray.face := 2; ray.normal:= XNXLBase.Face[1] 
+					ray.face := 2; ray.normal:= Base.Face[1] 
 				ELSE 
 					INC(ijk.j, -1);
-					ray.face := 5; ray.normal:= XNXLBase.Face[4] 
+					ray.face := 5; ray.normal:= Base.Face[4] 
 				END;
 				newxyz.x := xyz.x + dry * ray.dxyz.x; newxyz.y := xyz.y + dry * ray.dxyz.y; newxyz.z  := xyz.z+ dry * ray.dxyz.z
 			ELSE
 				dr := drz;		
 				IF ray.dk  THEN 
 					INC(ijk.k, 1);
-					ray.face := 3; ray.normal:= XNXLBase.Face[2] 
+					ray.face := 3; ray.normal:= Base.Face[2] 
 				ELSE
 					INC(ijk.k, -1);
-					ray.face := 6; ray.normal:= XNXLBase.Face[5]
+					ray.face := 6; ray.normal:= Base.Face[5]
 				END;
 				newxyz.x := xyz.x + drz * ray.dxyz.x; newxyz.y := xyz.y + drz * ray.dxyz.y; newxyz.z  := xyz.z + drz * ray.dxyz.z
 			END;
-			vdepth:=XNXLBase.distance(newxyz,xyz);
+			vdepth:=Base.distance(newxyz,xyz);
 			xyz:=newxyz;
 			vdepth:=vdepth/ray.scale;
 			ray.length:=ray.length+vdepth;
@@ -695,11 +692,11 @@ BEGIN
 				ray.ra := (ray.ra-rr)-blr;
 				ray.ga := (ray.ga-gr)-blr;
 				ray.ba := (ray.ba-br)-blr; 	
-				XNXLBase.clamp3(ray.ra,ray.ga,ray.ba);
+				Base.clamp3(ray.ra,ray.ga,ray.ba);
 			END;			
 			bounds(ijk.i,ijk.j,ijk.k, out);
 			IF ~out  THEN
-				IF (ray.length*ray.length*ray.length*ray.scale>XNXLBase.DTL) THEN
+				IF (ray.length*ray.length*ray.length*ray.scale>Base.DTL) THEN
 					v:=imposter
 				ELSE	
 					v:= blox[ijk.i,ijk.j,ijk.k]
@@ -709,7 +706,7 @@ BEGIN
 					ray.lxyz.x := ABS(xyz.x - ijk.i);  
 					ray.lxyz.y := ABS(xyz.y - ijk.j);
 					ray.lxyz.z := ABS(xyz.z - ijk.k);
-					ray.popdelta := XNXLBase.Origin; (* because many shaders don't set it and it *)
+					ray.popdelta := Base.Origin; (* because many shaders don't set it and it *)
 					v.Shade(ray);					(* must be (0,0,0) in that case       *)
 					xyz.x := xyz.x + ray.popdelta.x;    
 					xyz.y := xyz.y + ray.popdelta.y;
@@ -745,8 +742,8 @@ END mirror;
 
 PROCEDURE Shade (VAR ray: Ray);
 VAR
-	pushxyz, newxyz, xyz: XNXLBase.PT;
-	ijk: XNXLBase.IPT;
+	pushxyz, newxyz, xyz: Base.PT;
+	ijk: Base.IPT;
 	drx, dry, drz, dr,rr,gr,br,blr: REAL;
 	out,shadenil,A,B,C: BOOLEAN;
 	v: Voxel;
@@ -761,7 +758,7 @@ BEGIN
 	XNXLE.E(xyz,ijk);
 	bounds(ijk.i,ijk.j,ijk.k,out);
 	IF ~out  THEN
-		IF (ray.length*ray.length*ray.scale>XNXLBase.DTL) THEN
+		IF (ray.length*ray.length*ray.scale>Base.DTL) THEN
 			v:=imposter
 		ELSE	
 			v:= blox[ijk.i,ijk.j,ijk.k]
@@ -770,7 +767,7 @@ BEGIN
 			ray.lxyz.x := ABS(xyz.x - ijk.i);  
 			ray.lxyz.y := ABS(xyz.y - ijk.j);
 			ray.lxyz.z := ABS(xyz.z - ijk.k);
-			ray.popdelta := XNXLBase.Origin; (* because many shaders don't set it and it *)
+			ray.popdelta := Base.Origin; (* because many shaders don't set it and it *)
 			v.Shade(ray);					(* must be (0,0,0) in that case       *)
 			xyz.x := xyz.x + ray.popdelta.x;    
 			xyz.y := xyz.y + ray.popdelta.y;
@@ -800,44 +797,44 @@ BEGIN
 				dr := drx;
 				IF ray.di THEN 
 					INC(ijk.i, 1);
-					ray.face := 1; ray.normal:= XNXLBase.Face[0] 
+					ray.face := 1; ray.normal:= Base.Face[0] 
 				ELSE 
 					INC(ijk.i, -1);
-					ray.face := 4; ray.normal:= XNXLBase.Face[3] 
+					ray.face := 4; ray.normal:= Base.Face[3] 
 				END;
 				newxyz.x := xyz.x + drx * ray.dxyz.x; newxyz.y := xyz.y + drx * ray.dxyz.y; newxyz.z  := xyz.z + drx * ray.dxyz.z	
 			ELSIF A&~B THEN
 				dr := drz;
 				IF ray.dk THEN 
 					INC(ijk.k, 1);
-					ray.face := 3; ray.normal:= XNXLBase.Face[2] 
+					ray.face := 3; ray.normal:= Base.Face[2] 
 				ELSE
 					INC(ijk.k, -1);
-					ray.face := 6; ray.normal:= XNXLBase.Face[5]
+					ray.face := 6; ray.normal:= Base.Face[5]
 				END;
 				newxyz.x := xyz.x + drz * ray.dxyz.x; newxyz.y := xyz.y + drz * ray.dxyz.y; newxyz.z  := xyz.z + drz * ray.dxyz.z
 			ELSIF C THEN
 				dr := dry;
 				IF ray.dj THEN 
 					INC(ijk.j, 1);
-					ray.face := 2; ray.normal:= XNXLBase.Face[1] 
+					ray.face := 2; ray.normal:= Base.Face[1] 
 				ELSE 
 					INC(ijk.j, -1);
-					ray.face := 5; ray.normal:= XNXLBase.Face[4] 
+					ray.face := 5; ray.normal:= Base.Face[4] 
 				END;
 				newxyz.x := xyz.x + dry * ray.dxyz.x; newxyz.y := xyz.y + dry * ray.dxyz.y; newxyz.z  := xyz.z+ dry * ray.dxyz.z
 			ELSE
 				dr := drz;		
 				IF ray.dk  THEN 
 					INC(ijk.k, 1);
-					ray.face := 3; ray.normal:= XNXLBase.Face[2] 
+					ray.face := 3; ray.normal:= Base.Face[2] 
 				ELSE
 					INC(ijk.k, -1);
-					ray.face := 6; ray.normal:= XNXLBase.Face[5]
+					ray.face := 6; ray.normal:= Base.Face[5]
 				END;
 				newxyz.x := xyz.x + drz * ray.dxyz.x; newxyz.y := xyz.y + drz * ray.dxyz.y; newxyz.z  := xyz.z + drz * ray.dxyz.z
 			END;
-			vdepth:=XNXLBase.distance(newxyz,xyz);
+			vdepth:=Base.distance(newxyz,xyz);
 			xyz:=newxyz;
 			ray.length:=ray.length+vdepth;
 			IF TRUE THEN
@@ -848,11 +845,11 @@ BEGIN
 				ray.ra := (ray.ra-rr)-blr;
 				ray.ga := (ray.ga-gr)-blr;
 				ray.ba := (ray.ba-br)-blr; 	
-				XNXLBase.clamp3(ray.ra,ray.ga,ray.ba);
+				Base.clamp3(ray.ra,ray.ga,ray.ba);
 			END;			
 			bounds(ijk.i,ijk.j,ijk.k, out);
 			IF ~out  THEN
-				IF (ray.length*ray.length*ray.length*ray.scale>XNXLBase.DTL) THEN
+				IF (ray.length*ray.length*ray.length*ray.scale>Base.DTL) THEN
 					v:=imposter
 				ELSE	
 					v:= blox[ijk.i,ijk.j,ijk.k]
@@ -862,7 +859,7 @@ BEGIN
 					ray.lxyz.x := ABS(xyz.x - ijk.i);  
 					ray.lxyz.y := ABS(xyz.y - ijk.j);
 					ray.lxyz.z := ABS(xyz.z - ijk.k);
-					ray.popdelta := XNXLBase.Origin; (* because many shaders don't set it and it *)
+					ray.popdelta := Base.Origin; (* because many shaders don't set it and it *)
 					v.Shade(ray);					(* must be (0,0,0) in that case       *)
 					xyz.x := xyz.x + ray.popdelta.x;    
 					xyz.y := xyz.y + ray.popdelta.y;

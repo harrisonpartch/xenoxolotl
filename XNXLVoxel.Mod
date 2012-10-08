@@ -450,12 +450,12 @@ VAR
 	ecount: INTEGER;
 BEGIN
 	CASE ray.face OF
-		 1: lx := ray.lxyz.y; ly := ray.lxyz.z; 
-		|2: lx := ray.lxyz.x; ly := ray.lxyz.z; 
-		|3: lx := ray.lxyz.x; ly := ray.lxyz.y;
-		|4: lx := ray.lxyz.y; ly := ray.lxyz.z; 
-		|5: lx := ray.lxyz.x; ly := ray.lxyz.z; 
-		|6: lx := ray.lxyz.x; ly := ray.lxyz.y;  
+		 0: lx := ray.lxyz.y; ly := ray.lxyz.z; 
+		|1: lx := ray.lxyz.x; ly := ray.lxyz.z; 
+		|2: lx := ray.lxyz.x; ly := ray.lxyz.y;
+		|3: lx := ray.lxyz.y; ly := ray.lxyz.z; 
+		|4: lx := ray.lxyz.x; ly := ray.lxyz.z; 
+		|5: lx := ray.lxyz.x; ly := ray.lxyz.y;  
 	ELSE
 	END;
 	x := lx*Z; y := ly*Z;

@@ -9,6 +9,7 @@ TYPE Ray = XNXLBase.Ray;
 VAR 
 	ball: XNXLFRep.sphere;
 	n3ball: M3.cell;
+	v:Voxel;
 	center:  PT;
 PROCEDURE thisvox*():XNXLBase.Voxel;
 BEGIN
@@ -16,11 +17,13 @@ BEGIN
 END thisvox;
 
 BEGIN
+	v:=XNXLBase.VoxelFromName("N6illtDKEH5g6dsUifexH1Q"); 
 	XNXLBase.setPT(center,1/2,1/2,1/2);
 	NEW(ball,center,6.5/12);
 	ball.setcolor(0,1,0.2);
+	ball.setvoxel(v);
 	NEW(n3ball);
-	n3ball.FRaster(ball,81);
+	n3ball.FRaster(ball,9);
 	n3ball.DTL:=10000;
 	n3ball.frozen:=TRUE 
 END NnviGAernhjFK40xASZZVoQ. 

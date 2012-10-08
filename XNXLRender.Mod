@@ -3,7 +3,7 @@ IMPORT SYSTEM, Kernel, Modules,Objects, Random, XNXLMarsh,
  Out := KernelLog, Math, Base:=XNXLBase,  XNXLMath,  XNXLRetina,Heaps,
 	 X11,  Api := X11Api, GL:=OpenGL, GLC := OpenGLConst, Inputs, KS := X11KeySymDef, V := XF86VMode;
 
-CONST PX=2; (* image size multiplier *)
+CONST PX=3; (* image size multiplier -- must be 3 for coorect foveation! *)
 	ML = 0;  MM = 1;  MR = 2;
 	Button1Bit = 8; Button2Bit = 9; Button3Bit =10;
 	ShiftKeyBit = 0;  ShiftLokBit = 1;  ControlKeyBit = 2;  Mod1KeyBit = 3;
@@ -353,13 +353,14 @@ BEGIN
 	a:=FWard.x*Base.cursordist; b:=FWard.y*Base.cursordist; c:=FWard.z*Base.cursordist;
 	Base.updatecamera(cx,cy,cz,a,b,c);	
 	IF SCULL THEN GLIDE:=0.7 ELSE GLIDE:=0.65 END;		
-	cvz := cvz*GLIDE-Base.gravity;	cvx := cvx*GLIDE; cvy := cvy*GLIDE; 
+	cvz := cvz*GLIDE(*-Base.gravity*);	cvx := cvx*GLIDE; cvy := cvy*GLIDE; 
 	cvl :=cvl*0.0; cvu := cvu*0.0;
 	initrays;
 	IF MOUSEDOWN THEN
 		IF MB=3 THEN 
+			XNXLMarsh.drawcursor; 
 			XNXLMarsh.draw 
-		ELSIF MB=1 THEN XNXLMarsh.clear
+		ELSIF MB=1 THEN XNXLMarsh.draw
 		END;
 	END;	
 	trace;
@@ -387,8 +388,6 @@ VAR
 	pointerx, pointerdx, pointery, pointerdy: LONGINT;
 	R1,R2: REAL;
 	xbuttons: SET;
-	timeStart: LONGINT;   (* milliseconds *)
-	timer: Kernel.Timer;
 	compstatus: X11.ComposeStatus;
 	update: LONGINT;
 	MMseen, MRseen: BOOLEAN;	
@@ -426,7 +425,7 @@ VAR
 	centerx,centery: LONGINT;
 	MB:INTEGER;
 	GLIDE:REAL;
-	
+
 PROCEDURE angletoray(VAR ray: Base.Ray; theta,phi: REAL);
 VAR d: REAL;
 BEGIN
@@ -826,7 +825,7 @@ BEGIN
 		| KS.XK_q1: camera.downstrafe(0.51)	
 		| KS.XK_Escape: IF CAPTUREMOUSE THEN 
 							CAPTUREMOUSE := FALSE;
-							PAUSE:=TRUE
+							PAUSE:=TRUE 
 						ELSE
 							(* alive:=FALSE *)
 						END
@@ -841,7 +840,7 @@ BEGIN
 		| KS.XK_m1: leftsticky:=leftsticky/1.3; upsticky:=upsticky/1.3;
 		| KS.XK_t1: camera.glidetoggle 
 		| KS.XK_v1:XNXLMarsh.engrain
-		| KS.XK_c1:XNXLMarsh.sprout
+(*		| KS.XK_c1:XNXLMarsh.sprout *)
 		| KS.XK_x1: XNXLMarsh.incVN;
 		| KS.XK_z1: XNXLMarsh.decVN;		
 		| KS.XK_2 : Base.DTL:= ENTIER(3*Base.DTL/2)	+1
@@ -853,7 +852,7 @@ BEGIN
 		| KS.XK_bracketleft: camera.aperture.width := camera.aperture.width * 99/101; camera.aperture.height := camera.aperture.height *99/101
 		| KS.XK_period: camera.stop
 		| KS.XK_9: IF XNXLMarsh.cursorsize<9999 THEN XNXLMarsh.cursorsize:=XNXLMarsh.cursorsize * 3; Base.cursordist:=Base.cursordist/2 END
-		| KS.XK_0: IF XNXLMarsh.cursorsize>81 THEN XNXLMarsh.cursorsize:=XNXLMarsh.cursorsize DIV 3; Base.cursordist:=Base.cursordist*2 END
+		| KS.XK_0: IF XNXLMarsh.cursorsize>9 THEN XNXLMarsh.cursorsize:=XNXLMarsh.cursorsize DIV 3; Base.cursordist:=Base.cursordist*2 END
 		| KS.XK_7: Base.cursordist:=Base.cursordist*1.3
 		| KS.XK_8: Base.cursordist:=Base.cursordist/1.3
 		| KS.XK_Control_L: SCULL:=~SCULL	
@@ -870,7 +869,7 @@ VAR
 BEGIN
 	left:=x*x;
 	up:=y*y;
-	IF (left+up)>10 THEN XNXLRetina.SACCADE:=TRUE ELSE XNXLRetina.SACCADE:=FALSE END;
+(*	IF (left+up)>5000 THEN XNXLRetina.SACCADE:=TRUE ELSE XNXLRetina.SACCADE:=FALSE END; *)
 	IF ~SCULL THEN GLIDE:=0.9 ELSE  GLIDE:=0.5 END;
 	IF x<0 THEN	
 		IF ~SCULL THEN 
@@ -941,8 +940,8 @@ BEGIN
 		GL.glOrtho(0,Base.W*PX, Base.H*PX,0,0,1);
 		GL.glMatrixMode(GLC.GL_MODELVIEW);
 		GL.glLoadIdentity();	
-		i3:=0;
 		GL.glBegin(GLC.GL_QUADS);	
+		i3:=0;
 		FOR i:= 0 TO Base.W-1 DO 
 			j3:=0; 
 			FOR j := 0 TO Base.H-1 DO	
@@ -955,7 +954,7 @@ BEGIN
 			END;
 			i3:=i3+PX
 		END;
-		IF ~(TRUE OR XNXLRetina.SACCADE OR XNXLRetina.SACCADE1)THEN
+(*		IF ~(XNXLRetina.SACCADE OR XNXLRetina.SACCADE1) THEN *)
 			i3:=Base.W;
 			FOR i:= 0 TO Base.W-1 DO 
 				j3:=Base.H;
@@ -968,8 +967,8 @@ BEGIN
 					j3:=j3+1
 				END;
 				i3:=i3+1 
-			END
-		END;
+			END;
+(*		END; *)
         GL.glColor3f(Base.rand.Uniform(),Base.rand.Uniform(),Base.rand.Uniform());
         w:=PX*Base.W/2; h:=PX*Base.H/2;
         GL.glVertex2f(w-1,h-1); 
@@ -981,15 +980,20 @@ BEGIN
 END draw;
 
 PROCEDURE mainloop;
+VAR
+	timer: Kernel.Timer;
+	ftimer: Kernel.MilliTimer;
+	framems: LONGINT;
 BEGIN
 	alive:=TRUE;
+	NEW(timer);
 	NEW(rand);
-	WHILE alive DO	
+	WHILE alive DO
+		Kernel.SetTimer(ftimer,100);
 		camera.tick; 
 		draw;
-		IF PAUSE THEN
-			timer.Sleep(100)
-		END;
+		framems:=Kernel.Elapsed(ftimer);
+		IF framems<35 THEN timer.Sleep(35-framems) END;
 		PollXQueue; 
 	END;
 END mainloop;	
@@ -999,7 +1003,6 @@ BEGIN
 	Out.Char('*');	
 	InitWindow(PX*Base.W, PX*Base.H,'XENOXOLOTL' );	
 	InitGL; 	
-	NEW(timer); 
 	XNXLMarsh.dawn;	
 	alive:=TRUE;
 	NEW(rand);
@@ -1020,8 +1023,8 @@ BEGIN
 	centerx:=200;
 	centery:=200;
 	fogdensity:=0.11;
-	leftsticky:=1.0;
-	upsticky:=1.0;	
+	leftsticky:=10.0;
+	upsticky:=10.0;	
 	NEW(camera,Base.W, Base.H); 
 	mainloop; 
 	Out.Char('*');

@@ -10,6 +10,45 @@ TYPE Voxel=Base.Voxel;
 	Color=Base.Color;  
 	VA=ARRAY 5 OF Voxel;
 
+TYPE vloop=OBJECT
+VAR
+	vox: Voxel;
+	prev,next: vloop;
+
+PROCEDURE &init;
+BEGIN
+	prev:=SELF; 
+	next:=SELF; 
+	NEW(vox);
+	vox.passable:=TRUE;
+END init;
+
+PROCEDURE push(v: Voxel):vloop;
+VAR
+	vl:vloop;
+BEGIN
+	vox:=v;
+	NEW(vl);
+	vl.prev:=SELF;
+	vl.next:=next;
+	next:=vl;
+	RETURN(next);
+END push;
+
+PROCEDURE clockwise():vloop;
+BEGIN
+	ASSERT(next#NIL);
+	RETURN next
+END clockwise;
+
+PROCEDURE anticlockwise():vloop;
+BEGIN
+	ASSERT(prev#NIL);
+	RETURN prev
+END anticlockwise;
+
+END vloop;
+
 TYPE mstroker=OBJECT
 VAR f: Files.File; w: Files.Writer;
 strokes: INTEGER;
@@ -56,13 +95,14 @@ END stroke;
 END mstroker;
 
 VAR
+	marshv: vloop;
 	Cursor: XNXLVoxel.BiVox;
 	cursormark: XNXLTexVox.TexCubeVox;
 	cursorsave,drawvox: Voxel;
 	cursorTF*,lines*:BOOLEAN;
 	ms: mstroker;
 	sfish,gxy,w10,w11,v,EMPTY,lobster, btx,ash, dotz, GREEN,PURPLE,MCUBE:Voxel;
-	rd,blu, die,gren,granite,sand,whiteblock,pdestroyer,axolotl,xen,sky1,sky2,tigerlily: Voxel;
+	rd,blu, die,gren,granite,sand,whiteblock,pdestroyer,axolotl,xen,sky1,sky2,tigerlily,cloud: Voxel;
 	die0,die1,die2,die3,die4,die5,etile0,etile1,etile2,etile3,etile4,grass,sparx:Voxel;
 	sky,dieone, serp,cthulhu,greenball,rat,conglomerate,conglo2: Voxel;
 	i,j,k,ii,jj,kk,iii,jjj,kkk,t,s: LONGINT;
@@ -73,7 +113,7 @@ VAR
 	red,blue,green: REAL;
 	EARTH: XNXLVoxel.DiffuseVox;
 	rand: Random.Generator;
-	z10: M3.torus;
+	z10: M3.cell;
 	q10,x10,y10: M3.cell;
 	YELLOW: XNXLVoxel.DiffuseVox;
 	BLACK,GREY, WHITE: XNXLVoxel.DiffuseVox;
@@ -132,8 +172,8 @@ VAR
 	p: PT;
 	ray: Base.Ray;
 BEGIN
-	
-	stroke(Base.cursorPT,cursorsize,Base.vlist[vN])
+	ASSERT(marshv#NIL);
+	stroke(Base.cursorPT,cursorsize,marshv.vox)
 END draw;
 
 PROCEDURE clear*;
@@ -141,7 +181,6 @@ VAR
 	p: PT;
 	ray: Base.Ray;
 BEGIN
-	drawcursor;	
 	stroke(Base.cursorPT,cursorsize,EMPTY)
 END clear;
 
@@ -164,6 +203,7 @@ VAR
 	v: Voxel;
 	d:REAL;
 BEGIN
+	Base.world.Shade(Base.rays[Base.W DIV 2, Base.H DIV 2]);
 	p:= Base.rays[Base.W DIV 2, Base.H DIV 2].xyz;
 	IF SNIPEINTO THEN
 		p.x:=p.x+Base.rays[Base.W DIV 2, Base.H DIV 2].dxyz.x/100000;
@@ -188,28 +228,17 @@ END drawHUD;
 
 PROCEDURE push*(v: Voxel);
 BEGIN
-	IF vlistN<98 THEN
-		Base.vlist[vlistN]:=v;
-		INC(vlistN);	
-	END
+	marshv:=marshv.push(v)
 END push;
 
 PROCEDURE incVN*;
 BEGIN
-	REPEAT
-		vN:=vN+1;
-	UNTIL (Base.vlist[vN]#NIL) OR (vN=vlistN);
-	vN:= vN MOD vlistN;
-	drawvox:=Base.vlist[vN];
+	marshv:=marshv.clockwise();
 END incVN;
 
 PROCEDURE decVN*;
 BEGIN
-	REPEAT
-		vN:=vN-1;
-	UNTIL (vN=-1) OR (Base.vlist[vN]#NIL);
-	vN:= vN MOD vlistN;
-	drawvox:=Base.vlist[vN];
+	marshv:=marshv.anticlockwise()
 END decVN;
 
 PROCEDURE drawavatar*;
@@ -261,18 +290,20 @@ BEGIN
 	Cursor.passable:=TRUE;
       rand:=Base.rand;	
       Out.String("EEEEP!");
-    	 dotz:=Base.VoxelFromName("Nahf6T7P6CYGfcImQTejDpg");	
+    	dotz:=Base.VoxelFromName("Nahf6T7P6CYGfcImQTejDpg");	
 	btx:=Base.VoxelFromName("NVY1hEGnyr7z8DtULRMOZIQ");	
-	GREEN:=Base.VoxelFromName("NIqy3HQ4ZK8iRwAXelYYnsQ");	
+	GREEN:=Base.VoxelFromName("NIXARXB2vH6ieKZmsc6mODg");	
 	ash:=Base.VoxelFromName("NDQ0mOQYqpYYaLXJy4MS8BQ");	(*leaves.png*)    
 	PURPLE:=Base.VoxelFromName("NMdslbwjsXFOAzH64DQMliA");	
 	MCUBE:=Base.VoxelFromName("Nr3kPtbyEYLFK3AN2UUVrqg");
 	lobster:=Base.VoxelFromName("NznGx2ySiHIGrO5t9Pzcw5Q"); 
 	gxy:=Base.VoxelFromName("NmOgKSH5ZXYP3DODELOkO7g"); 	
 	sfish:=Base.VoxelFromName("NcufbYokzVEuEfN5MYiDlhA"); 	
-	die:=Base.VoxelFromName("NCjgzkmiTyecI5x6eOgYqpQ"); 		
+	dieone:=Base.VoxelFromName("NCjgzkmiTyecI5x6eOgYqpQ"); 		
 	rd:=Base.VoxelFromName("NIXARXB2vH6ieKZmsc6mODg"); 	
+	cloud:=Base.VoxelFromName("NIXARXB2vH6ieKZmsc6mODh"); 	
 	gren:=Base.VoxelFromName("NUeconrGpx7plz7ym76ibLw"); 		
+	die:=Base.VoxelFromName("NCjgzkmiTyecI5x6eOgYqpQ"); 
 	granite:=Base.VoxelFromName("NH6nvNlOJNlCtpkDB56ljSw"); 	
 	sand:=Base.VoxelFromName("NnTJ6nDktAth4WTAUdr8HYQ"); 		
 	whiteblock:=Base.VoxelFromName("NwPicBWw4NfcserX4ELaQ3A"); 	
@@ -301,9 +332,11 @@ BEGIN
 	push(rat);
 	push(serp);
 	push(rd);
+	push(cloud);
 	push(blu);
 	push(gren);
-	push(MCUBE);
+	NEW(MIRROR);
+	push(MIRROR);
 	push(lobster);
 	push(dieone);	
 	push(GREEN);
@@ -327,75 +360,55 @@ BEGIN
 	push(conglomerate);
 	push(conglo2);
 	push(tigerlily);
-	
+	push(dieone);	
+	push(die); 
 	xaxis:=Base.mkPT(1,0,0);
 	yaxis:=Base.mkPT(0,1,0);	
 	zaxis:=Base.mkPT(0,0,1);	
 
 	NEW(LIFE,axolotl,NIL,die);
 	LIFE.passable:=TRUE;
-	push(LIFE);
+
+	NEW(cursormark, "harrisonavatar.png");
+	push(cursormark);	
 	Base.setPT(slant,1,1,1);
-	NEW(hs,tigerlily,center,slant);
-	push(hs);
 	NEW(z10);
+	z10.setcolor(0,0,1,1,0);
 	Base.setPT(center,1/2,1/2,1/2);
 	xaxis:=Base.mkPT(1,0,0);
 	yaxis:=Base.mkPT(0,1,0);	
 	zaxis:=Base.mkPT(0,0,1);	
 	NEW(plane,center,zaxis);
-	plane.setvoxel(conglomerate);	
+	plane.setvoxel(whiteblock);	
 	NEW(noise);
-	noise.setvoxel(granite);
+	noise.setvoxel(grass);
 	noise.seed:=54362;
 	noise.octaves:=4;
-	noise.persistence:=5;
-	noise.a:=3;
-	noise.b:=3;
-	noise.c:=3;
-	z10.FRasterSolid(plane,27);		
-	z10.FRasterSolid(noise,81);		
-	NEW(noise);
+	noise.persistence:=3;
+	noise.a:=1;
+	noise.b:=1;
+	noise.c:=1;		
+	z10.FRaster(noise,28);
+
 	noise.setvoxel(sand);
 	noise.seed:=54362;
-	noise.octaves:=4;
-	noise.persistence:=5;
-	noise.a:=6;
-	noise.b:=6;
-	noise.c:=6;   
-	z10.setcolor(1,1,1,1,1);
-	z10.FRasterSolid(noise,81);		
-      Base.setPT(center,1/2,1/2,1/2);
+	noise.octaves:=5;
+	noise.persistence:=4;
+	noise.a:=1;
+	noise.b:=1;
+	noise.c:=1;		
+	z10.FRaster(noise,28);		
+
 	Base.world:=z10; 	
-	engrain;  
+(*	engrain;  
 	sprout;	
 	push(Base.world);
-	NEW(cursormark,"harrisonavatar.png");
-	push(cursormark);
-	NEW(x10);
-	NEW(Q,x10,xaxis,zaxis,0.012,0.015);	
-	x10.stroke(center,3,rd);
-	Cursor.v1:=EMPTY;
-	Base.setPT(center,1/2,1/2,1/2);
-	NEW(x10);
-	FOR i:=0 TO 1000 DO
-		x10.stroke(Base.randPT(),28,sparx);
-	END;
-	x10.stroke(center,1,rd);	
-	NEW(Q,x10,xaxis,zaxis,0.02,0.01);	
-	Q.passable:=FALSE;
-	push(Q);
-	push(x10);
-	NEW(manifesto,"manifesto.png");
-	manifesto.tscale.x:=243*243*9;
-	manifesto.tscale.y:=243*243*9;
-	manifesto.tscale.z:=243*243*9;
-	push(manifesto);
-	sparx.passable:=TRUE;
-	sparx.emptysplit:=TRUE;
+*)
+
 END dawn;
 
 BEGIN
+	NEW(marshv);
 	cursorsize:=243*9;
 	cursorTF:=TRUE;
 	SNIPEINTO:=TRUE;

@@ -116,19 +116,19 @@ BEGIN
 		NEW(leaf,'leaf.png'); 
 		NEW(granite,'granite.png'); 		
 		NEW(blue);
-		blue.setcolor(0,0,1,1/2);
-		blue.passable:=TRUE;
+		blue.setcolor(1,1,1,1/2);
+		blue.passable:=FALSE;
 		NEW(rserp);
 		rserp.passable:=FALSE;
 		rserp.lockTF:=TRUE; 
 		rserp.fill(rserp);
-		rserp.blox[1,1,0]:=blue;
-		rserp.blox[1,1,2]:=blue;
-		rserp.blox[0,1,1]:=blue;
-		rserp.blox[2,1,1]:=blue;
-		rserp.blox[1,0,1]:=blue;
-		rserp.blox[1,2,1]:=blue;
-		rserp.blox[1,1,1]:=blue;			
+		rserp.blox[1,1,0]:=granite;
+		rserp.blox[1,1,2]:=granite;
+		rserp.blox[0,1,1]:=granite;
+		rserp.blox[2,1,1]:=granite;
+		rserp.blox[1,0,1]:=granite;
+		rserp.blox[1,2,1]:=granite;
+		rserp.blox[1,1,1]:=granite;			
 		rserp.imposter:=granite;
 		NEW(serp);
 		serp.passable:=TRUE;
@@ -152,6 +152,6 @@ BEGIN
 		thisserp.innard:=serp;
 		thisserp.register
 	END;
-	RETURN rserp
+	RETURN serp
 END thisvox;
  END NXWCxXWLIcD2LegvoGXXBiQ. 

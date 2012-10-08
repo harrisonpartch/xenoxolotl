@@ -62,6 +62,10 @@ BEGIN
 	img :=Graphics.LoadImage(n, TRUE); (* img format is BGRA8888 *)
 	IF img#NIL THEN 
 		W:=img.width-1; H:=img.height-1;
+	ELSE
+		img := Graphics.LoadImage("grain.png", TRUE); 
+		ASSERT(img#NIL);
+		W:=img.width-1; H:=img.height-1;
 	END;
 END init;
 
@@ -73,7 +77,7 @@ VAR
 BEGIN
 	IF img#NIL THEN
 		i:=ENTIER(x*W) MOD W; j:=ENTIER(y*H) MOD H;	
-    		   Raster.Get(img,i,j,p,copy);
+		Raster.Get(img,i,j,p,copy);
 		c.red := ORD(p[2])/255; c.green := ORD(p[1])/255; c.blue := ORD(p[0])/255; c.alpha:= ORD(p[3])/255;	
 	ELSE
 		c.red:=1; c.blue:=1;
@@ -137,7 +141,7 @@ TYPE Ray* = RECORD
 	normal*,bloxnorm*: PT;  
 	normalTF*: BOOLEAN;
 	corner*:PT;
-	dtl*: LONGINT;	
+	dtl*: REAL;	
 END; 
 
 TYPE RAYS*= POINTER TO ARRAY W, H OF Ray;
@@ -404,7 +408,7 @@ VAR
 	cursorvox*:Voxel;
 	aperture*: Aperture;
 	m2sdelta*,m3sdelta*:REAL;
-	DTL*,DTL2*: LONGINT;
+	DTL*,DTL2*: REAL;
 	avatar*:Voxel;
 	cursordist*:REAL;
 	RVR*:BOOLEAN;
@@ -848,6 +852,7 @@ BEGIN
 	fog := 1/10;
 	rlimit := 4;
 	iterlimit := 500;
+	DTL:=25;	
 	STOP:=TRUE;
 	Origin:=mkPT(0,0,0);   (* unneeded initialization *)
 	blankray.bla := 1;
@@ -857,6 +862,7 @@ BEGIN
 	blankray.scale := 1; 
 	blankray.length := 0;
 	blankray.tscale:=1;
+	blankray.dtl:=DTL;	
 	Face[0].x := 1; Face[0].y := 0; Face[0].z := 0; 
 	Face[3].x := -1; Face[3].y := 0; Face[3].z := 0; 
 	Face[1].x := 0; Face[1].y := 1; Face[1].z := 0; 
@@ -865,6 +871,5 @@ BEGIN
 	Face[5].x := 0; Face[5].y := 0; Face[5].z := -1; 	
 	m2sdelta:=25;
 	m3sdelta:=25;
-	DTL:=25;	
 	speed:=0.00051;
 END XNXLBase.
