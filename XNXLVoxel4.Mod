@@ -347,7 +347,7 @@ BEGIN
 		x := (a.x+b.x)/2; y := (a.y+b.y)/2; z := (a.z + b.z)/2;
 		d := d2(a.x, a.y, a.z);
 		IF d > D2 THEN
-			FOR i := 0 TO 12 DO
+			FOR i := 0 TO 24 DO
 				d := d2(x,y,z);
 				IF d < D2 THEN 
 					b.x := x; b.y := y; b.z := z
@@ -357,7 +357,7 @@ BEGIN
 				x := (a.x+b.x)/2; y := (a.y+b.y)/2; z := (a.z + b.z)/2;
 			END;
 		ELSE
-			FOR i := 0 TO 12 DO
+			FOR i := 0 TO 24 DO
 				d := d2(x,y,z);
 				IF d > D2 THEN 
 					b.x := x; b.y := y; b.z := z

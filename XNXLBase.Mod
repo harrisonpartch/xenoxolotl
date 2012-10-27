@@ -1,6 +1,6 @@
 MODULE XNXLBase;
 
-IMPORT  Math:=Math, Random, Out:=KernelLog (*DebugLog*), XNXL, 
+IMPORT  Math:=Math, Random, Kernel, Out:=KernelLog (*DebugLog*), Objects, XNXL, 
 Strings, Streams, WMFontManager, Raster, Graphics := WMGraphics, XNXLAudio;
 CONST
 	W*=XNXL.W;
@@ -9,14 +9,14 @@ CONST
 	W25*=W DIV 25;
 	H25*=H DIV 25;	
 	tiles*=W25*H25;
-	BPS*=9; 
+	BPS*=3; 
 	NL*=24;
 	
-TYPE Name* = ARRAY NL OF CHAR;
+TYPE Name*=ARRAY NL OF CHAR;
 
-TYPE PT*= RECORD
+TYPE PT*=RECORD
 	x*,y*,z*: REAL
-END
+END;
 
 TYPE FRF*=PROCEDURE(p:PT):BOOLEAN;
 
@@ -25,7 +25,7 @@ TYPE IPT*=RECORD
 END;
 
 TYPE BOX*=RECORD
-	p*,q*: PT;
+	p*,q*: PT
 END;
 
 TYPE Aperture* = RECORD
@@ -35,6 +35,46 @@ END;
 TYPE Color*=RECORD
 	red*,green*,blue*,alpha*: REAL
 END;
+
+TYPE NCube*=RECORD
+	normal*: PT; 
+	color*: Color
+END;
+
+TYPE Time*=RECORD
+	seconds*:LONGINT; (*global from server*)
+	s2cs*:LONGINT;
+	centisecs*:LONGINT
+END;
+
+TYPE Clock*=OBJECT
+VAR
+	timer: Kernel.Timer;
+	time*:Time;
+	i: INTEGER
+PROCEDURE&init;
+BEGIN
+	sync;
+	time.seconds:=0;
+	time.centisecs:=0
+END init;
+
+PROCEDURE sync;
+BEGIN
+	(* get time from server *)
+END sync;
+
+BEGIN{ACTIVE, PRIORITY(Objects.Normal)}         (*this will drift! must add server synch with each server message *)
+	NEW(timer);
+	REPEAT
+		FOR i:=0 TO 100 DO
+			INC(time.centisecs);
+			timer.Sleep(10)	
+		END;
+		INC(time.seconds);
+		timer.Sleep(10)
+	UNTIL FALSE
+END Clock;
 
 TYPE V*= OBJECT  (*abstract base type for voxel and texture and anything else that may animate *)
 PROCEDURE tick*;
@@ -130,10 +170,13 @@ TYPE Ray* = RECORD
 	texcube*:TexCube;
 	texcubeTF*:BOOLEAN;
 	r*, g*, b*, ra*, ga*, ba*, bla*,ulfire*: REAL; (* ulfire is an invisible color *)
+	rgb*: ARRAY 3,3 OF BPE;
+	beamTF*: BOOLEAN;
 	terminate*: BOOLEAN;
 	i*, j*, k*: INTEGER;
 	scale*,tscale*: REAL;
 	length*: REAL; 
+	len*:PT;
 	di*,dj*,dk*: BOOLEAN;
 	changed*: BOOLEAN; 
 	face*: INTEGER;
@@ -142,6 +185,7 @@ TYPE Ray* = RECORD
 	normalTF*: BOOLEAN;
 	corner*:PT;
 	dtl*: REAL;	
+	dtlTF*:BOOLEAN;
 END; 
 
 TYPE RAYS*= POINTER TO ARRAY W, H OF Ray;
@@ -177,11 +221,23 @@ PROCEDURE stroke*(p:PT; resolution: LONGINT; voxel:Voxel);
 END stroke;
 PROCEDURE strokerec*(p:PT; resolution,scale: LONGINT; voxel:Voxel);
 END strokerec;
+PROCEDURE nstroke*(p:PT; resolution: LONGINT; normal: PT; color: Color);
+END nstroke;
+PROCEDURE nstrokerec*(p:PT; resolution,scale: LONGINT; normal: PT; color: Color);
+END nstrokerec;
 PROCEDURE mstroke*(a,b,c: LONGINT; resolution: LONGINT; vname: Name);
 BEGIN
 END mstroke;
 PROCEDURE erase*(p:PT; resolution:LONGINT);
 END erase;
+PROCEDURE FRaster*( f: FR; resolution: LONGINT); 
+END FRaster;
+PROCEDURE FRasterrec*(f: FR; resolution: LONGINT; origin: PT; scale: LONGINT); 
+END FRasterrec;
+PROCEDURE FRasterSolid*( f: FR; resolution: LONGINT); 
+END FRasterSolid;
+PROCEDURE FRasterrecSolid*(f: FR; resolution: LONGINT; origin: PT; scale: LONGINT); 
+END FRasterrecSolid;
 PROCEDURE lock*;
 BEGIN
 	lockTF:=TRUE
@@ -232,29 +288,6 @@ END push;
 END VoxelList;
 *)
 
-TYPE NCube*=OBJECT(Voxel);
-VAR
-	normal: PT; 
-	color: Color;
-	
-PROCEDURE Shade (VAR ray: Ray);
-VAR
-	dot,omm,r,g,b,bl: REAL;	
-BEGIN
-	dot := ABS(normal.x*ray.dxyz.x + normal.y*ray.dxyz.y+ normal.z*ray.dxyz.z); 
-	ray.r := ray.r + color.red * ray.ra*dot;
-	ray.g := ray.g + color.green * ray.ga*dot;
-	ray.b := ray.b + color.blue * ray.ba*dot; 		
-	ray.terminate:=TRUE
-END Shade;
-
-PROCEDURE&init*(n: PT; c: Color);
-BEGIN
-	normal:=n;
-	color:= c;
-END init;
-
-END NCube;
 
 TYPE Cell*=OBJECT(Voxel);
 VAR 
@@ -292,7 +325,7 @@ VAR
 	scale*: REAL; 	(*might be needed as this object is handed down to mcell levels in v-rasterization*)
 	vox*,imposter*: Voxel;
 	mir*: REAL;
-	color*:Color;
+	cxolor*:Color;
 	allowdeath*,passable*:BOOLEAN;
 	
 PROCEDURE in*(p:PT):BOOLEAN;
@@ -335,12 +368,12 @@ END setvoxel;
 
 PROCEDURE setcolor*(r,g,b: REAL);  
 BEGIN
-	color.red:=r; color.green:=g; color.blue:=b; 
+	cxolor.red:=r; cxolor.green:=g; cxolor.blue:=b; 
 END setcolor;
 
 PROCEDURE getcolor*(p:PT):Color;
 BEGIN
-	RETURN color
+	RETURN cxolor
 END getcolor;
 
 PROCEDURE setimposter*(v:Voxel);  
@@ -363,10 +396,12 @@ BEGIN
 	RETURN vox
 END voxel;
 
-PROCEDURE ncube*(p:PT):Voxel;
+PROCEDURE color*(p:PT):Color;
+VAR
+	c: Color;
 BEGIN	
-	RETURN NIL			
-END ncube;
+	RETURN c		
+END color;
 
 PROCEDURE death*(p:PT):BOOLEAN;
 BEGIN
@@ -384,6 +419,7 @@ TYPE P=PROCEDURE (v:Voxel):Voxel;
 
 VAR
 	voxelist: ARRAY 100 OF V;
+	clock*: Clock;
 	fog*:REAL;
 	rlimit*: INTEGER;
 	iterlimit*: LONGINT;
@@ -404,17 +440,19 @@ VAR
 	image*, fimage:IMAGE;
 	world*:Cell;
 	injection*: Voxel;
-	cameraPT*,cursorPT*,previouscursorPT*,Origin*: PT;
+	cameraPT*,cursorPT*,previouscursorPT*,previouscameraPT*,Origin*: PT;
 	cursorvox*:Voxel;
 	aperture*: Aperture;
 	m2sdelta*,m3sdelta*:REAL;
 	DTL*,DTL2*: REAL;
+	frameblack*:REAL;
 	avatar*:Voxel;
 	cursordist*:REAL;
 	RVR*:BOOLEAN;
 	vlist*: ARRAY 100 OF Voxel;
 	copy*: Raster.Mode;
-
+	skydistance*:REAL;
+	
 PROCEDURE VoxelFromName*(modname: Name): Voxel;
 	VAR voxel: Voxel;  fackery: VoxelFackery;
 	BEGIN
@@ -452,6 +490,7 @@ END getray;
 PROCEDURE updatecamera*(x,y,z,a,b,c:  REAL);
 BEGIN
 	previouscursorPT:=cursorPT;
+	previouscameraPT:=cameraPT;
 	cameraPT.x:=x; cameraPT.y:=y; cameraPT.z:=z;
 	cursorPT.x:=x+a; cursorPT.y:=y+b; cursorPT.z:=z+c; 
 END updatecamera;
@@ -672,10 +711,23 @@ PROCEDURE distance*(a,b: PT):REAL;
 VAR
 	x,y,z,d: REAL;
 BEGIN
-	x := (b.x-a.x);
-	y := (b.y-a.y);
-	z := (b.z-a.z);
-	RETURN(Math.sqrt(x*x+y*y+z*z)); 
+	x := ABS(b.x-a.x);
+	y := ABS(b.y-a.y);
+	z := ABS(b.z-a.z);
+	(*RETURN(Math.sqrt(x*x+y*y+z*z)); *)
+	IF x>y THEN
+		IF x> z THEN
+			RETURN x 
+		ELSE
+			RETURN z
+		END
+	ELSE
+		IF y> z THEN
+			RETURN y 
+		ELSE
+			RETURN z
+		END	
+	END
 END distance;
 
 PROCEDURE string*(CONST s: ARRAY OF CHAR);
@@ -841,6 +893,7 @@ END Exit;
 BEGIN
 	WMFontManager.Install;
 	NEW(rand);
+(*	NEW(clock); *)
 	NEW(rays);
 	NEW(frays);
 	NEW(EMPTY);
@@ -872,4 +925,5 @@ BEGIN
 	m2sdelta:=25;
 	m3sdelta:=25;
 	speed:=0.00051;
+	skydistance:=1.0;
 END XNXLBase.

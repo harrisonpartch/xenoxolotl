@@ -1,0 +1,5 @@
+Xenoglossy is a tracer client coded in Python. It will send mouse and key events to the xenoxolotl server and get back frames. 
+
+A frame is an array of pixels. It may vary in size from one frame to the next.
+
+The client expands each n*m frame into (n-1)*(m-1) smoothshaded quads.

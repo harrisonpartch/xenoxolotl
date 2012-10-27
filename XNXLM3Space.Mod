@@ -1,7 +1,7 @@
 MODULE XNXLM3Space;
 IMPORT Base:=XNXLBase, XNXLE, XNXLFRep, Math, Out := KernelLog, Streams,Strings;
 
-CONST M=4;
+CONST M=3;
 	MMO=M-1;
 	CUBERADIUS=0.75;   (*change to sqrt(3)/2 ???*)
 	NL=Base.NL;
@@ -12,13 +12,14 @@ TYPE PT = Base.PT;
 	Voxel = Base.Voxel;
 	FR = Base.FR;
 	Name = Base.Name;
-
-TYPE NCube=Base.NCube;
+ 	NCube=Base.NCube;
 
 TYPE cell* = OBJECT(Base.Cell);
 VAR
 	blox*: ARRAY M,M,M OF Voxel;
-	probelock*:BOOLEAN;
+	bloxtf*,nbloxtf*: ARRAY M,M,M OF BOOLEAN;;
+	nblox*: ARRAY M,M,M OF NCube; 
+	probelock*: BOOLEAN;
 
 PROCEDURE Shade (VAR ray: Ray);
 VAR
@@ -34,11 +35,6 @@ BEGIN
 	ray.scale := ray.scale*M;
 	ray.tscale:=ray.tscale*M;
 	scaleInv := 1/ray.scale;
-	IF texcube#NIL THEN
-		ray.texcube:=texcube;
-		ray.texcubeTF:=TRUE;
-		ray.tscale:=1
-	END;
 	xyz.x := ABS(ray.lxyz.x-offset.x) * M  - ray.ddxyz.x;  
 	xyz.y := ABS(ray.lxyz.y-offset.y) * M  - ray.ddxyz.y;		
 	xyz.z := ABS(ray.lxyz.z-offset.z)* M  - ray.ddxyz.z; 
@@ -61,6 +57,8 @@ BEGIN
 			xyz.x := xyz.x + ray.popdelta.x;    
 			xyz.y := xyz.y + ray.popdelta.y;
 			xyz.z := xyz.z + ray.popdelta.z;
+		ELSIF nbloxtf[ijk.i,ijk.j,ijk.k] THEN
+			nshade(nblox[ijk.i,ijk.j,ijk.k],ray);
 		END
 	END;	 
 	IF (ray.ra<0.1)&(ray.ga<0.1)&(ray.ba<0.1) THEN ray.terminate:=TRUE END;	
@@ -123,13 +121,16 @@ BEGIN
 				END;
 				newxyz.x := xyz.x + drz * ray.dxyz.x; newxyz.y := xyz.y + drz * ray.dxyz.y; newxyz.z  := xyz.z + drz * ray.dxyz.z
 			END;
+			ray.len.x:=ray.len.x+ABS(newxyz.x-xyz.x)*scaleInv;
+			ray.len.y:=ray.len.y+ABS(newxyz.y-xyz.y)*scaleInv;
+			ray.len.z:=ray.len.z+ABS(newxyz.z-xyz.z)*scaleInv;		
 			vdepth:=Base.distance(newxyz,xyz)*scaleInv;
 			ray.xyz.x:=ray.xyz.x +((newxyz.x-xyz.x)+ray.ddxyz.x)*scaleInv;
 			ray.xyz.y:=ray.xyz.y +((newxyz.y-xyz.y)+ray.ddxyz.y)*scaleInv;			
 			ray.xyz.z:=ray.xyz.z +((newxyz.z-xyz.z)+ray.ddxyz.z)*scaleInv;			
 			xyz:=newxyz;
 			ray.length:=ray.length+vdepth;
-			rr := red*vdepth*ray.ra; gr := green*vdepth*ray.ga; br := blue*vdepth*ray.ba; blr:=black*vdepth; bla:=alpha*vdepth;
+			rr := red*vdepth*ray.ra; gr := green*vdepth*ray.ga; br := blue*vdepth*ray.ba; blr:=black*vdepth+Base.frameblack; bla:=alpha*vdepth;
 			ray.r := ray.r+rr;
 			ray.g:= ray.g+gr;
 			ray.b := ray.b+br; 
@@ -137,31 +138,32 @@ BEGIN
 			ray.ga := (ray.ga-gr)-blr;
 			ray.ba := (ray.ba-br)-blr; 	
 			ray.bla := ray.bla-bla; 		
-			IF ray.bla>0.01 THEN	
-				bounds(ijk.i,ijk.j,ijk.k, out);
-				IF ~out  THEN
-					IF (ray.length*ray.scale>Base.DTL) THEN
-							v:=imposter
-					ELSE	
-						v:= blox[ijk.i,ijk.j,ijk.k]
-					END;	
-					v := blox[ijk.i,ijk.j,ijk.k];						
-					IF (v#NIL) THEN
-						ray.lxyz.x := ABS(xyz.x - ijk.i);  
-						ray.lxyz.y := ABS(xyz.y - ijk.j);
-						ray.lxyz.z := ABS(xyz.z - ijk.k);
-						ray.popdelta := Base.Origin; (* because many shaders don't set it and it *)
-						v.Shade(ray);					(* must be (0,0,0) in that case       *)
-						xyz.x := xyz.x + ray.popdelta.x;    
-						xyz.y := xyz.y + ray.popdelta.y;
-						xyz.z := xyz.z + ray.popdelta.z;	
-					END
+			bounds(ijk.i,ijk.j,ijk.k, out);
+			IF ~out  THEN
+				IF (ray.length*ray.scale>Base.DTL) THEN
+						v:=imposter
+				ELSE	
+					v:= blox[ijk.i,ijk.j,ijk.k]
+				END;	
+				v := blox[ijk.i,ijk.j,ijk.k];						
+				IF (v#NIL) THEN
+					ray.lxyz.x := ABS(xyz.x - ijk.i);  
+					ray.lxyz.y := ABS(xyz.y - ijk.j);
+					ray.lxyz.z := ABS(xyz.z - ijk.k);
+					ray.popdelta := Base.Origin; (* because many shaders don't set it and it *)
+					v.Shade(ray);					(* must be (0,0,0) in that case       *)
+					xyz.x := xyz.x + ray.popdelta.x;    
+					xyz.y := xyz.y + ray.popdelta.y;
+					xyz.z := xyz.z + ray.popdelta.z;	
+				ELSIF nbloxtf[ijk.i,ijk.j,ijk.k] THEN
+					nshade(nblox[ijk.i,ijk.j,ijk.k],ray);	
 				END
-			ELSE
-				ray.b:=ray.b+ray.ba;
-				ray.terminate:=TRUE	
 			END;
-		IF (ray.ra<0.01)&(ray.ga<0.01)&(ray.ba<0.01) THEN ray.terminate:=TRUE END; 
+		IF (ray.len.x>Base.skydistance) OR (ray.len.y>Base.skydistance) OR (ray.len.z>Base.skydistance) THEN
+			ray.b:=ray.b+ray.ba;
+			ray.terminate:=TRUE
+		ELSIF (ray.bla>=1)OR((ray.ra<0.01)&(ray.ga<0.01)&(ray.ba<0.01))THEN ray.terminate:=TRUE 
+		END;
 		UNTIL  out OR ray.terminate;
 	END 	
 	END;
@@ -361,6 +363,14 @@ BEGIN
 	strokerec(p,resolution,1,voxel);
 END stroke;
 
+PROCEDURE nstroke(p:PT; resolution:LONGINT; normal:PT; color: Color);
+VAR
+	i,j,k: LONGINT;
+BEGIN
+	Base.clamPT(p);
+	nstrokerec(p,resolution,1,normal,color);
+END nstroke;
+
 PROCEDURE strokerec(p:PT; resolution,scale:LONGINT; voxel:Voxel);
 VAR
 	i,j,k,ii,jj,kk,nextscale: LONGINT;
@@ -411,6 +421,58 @@ BEGIN
 		END
 	END
 END strokerec;
+
+PROCEDURE nstrokerec(p:PT; resolution,scale:LONGINT; normal:PT; color: Color);
+VAR
+	i,j,k,ii,jj,kk,nextscale: LONGINT;
+	v:Voxel;
+	c,c2: cell;
+	smallcopy: Voxel;
+BEGIN
+	IF ~lockTF THEN
+		nextscale:=scale*M;
+		p.x:=p.x*M;
+		p.y:=p.y*M;
+		p.z:=p.z*M;
+		i := ENTIER(p.x)MOD M; j := ENTIER(p.y)MOD M; k := ENTIER(p.z)MOD M;	
+		IF nextscale>resolution THEN	
+			IF ~((blox[i,j,k]#NIL) &  blox[i,j,k].lockTF) THEN
+				nblox[i,j,k].normal:= normal;
+				nblox[i,j,k].color:= color;
+			END
+		ELSE
+			IF blox[i,j,k]#NIL THEN 
+				IF (blox[i,j,k] IS cell) THEN
+					v:=blox[i,j,k];
+					WITH v: cell DO v.nstrokerec(p, resolution,nextscale,normal,color) END
+				ELSIF (blox[i,j,k] IS Base.Cell) THEN
+					blox[i,j,k].nstroke(p, resolution DIV nextscale,normal,color)
+				ELSE
+					NEW(c);
+					c.setcolor(red,green,blue,black,alpha);
+					c.imposter:=blox[i,j,k];	
+					IF blox[i,j,k].emptysplit THEN 
+						FOR ii := 0 TO MMO DO FOR jj := 0 TO MMO DO FOR kk:= 0 TO MMO DO
+							NEW(c2);
+							blox[i,j,k]:=c2
+						END END END;
+					ELSE
+						c.fill(blox[i,j,k])
+					END;
+					blox[i,j,k]:=c;
+					p.x:=p.x-i; p.y:=p.y-j; p.z:=p.z-k;
+					c.nstrokerec(p, resolution,nextscale,normal,color);
+				END	
+			ELSE
+				NEW(c);
+				c.setcolor(red,green,blue,black,alpha);
+				blox[i,j,k]:=c;
+				p.x:=p.x-i; p.y:=p.y-j; p.z:=p.z-k;
+				c.nstrokerec(p, resolution,nextscale,normal,color);
+			END
+		END
+	END
+END nstrokerec;
 
 PROCEDURE line*(a,b: PT; resolution: LONGINT; v: Voxel);
 VAR
@@ -505,8 +567,9 @@ BEGIN
 					(* IF v IS cell THEN v:=v.deepcopy() END; *)
 					blox[i,j,k]:=v;	
 				ELSE
-					v:=f.ncube(p);
-					blox[i,j,k]:=v;
+					nbloxtf[i,j,k]:=TRUE;
+					nblox[i,j,k].normal:=f.normal(p);
+					nblox[i,j,k].color:=f.color(p);
 				END
 			END	
 		END END END
@@ -551,8 +614,8 @@ BEGIN
 				 END
 			END	
 		END END END
-	ELSE
-		FOR i := 0 TO MMO DO FOR j := 0 TO MMO DO FOR k:= 0 TO MMO DO
+	END;
+	FOR i := 0 TO MMO DO FOR j := 0 TO MMO DO FOR k:= 0 TO MMO DO
 			p.x:=origin.x+(i+1/2)/MS; p.y:=origin.y+(j+1/2)/MS; p.z:=origin.z+(k+1/2)/MS;
 			d2s:=f.d2s(p);		
 			IF ABS(d2s)<CRDNS THEN 
@@ -561,12 +624,12 @@ BEGIN
 					(* IF v IS cell THEN v:=v.deepcopy() END; *)
 					blox[i,j,k]:=v;	
 				ELSE
-					v:=f.ncube(p);
-					blox[i,j,k]:=v;
+					nbloxtf[i,j,k]:=TRUE;
+					nblox[i,j,k].normal:=f.normal(p);
+					nblox[i,j,k].color:=f.color(p);
 				END
 			END 	
 		END END END
-	END; 
 END FRasterrecSolid;
 
 PROCEDURE FRaster*( f: FR; resolution: LONGINT); 
@@ -681,9 +744,6 @@ BEGIN
 	xyz.y := ray.lxyz.y * M  - ray.ddxyz.y;		
 	xyz.z := ray.lxyz.z * M  - ray.ddxyz.z; 
 	pushxyz:=xyz;
-	IF (ray.length*ray.scale>Base.DTL)&(imposter#NIL) THEN
-		imposter.Shade(ray)	
-	ELSE		
 	XNXLE.E(xyz,ijk);
 	bounds(ijk.i,ijk.j,ijk.k,out);
 	IF ~out THEN
@@ -765,15 +825,6 @@ BEGIN
 			ray.xyz.z:=ray.xyz.z +((newxyz.z-xyz.z)+ray.ddxyz.z)*scaleInv;			
 			xyz:=newxyz;
 			ray.length:=ray.length+vdepth;
-	(*		rr := red*vdepth*ray.ra; gr := green*vdepth*ray.ga; br := blue*vdepth*ray.ba; blr:=black*vdepth; bla:=alpha*vdepth;
-			ray.r := ray.r+rr;
-			ray.g:= ray.g+gr;
-			ray.b := ray.b+br; 
-			ray.ra := (ray.ra-rr)-blr;
-			ray.ga := (ray.ga-gr)-blr;
-			ray.ba := (ray.ba-br)-blr; 	
-			ray.bla := ray.bla-bla; 	*)
-			IF ray.bla>0.01 THEN	
 				bounds(ijk.i,ijk.j,ijk.k, out);
 				IF ~out  THEN
 					IF (ray.length*ray.length*ray.length*ray.scale>Base.DTL) THEN
@@ -792,9 +843,7 @@ BEGIN
 						xyz.y := xyz.y + ray.popdelta.y;
 						xyz.z := xyz.z + ray.popdelta.z;	
 					END
-				END
-			END;
-			IF (ray.bla<0.1) OR ((ray.ra<0.1)&(ray.ga<0.1)&(ray.ba<0.1)) THEN ray.terminate:=TRUE END; 
+				END;
 			IF out THEN			(* wrap space *)
 				IF ijk.i<0 THEN ray.xyz.x:=0.999999
 				ELSIF ijk.i>MMO THEN ray.xyz.x:=0.00001
@@ -803,13 +852,11 @@ BEGIN
 				ELSIF ijk.k<0 THEN ray.xyz.z:=0.99999
 				ELSIF ijk.k>MMO THEN ray.xyz.z:=0.00001
 				END;
-				ray.scale:=1;
-				ray.bla:=ray.bla*0.8;
-				ray.lxyz:=ray.xyz;
-				Shade(ray);
-		END;
-		UNTIL  ray.terminate;
-	END 	
+				ray.b:=ray.b + ray.ba;	
+				ray.terminate:=TRUE;
+			END;
+			IF (ray.bla<0.1) OR ((ray.ra<0.1)&(ray.ga<0.1)&(ray.ba<0.1)) THEN ray.terminate:=TRUE END; 
+		UNTIL  ray.terminate;	
 	END;
 END Shade;
 
@@ -820,6 +867,26 @@ BEGIN
 END init;
 
 END torus;
+
+PROCEDURE nshade(CONST nc: NCube; VAR ray: Ray);
+VAR
+	dot,omm,r,g,b,bl: REAL;	
+BEGIN
+	dot := ABS(nc.normal.x*ray.dxyz.x + nc.normal.y*ray.dxyz.y+ nc.normal.z*ray.dxyz.z); 
+	ray.r := ray.r + nc.color.red * ray.ra*dot;
+	ray.g := ray.g + nc.color.green * ray.ga*dot;
+	ray.b := ray.b + nc.color.blue * ray.ba*dot; 		
+	ray.terminate:=TRUE
+END nshade;
+
+PROCEDURE wastime(CONST n: LONGINT);
+VAR
+	i,j: LONGINT;
+BEGIN
+	FOR i:=0 TO n DO
+		INC(j)
+	END
+END wastime;
 
 
 END XNXLM3Space.

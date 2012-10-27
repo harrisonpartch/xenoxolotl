@@ -67,8 +67,7 @@ BEGIN
 			normal.x := Math.cos(theta)*Math.sin(phi);
 			normal.y := Math.sin(theta)*Math.sin(phi);
 			normal.z := Math.cos(theta);
-			color.red:=1;
-			NEW(NC[i,j],normal,color);
+			cxolor.red:=1;
 		END
 	END				
 END init;
@@ -77,21 +76,12 @@ PROCEDURE getcolor*(p:PT):Color;
 VAR
 	c: Color;
 BEGIN
-	c:=color;
+	c:=cxolor;
 	c.red:=p.x;
 	c.green:=p.z;	
 	c.blue:=p.z;	
 	RETURN c
 END getcolor;
-
-PROCEDURE ncube*(p:PT):Voxel;
-VAR	theta, phi: REAL;
-	normal: PT;
-	i,j: INTEGER;
-BEGIN	
-	normal:=Base.subPT(p,center);
-	RETURN NIL			
-END ncube;
 
 PROCEDURE reset*(c:PT; r: REAL);
 BEGIN
@@ -125,6 +115,11 @@ BEGIN
 	Base.normalizePT(norml);	(* norml is often calculated in d2s but not normalized there *)
 	RETURN norml					(* this is the normal for the most recent point handed to d2s *)
 END normal;
+
+PROCEDURE color*(p:PT):Color;
+BEGIN
+	RETURN cxolor					
+END color;
 
 PROCEDURE normaltf*(p:PT):BOOLEAN;
 BEGIN	
@@ -283,7 +278,7 @@ BEGIN
 		a.green:=g;
 		a.blue:=b;
 	ELSE
-		a:=color
+		a:=cxolor
 	END;
 	RETURN a
 END getcolor;
@@ -322,9 +317,9 @@ PROCEDURE getcolor*(p:PT):Color;
 VAR
 	a:Color;
 BEGIN
-	a.red:=(p.x+color.red)/2;
-	a.green:=(p.y*color.green)/2;
-	a.blue:=(p.z+color.blue)/2;	
+	a.red:=(p.x+cxolor.red)/2;
+	a.green:=(p.y*cxolor.green)/2;
+	a.blue:=(p.z+cxolor.blue)/2;	
 	RETURN a
 END getcolor;
 
@@ -366,9 +361,9 @@ PROCEDURE getcolor*(p:PT):Color;
 VAR
 	a:Color;
 BEGIN
-	a.red:=(p.x+color.red)/2;
-	a.green:=(p.y*color.green)/2;
-	a.blue:=(p.z+color.blue)/2;	
+	a.red:=(p.x+cxolor.red)/2;
+	a.green:=(p.y*cxolor.green)/2;
+	a.blue:=(p.z+cxolor.blue)/2;	
 	RETURN a
 END getcolor;
 
@@ -438,7 +433,7 @@ BEGIN
 		a.green:=g;
 		a.blue:=b;
 	ELSE
-		a:=color
+		a:=cxolor
 	END;
 	RETURN a
 END getcolor;

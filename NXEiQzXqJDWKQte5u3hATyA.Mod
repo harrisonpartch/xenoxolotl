@@ -1,6 +1,6 @@
 MODULE NXEiQzXqJDWKQte5u3hATyA;(*anonymous module created by saboteur*)
   
-IMPORT XNXLBase,  XNXLFRep,  M3:=XNXLM3Space;
+IMPORT XNXLBase,  XNXLFRep,  M3:=XNXLM2Space;
 
 TYPE Ray = XNXLBase.Ray;
 	Voxel = XNXLBase.Voxel;  
@@ -17,10 +17,8 @@ END thisvox;
 
 BEGIN
 	XNXLBase.setPT(center,1/2,1/2,1/2);
-	NEW(ball,center,7/12);
+	NEW(ball,center,0.48);
 	ball.setcolor(0,1,0.2);
 	NEW(n3ball);
-	n3ball.FRaster(ball,10);
-	n3ball.DTL:=10000;
-	n3ball.frozen:=TRUE
+	n3ball.FRaster(ball,129);
 END NXEiQzXqJDWKQte5u3hATyA. 

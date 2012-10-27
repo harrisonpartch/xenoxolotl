@@ -58,7 +58,7 @@ BEGIN
 	filter:=FALSE;
 	cameratheta := 0;
 	cameraphi := 0;
-	aperture.width :=5/3;
+	aperture.width :=4/3;
 	aperture.height :=3/3;
 	Base.setPT(xaxis, 1,0,0);	
 	Base.setPT(yaxis,0,1,0);	
@@ -72,7 +72,7 @@ END init;
 PROCEDURE hop;
 BEGIN
 	stop;
-	cx :=1/2+Base.rand.Uniform()/13; cy:=1/2+Base.rand.Uniform()/13; cz := 1/2+Base.rand.Uniform()/13;
+	cx :=1/2+Base.rand.Uniform()/2; cy:=1/2+Base.rand.Uniform()/2; cz := 1/2+Base.rand.Uniform()/2;
 END hop;
 
 PROCEDURE move;
@@ -351,11 +351,12 @@ BEGIN
 	move;	
 	cam.x := cx; cam.y := cy; cam.z := cz;
 	a:=FWard.x*Base.cursordist; b:=FWard.y*Base.cursordist; c:=FWard.z*Base.cursordist;
-	Base.updatecamera(cx,cy,cz,a,b,c);	
-	IF SCULL THEN GLIDE:=0.7 ELSE GLIDE:=0.65 END;		
-	cvz := cvz*GLIDE(*-Base.gravity*);	cvx := cvx*GLIDE; cvy := cvy*GLIDE; 
+	Base.updatecamera(cx,cy,cz+0.001,a,b,c);	
+	IF SCULL THEN GLIDE:=0.7 ELSE GLIDE:=0.85 END;		
+	cvz := cvz*GLIDE-Base.gravity;	cvx := cvx*GLIDE; cvy := cvy*GLIDE; 
 	cvl :=cvl*0.0; cvu := cvu*0.0;
 	initrays;
+	IF AVATAR THEN XNXLMarsh.drawavatar END;
 	IF MOUSEDOWN THEN
 		IF MB=3 THEN 
 			XNXLMarsh.drawcursor; 
@@ -425,6 +426,7 @@ VAR
 	centerx,centery: LONGINT;
 	MB:INTEGER;
 	GLIDE:REAL;
+	FR: LONGINT;
 
 PROCEDURE angletoray(VAR ray: Base.Ray; theta,phi: REAL);
 VAR d: REAL;
@@ -816,6 +818,7 @@ PROCEDURE KeyEvent(keysym: X11.KeySym);
 VAR
 	v: Voxel;   
 BEGIN
+	XNXLMarsh.key(CHAR(SHORT(keysym)));
 	CASE keysym OF
 		   KS.XK_s1 : camera.backward(0.51)
 		| KS.XK_w1 :camera.forward(0.51) 
@@ -845,17 +848,17 @@ BEGIN
 		| KS.XK_z1: XNXLMarsh.decVN;		
 		| KS.XK_2 : Base.DTL:= ENTIER(3*Base.DTL/2)	+1
 		| KS.XK_3 : Base.DTL:= ENTIER(2*Base.DTL/3)	+1			
-		| KS.XK_4 : Base.DTL2:= ENTIER(3*Base.DTL2/2)+1
-		| KS.XK_5 : Base.DTL2:= ENTIER(2*Base.DTL2/3)+1
-			| KS.XK_h1 : camera.hop	
+		| KS.XK_h1 : camera.hop	
 		| KS.XK_bracketright: camera.aperture.width := camera.aperture.width * 101/99; camera.aperture.height := camera.aperture.height *101/99
 		| KS.XK_bracketleft: camera.aperture.width := camera.aperture.width * 99/101; camera.aperture.height := camera.aperture.height *99/101
 		| KS.XK_period: camera.stop
-		| KS.XK_9: IF XNXLMarsh.cursorsize<9999 THEN XNXLMarsh.cursorsize:=XNXLMarsh.cursorsize * 3; Base.cursordist:=Base.cursordist/2 END
+		| KS.XK_9: IF XNXLMarsh.cursorsize<99999 THEN XNXLMarsh.cursorsize:=XNXLMarsh.cursorsize * 3; Base.cursordist:=Base.cursordist/2 END
 		| KS.XK_0: IF XNXLMarsh.cursorsize>9 THEN XNXLMarsh.cursorsize:=XNXLMarsh.cursorsize DIV 3; Base.cursordist:=Base.cursordist*2 END
 		| KS.XK_7: Base.cursordist:=Base.cursordist*1.3
 		| KS.XK_8: Base.cursordist:=Base.cursordist/1.3
-		| KS.XK_Control_L: SCULL:=~SCULL	
+		| KS.XK_5: FR:=FR+10
+		| KS.XK_6: FR:=FR-10	
+		| KS.XK_Control_L: AVATAR:=~AVATAR	
 		| KS.XK_Control_R: XNXLMarsh.SNIPEINTO:=~XNXLMarsh.SNIPEINTO	
 		| KS.XK_l1: XNXLMarsh.lines:=~XNXLMarsh.lines
 		| KS.XK_b1: ZENITHER:=~ZENITHER
@@ -869,7 +872,7 @@ VAR
 BEGIN
 	left:=x*x;
 	up:=y*y;
-(*	IF (left+up)>5000 THEN XNXLRetina.SACCADE:=TRUE ELSE XNXLRetina.SACCADE:=FALSE END; *)
+	IF (left+up)>100 THEN XNXLRetina.SACCADE:=TRUE ELSE XNXLRetina.SACCADE:=FALSE END; 
 	IF ~SCULL THEN GLIDE:=0.9 ELSE  GLIDE:=0.5 END;
 	IF x<0 THEN	
 		IF ~SCULL THEN 
@@ -942,19 +945,22 @@ BEGIN
 		GL.glLoadIdentity();	
 		GL.glBegin(GLC.GL_QUADS);	
 		i3:=0;
-		FOR i:= 0 TO Base.W-1 DO 
+		FOR i:= 0 TO Base.W-2 DO 
 			j3:=0; 
-			FOR j := 0 TO Base.H-1 DO	
+			FOR j := 0 TO Base.H-2 DO	
 				GL.glColor3f(Base.rays[i,j].r, Base.rays[i,j].g, Base.rays[i,j].b); 
 				GL.glVertex2f(i3,j3);
+			(*	GL.glColor3f(Base.rays[i+1,j].r, Base.rays[i+1,j].g, Base.rays[i+1,j].b); *)
 				GL.glVertex2f(i3+PX,j3);
+			(*	GL.glColor3f(Base.rays[i+1,j+1].r, Base.rays[i+1,j+1].g, Base.rays[i+1,j+1].b); *)
 				GL.glVertex2f(i3+PX,j3+PX);
+			(*	GL.glColor3f(Base.rays[i,j+1].r, Base.rays[i,j+1].g, Base.rays[i,j+1].b); *)
 				GL.glVertex2f(i3,j3+PX);	
 				j3:=j3+PX
 			END;
 			i3:=i3+PX
 		END;
-(*		IF ~(XNXLRetina.SACCADE OR XNXLRetina.SACCADE1) THEN *)
+		IF ~(XNXLRetina.SACCADE OR XNXLRetina.SACCADE1) THEN 
 			i3:=Base.W;
 			FOR i:= 0 TO Base.W-1 DO 
 				j3:=Base.H;
@@ -968,7 +974,7 @@ BEGIN
 				END;
 				i3:=i3+1 
 			END;
-(*		END; *)
+		END; 
         GL.glColor3f(Base.rand.Uniform(),Base.rand.Uniform(),Base.rand.Uniform());
         w:=PX*Base.W/2; h:=PX*Base.H/2;
         GL.glVertex2f(w-1,h-1); 
@@ -978,6 +984,8 @@ BEGIN
 	 GL.glEnd;	
 	 GL.glXSwapBuffers(display, win);
 END draw;
+
+
 
 PROCEDURE mainloop;
 VAR
@@ -989,11 +997,15 @@ BEGIN
 	NEW(timer);
 	NEW(rand);
 	WHILE alive DO
-		Kernel.SetTimer(ftimer,100);
-		camera.tick; 
-		draw;
+		Kernel.SetTimer(ftimer,1000);
+		PollXQueue; 
+		IF ~PAUSE THEN camera.tick END;
+		PollXQueue; 
+		IF ~PAUSE THEN draw  END;
 		framems:=Kernel.Elapsed(ftimer);
-		IF framems<35 THEN timer.Sleep(35-framems) END;
+		Out.Int(framems, 6);
+		Out.Ln;
+		IF framems<40 THEN timer.Sleep(40-framems) END;		
 		PollXQueue; 
 	END;
 END mainloop;	
@@ -1011,7 +1023,7 @@ BEGIN
 	camrotinertia:=100;
 	Base.DTL:=150;
 	Base.DTL2:=10;
-	Base.gravity:=0.00001;
+	Base.gravity:=0.0;
 	Base.cursordist:=0.01;
 	R1:=100;
 	R2:=150;
@@ -1028,6 +1040,7 @@ BEGIN
 	NEW(camera,Base.W, Base.H); 
 	mainloop; 
 	Out.Char('*');
+	FR:=1000;
 END Open;
 
 BEGIN

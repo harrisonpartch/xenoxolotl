@@ -4,7 +4,7 @@ M2:=XNXLM3Space, M3:=XNXLM3Space, XNXLFRep, XNXLRotaVox, XNXLSierp, XNXLHalfSpac
 VAR vox: XNXLTexVox.TexVox;
 PROCEDURE thisvox*():XNXLBase.Voxel;
 BEGIN
-	IF vox=NIL THEN NEW(vox,'etile4.png')  END;
+	IF vox=NIL THEN NEW(vox,'caption.jpg')  END;
 	RETURN vox
 END thisvox;
 

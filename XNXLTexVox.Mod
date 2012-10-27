@@ -52,27 +52,28 @@ VAR
 	txcube: TexCube;
 BEGIN
 	CASE ray.face OF
-		 0: lx := ray.lxyz.y; ly := ray.lxyz.z; 
-		|1: lx := ray.lxyz.x; ly := ray.lxyz.z; 
+		 0: lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
+		|1: lx := ray.lxyz.x; ly := 1-ray.lxyz.z; 
 		|2: lx := ray.lxyz.x; ly := ray.lxyz.y;
-		|3: lx := ray.lxyz.y; ly := ray.lxyz.z; 
-		|4: lx := ray.lxyz.x; ly := ray.lxyz.z; 
+		|3: lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
+		|4: lx := ray.lxyz.x; ly := 1-ray.lxyz.z; 
 		|5: lx := ray.lxyz.x; ly := ray.lxyz.y;  
 	ELSE
 	END;
 	color:=texcube.side[ray.face].pixel(lx,ly);
-	dot := ABS(ray.normal.x*ray.dxyz.x + ray.normal.y*ray.dxyz.y+ ray.normal.z*ray.dxyz.z)*0.8+0.2; 
-	da:=color.alpha;
-	dr:=color.red*dot*da*ray.ra;
-	dg:=color.green*dot*da*ray.ga;
-	db:=color.blue*dot*da*ray.ba;	
+	dot := ABS(ray.normal.x*ray.dxyz.x + ray.normal.y*ray.dxyz.y+ ray.normal.z*ray.dxyz.z)*0.7+0.4; 
+	dr:=color.red*dot*ray.ra;
+	dg:=color.green*dot*ray.ga;
+	db:=color.blue*dot*ray.ba;	
 	ray.r := ray.r + dr;
 	ray.g := ray.g + dg;
 	ray.b := ray.b + db;
 	ray.ra := ray.ra - dr - 0.1;
 	ray.ga := ray.ga - dg - 0.1;
 	ray.ba := ray.ba - db - 0.1;	
-	ray.terminate:=TRUE
+	IF color.alpha>0.1 THEN
+		ray.terminate:=TRUE
+	END;
 END Shade;
 
 PROCEDURE play*();
@@ -90,7 +91,7 @@ VAR
 
 PROCEDURE & init*(n: Name);
 BEGIN
-	NEW(texcube,n,FALSE);
+	NEW(texcube,n,TRUE);
 	texscale(10000);	
 END init;
 
@@ -128,27 +129,30 @@ VAR
 	color: XNXLBase.Color
 BEGIN
 	CASE ray.face OF
-		 0: lx := ray.lxyz.y; ly := ray.lxyz.z; 
-		|1: lx := ray.lxyz.x; ly := ray.lxyz.z; 
+		 0: lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
+		|1: lx := ray.lxyz.x; ly := 1-ray.lxyz.z; 
 		|2: lx := ray.lxyz.x; ly := ray.lxyz.y;
-		|3: lx := ray.lxyz.y; ly := ray.lxyz.z; 
-		|4: lx := ray.lxyz.x; ly := ray.lxyz.z; 
+		|3: lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
+		|4: lx := ray.lxyz.x; ly := 1-ray.lxyz.z; 
 		|5: lx := ray.lxyz.x; ly := ray.lxyz.y;  
 	ELSE
+		ray.face:=0; lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
 	END;
 	color:=texcube.side[ray.face].pixel(lx,ly);
-	dot := ABS(ray.normal.x*ray.dxyz.x + ray.normal.y*ray.dxyz.y+ ray.normal.z*ray.dxyz.z)*0.7+0.3; 
+	dot := ABS(ray.normal.x*ray.dxyz.x + ray.normal.y*ray.dxyz.y+ ray.normal.z*ray.dxyz.z)*0.7+0.4; 
 	dr:=color.red*dot*ray.ra;
 	dg:=color.green*dot*ray.ga;
 	db:=color.blue*dot*ray.ba;
 	ray.r := ray.r + dr;
 	ray.g := ray.g + dg;
 	ray.b := ray.b + db;
-	ray.ra := ray.ra - (dg+db)/2-0.2;
-	ray.ga := ray.ga - (dr+db)/2-0.2;
-	ray.ba := ray.ba - (dr+dg)/2-0.2;
-	ray.bla := ray.bla -(dr+dg+db)/3-0.2;	
-	ray.terminate:=TRUE;
+	ray.ra := ray.ra - (dg+db)/2;
+	ray.ga := ray.ga - (dr+db)/2;
+	ray.ba := ray.ba - (dr+dg)/2;
+	ray.bla := ray.bla -(dr+dg+db)/3;	
+	IF color.alpha>0.1 THEN
+		ray.terminate:=TRUE
+	END;
 END Shade;
 
 PROCEDURE play*();

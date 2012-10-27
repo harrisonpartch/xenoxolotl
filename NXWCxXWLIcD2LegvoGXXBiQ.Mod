@@ -102,56 +102,57 @@ END Serp;
 VAR 
 	serp,rserp: M3.cell;
 	thisserp: Serp;
-	blue: XNXLVoxel.TransparaVox;
+	blue: AlphaVox;
 	leaf, granite: XNXLTexVox.TexVox;
-	greenball:Voxel;
+	abc:XNXLTexVox.TexCubeVox;
 	mirrorball: V4.MirrorSphereInVox;
 	
 PROCEDURE thisvox*():Base.Voxel;
 BEGIN
 	IF thisserp=NIL THEN 
-		greenball:=Base.VoxelFromName("NXEiQzXqJDWKQte5u3hATyA"); 	
-		greenball.passable:=FALSE;
+		NEW(abc,'whiteblock');
+		abc.passable:=FALSE;
 		NEW(mirrorball);
 		NEW(leaf,'leaf.png'); 
-		NEW(granite,'granite.png'); 		
+		NEW(granite,'galaxy.png'); 	
+		granite.passable:=FALSE;	
 		NEW(blue);
-		blue.setcolor(1,1,1,1/2);
-		blue.passable:=FALSE;
+		blue.setcolor(1/10,0,0,0);
+		blue.passable:=TRUE;
 		NEW(rserp);
-		rserp.passable:=FALSE;
+		rserp.passable:=TRUE;
 		rserp.lockTF:=TRUE; 
-		rserp.fill(rserp);
-		rserp.blox[1,1,0]:=granite;
-		rserp.blox[1,1,2]:=granite;
-		rserp.blox[0,1,1]:=granite;
-		rserp.blox[2,1,1]:=granite;
-		rserp.blox[1,0,1]:=granite;
-		rserp.blox[1,2,1]:=granite;
-		rserp.blox[1,1,1]:=granite;			
+		rserp.fill(blue);
+		rserp.blox[1,1,0]:=rserp;
+		rserp.blox[1,1,2]:=rserp;
+		rserp.blox[0,1,1]:=rserp;
+		rserp.blox[2,1,1]:=rserp;
+		rserp.blox[1,0,1]:=rserp;
+		rserp.blox[1,2,1]:=rserp;
+		rserp.blox[1,1,1]:=rserp;			
 		rserp.imposter:=granite;
 		NEW(serp);
 		serp.passable:=TRUE;
 		serp.lockTF:=TRUE; 
 		serp.fill(serp);
-		serp.blox[1,1,0]:=granite;
-		serp.blox[1,1,2]:=granite;
-		serp.blox[0,1,1]:=mirrorball;
-		serp.blox[2,1,1]:=granite;
-		serp.blox[1,0,1]:=granite;
-		serp.blox[1,2,1]:=greenball;
-		serp.blox[1,1,1]:=granite;			
-		serp.imposter:=granite;
+		serp.blox[1,1,0]:=blue;
+		serp.blox[1,1,2]:=blue;
+		serp.blox[0,1,1]:=blue;
+		serp.blox[2,1,1]:=blue;
+		serp.blox[1,0,1]:=blue;
+		serp.blox[1,2,1]:=abc;
+		serp.blox[1,1,1]:=blue;			
+		serp.imposter:=abc;
 		granite.texscale(243*243*243);
 		granite.passable:=FALSE;
-		greenball.passable:=FALSE;		
+		abc.passable:=FALSE;		
 		serp.frozen:=TRUE;
 		serp.probelock:=TRUE;
 		NEW(thisserp);
 		thisserp.passable:=TRUE;
 		thisserp.innard:=serp;
-		thisserp.register
+		(* thisserp.register *)
 	END;
-	RETURN serp
+	RETURN thisserp
 END thisvox;
  END NXWCxXWLIcD2LegvoGXXBiQ. 

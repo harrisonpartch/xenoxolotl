@@ -13,6 +13,7 @@ XNXLFRep.Mod
 XNXLRetinaLinear.Mod
 XNXLM2Space.Mod
 XNXLM3Space.Mod
+XNXLM5Space.Mod
 XNXLTexVox.Mod
 XNXLVoxel4.Mod
 XNXLHalfSpace.Mod

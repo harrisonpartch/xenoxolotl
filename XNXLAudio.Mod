@@ -248,6 +248,7 @@ END CloseDevice;
 BEGIN
 gain := 1.0; pitch := 1.0;
 OpenDevice
+
 END XNXLAudio.
 
 SystemTools.Free XNXLAudio ~

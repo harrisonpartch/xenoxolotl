@@ -1,0 +1,310 @@
+New in release 1.7:
+	- based on svn revision 4747 of A2
+	
+	- the library search path got updated for new Ubuntu Linux releases.
+	
+	- external C-procedures (pc outside the Aos heap) are no longer displayed 
+	   as any Oberon procedures in trap views.
+	
+	- a pseudo sound driver (based on OpenAL) got added. The MP3Player is now
+	   useable in UnixAos too. If you want to use sound, the 32-bit version of the
+	   library 'libopenal.so' needs to be installed.
+	   
+	   
+
+New in release 1.6:
+	- based on svn revision 4710 of A2.
+	
+	- emulating the missing MM- and MR-buttons when using a single button
+	   mouse or two button mouse is working again.
+	
+	- exception handling (FINALLY) got implemented. It works well in the Linux and 
+	   Solaris ports but is disabled in the Darwin port as it dosn't work there (stack
+	   alignment problem -> bus error). 
+	
+	- redesigned Objects.Timer to avoid 'bus error' exceptions in the Darwin port.
+	
+	- extended object file format (crc).
+	
+	
+
+New in release 1.5:
+	- based on svn revision 4648 of A2.
+	
+	- increased display speed on 24 bpp displays (2-3 times). Window manager uses
+	   Raster.BGR888 instead of Raster.BGR565 now.
+
+	- module Unix.StdIO.Mod added. The new module StandaloneDemo.Mod shows
+	   how to use it.
+	
+	- trace output gets stored in a log file (AOS.<pid>.Log). "Standalone" applications
+	   started outside Aos get their standard output stream no longer intermixed with 
+	   trace messages.
+	   
+
+
+New in release 1.4:
+	- based on svn revision 4593.
+	
+	- slightly increased heap utilization through redesigned free lists.
+	
+	- the working directory gets displayed as part of the Aos window title.
+	
+	- besides the red window the Aos trap creates files now. The filenames reflect
+	   date and time of the trapped exceptions.
+	
+	- the garbage collector gets invoked after system startup in order to close all files
+	   no longer needed (UnixFiles.Cleanup). The max. number of simultaneously open
+	   files is limited to 1024!
+	   
+	- fixed an issue with input of german umlauts.
+	
+	- fixed an interface incompatibility in Unix.TCP.Mod. Module WMFTPServer.Mod is 
+	   now compileable.
+	   
+
+New in release 1.3:
+	- based on svn rev 4510 of A2
+	
+	- the file manager got more useable. 
+	   It displays two 'filesystems' now: Work and searcher.
+		
+	- a nasty timer bug which casully caused freezing the text views via a 
+	   dead lock could at long last be localized and fixed.
+	   
+
+New in release 1.2:
+	- based on svn revision 4402 of A2.
+	
+	- nothing real new, only same cleanup and renamings.
+	   a) environment variabe OBERON changed to AOSPATH
+	   b) statically linked core modules renamed:
+	   	  LinuxOberonCore  ->  LinuxAosCore
+	   	  MacOberonCore  ->  DarwinAosCore
+	   	  SolarisOberonCore  ->  SolarisAosCore
+	
+	- fixed a bug in Objects.Process.FindRoots which could 
+	   crash the carbage collector.
+	   
+	   	
+New in release 1.1:
+	- based on svn revision 4353 of A2.
+	
+	- extended library search path's (Ubuntu Linux).
+	
+	- fixed Unix.UDP.Mod and Unix.Sockets.Mod.
+	
+	- fixed: some text colors got printed wrong (Oberon.TextGadgets.Mod)
+	
+	- extended syntax highlighting for modules with lower case keywords. To
+	   enable this feature use the filename postfix '.Modl' instead of '.Mod'. The
+	   following demos will show you how it looks:
+	   	
+	   	PET.Open  HighlighterDemo.Mod ~
+	   	PET.Open  HighlighterDemo.Modl ~
+	
+	
+New in release 1.0b:
+	- based on svn revision 4266 of A2.
+	
+	- Aos finally got independent of modules of the Oberon context.
+	
+	- faster desktop, occasional desktop freezing fixed.
+	
+	- fixed: ReadOnly file flag.
+	
+	- all known problems got solved.
+	
+
+New in release 0.97:
+
+	- based on A2 revision 4200
+	
+	- extended X11 api.
+	
+	- fixed handling of exposure events.
+
+New in release 0.96:
+	- based on A2 revision 4126
+	
+	- fixed Unix.X11Display.Mod: 
+		no longer allocates heap space for every display operation and 
+		threby got slightly faster.
+	   
+	- Unix.Heaps.Mod, Unix.I386.Machine.Mod, Unix.Kernel.Mod, ...:
+		simplified GC invocation,
+		fixed a memory leak,
+		increased heap utilization through avoiding unnecessary block splits.
+		performance monitoring (heap) consumes less recources now.
+	   
+	- port specific versions of 'Module' and 'Loader' are no longer needed.
+	
+	- Oberon context separator reverted to '.'.
+
+New in release 0.95:
+	- based on A2 svn revsion 3953
+
+	- deadlock in module Heaps fixed
+	
+	- reduced garbage collection frequency
+
+
+New in release 0.94:
+	- based on A2 svn revision 3872
+	
+	- fixed a bug in module Objects which sometimes caused freezing the text 
+	   system or the whole desktop
+	
+	- Support for calling external Darwin C procedures got added to the new 
+	   Oberon compiler "Fox". Darwin port of Aos is again included.
+
+New in release 0.93:
+	- based on A2 svn revision 3772.
+
+	- switched to new compiler (PACO -> OC)
+
+	- garbage collector adapted to Heaps.RootObject
+	
+	- superseded portspecific modules Unix.Basetypes.Mod and Unix.Modules.Mod.
+	
+	- fixed Unix.Traps.Mod: recursive trap could crash the system.
+	
+	- support of active objects with priorities (only if Aos is running SUID root)
+
+New in release 0.92:
+	- based on A2 svn revision 3674
+	
+	- TCP/IP modules:
+		support for IPv6 added
+		bug fixes. TCPServices now work on all ports
+	
+	- module Threads removed. All locking is done in the modules
+	   Machine and Objects now
+	   
+	- cleanup and renaming in bootfile loader.
+	  
+
+New in release 0.89:
+	- based on A2 svn revision 3325.
+	
+	- missing key events for modifier keys fixed.
+	
+	- dead lock in KbdMouse fixed.
+
+New in release 0.87:
+	- based on A2 svn revison 3123.
+	
+	- Search paths for Linux libraries changed (can now hopefully be used on more 
+	   Linux distributions).
+	
+	- The size of the display window can be configured in the startup script
+	   (AOSCONFIG="DisplaySize 640x480 ... ")
+	
+	- Allows allocation of larger heap blocks for arrays (64 MB -> 512 MB)
+	
+	- Secure shell client included, initial version, needs more testing.
+	   In addition to password authorization, the only method supported by Oberon 
+	   SSH, the new SSH client also supports public key authorization.
+	   (see SSH.Tool, the old tool for Oberon SSH got renamed to Oberon.SSH.Tool). 
+	
+	- Bug fixes
+
+New in release 0.84:
+	- Based on A2 revision 2660, more interface unification with A2.
+	
+	- moved code blocks out of A2 heap (needed for recent Linux kernels)
+	
+	- Finalization of active objects fixed.
+	
+	- Object tracker got included.
+	
+	- Switched to A2-Style locking (mutex.Lock, mutex.Unlock -->  Machine.Acquire, Machime.Release)
+	
+	- fixed BootLinker initialization. BootLinker.Link can now be called mutiple times without
+	   reloading the module.
+	   
+	- changed module dependencies (Heaps, Threads  -->  Threads, Heaps)
+	
+	- Unix.XDisplay.Mod: possible dead lock fixed.
+	
+	- Unix.Heaps.Mod: replaced the recursive garbage collector (which needed a special
+	   thread with a huge stack) by a none recursive one which can be call by any thread.
+	
+	- Threads.Mod: better start up syncronization to speed up thread starting.
+	
+	- several other bug fixes 
+	
+
+New in release 0.80:
+	- fixed Files.GetName. Nameplates contain correct values now.
+	
+	- upgraded to Aos repository rev. 1400. 
+	   New compiler, new object format, Contexts, new module naming.
+	   
+	   
+New in release 0.72:
+	- This is the first release of UnixAos which has been created with
+	   AosRelease.Build from the svn repository. The applications are more 
+	   complete now. Still missing: sound output and driver support for USB, 
+	   CD/DVD, ...
+	   
+	- Network stuff (AosIP, AosTCP, ... ) finished. FTP Tool and WMVT100
+	   are working now.
+	
+	- Objects.Timer fixed. Portspecific module Unix.AosActiveTimers.Mod is no
+	   longer needed (removed)
+
+New in release 0.71:
+	- Based on the Bluebottle sources of 11.02.2008
+	
+	- Converted some low level modules to upper case keywords to reanable the
+	  the original fieldnames in the structure ModuleDesc (type, module, ... ). 
+	  This made a couple of port specific modules superfluous.
+	  
+	- Fiexed BootLinker to allow active objects in core modules + code cleanup.
+	  (Unix/BootLinker.Mod, Unix/Objects.Mod, Unix/AosStarter.Mod)
+	
+	- Fixed Unix/AosUnixFiles.Mod.  AosFS.Enumerate no longer delivers some files multiple
+	  times. If a filename exists in multiple directories of the environment variable OBERON
+	  the hidden ones get omitted.
+	
+	- It is now possible to create standalone applications (see StandaloneOberonAppl.Text ).
+
+	
+New in release 0.7
+	- The System now uses the compiler and sources of the Bluebottle release of 29.11.2007.
+	  Several base modules have been renamed to be in sync with the Bluebttle module
+	  naming.
+	
+	- The stacksize for active objects is adjustable via the environment variable AOSCONFIG.
+	  The default value is 128 (kilobytes).
+	  
+	- System parameters red by Machine.GetConfig can be specified by the environment variable
+	  AOSCONFIG. This is done in the editable  start script (aos).
+	
+	- The old Oberon object finalization (Kernel.RegisterObject) has been completly removed and
+	  got replaced by the Aos variant  which calls  the finalization procedures in a background task.
+	
+
+New in release 0.63:
+	- Trap handling is now done in a separate stack. The needed sigaltstack function didn't work
+	  in older Linux releases and had therefor been disabled. With the alternate trap stack the
+	  system is finally able to handle stack overflow events  in active objects.
+
+New in release 0.62:
+	- X11 exposure events and F9 get handled by the windowmanager (Unix/WindowManager.Mod)
+	- stacksize for active objects increased from 192 KB to 256 KB (Unix/AosActive.Mod)
+	
+	- bug fixes  (Unix/kbdMouse.Mod, Unix/Aos.Oberon.Mod)
+	
+	- code cleanup (x86/Unix/Kernel.mod, x86/Unix/Exceptions.Mod, Unix/AosConsole.Mod)
+
+New in release 0.61:
+
+	- based on BB sources of 2007/08/23
+	- Support for 'safe' active objects added. They now get restartet after a trap
+	- ctrl- and alt-keys can again substitute missing MM- and MR-buttons
+	- The system no longer gets locked up at heavy text scrolling
+	
+	- System is now useable (stable) on MacOSX systems too
+	

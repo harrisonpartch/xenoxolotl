@@ -9,8 +9,8 @@ else
 fi
 
 
-##### set aoshome to this directory
-aoshome=./
+##### set aoshome to the directory where Oberon is installed
+aoshome=./aoshome
 
 # The environment variable AOSPATH has to be set before running Aos.
 # It defines a list of directories where Aos is looking for its
@@ -24,14 +24,14 @@ export AOSPATH
 #   StackSize (kB)
 #   DisplaySize (% of screen size (min 50), or absolute WxH (min 640x480))
 #   TraceModules 0/1 (1: trace module loading)
-#   FastNEW 0/1 (set to 1 if you prefer faster heap allocation over small heap size)
+#   TraceCommands 0/1 (1: trace command invocations)
 #
 # Oberon subsystem:
 #   Color 0/1 (0: FillerColor:=0; 1: FillerColor:=12)
 #   MB 1/2/3  (number of mouse buttons)
 #   OberonWatch 0/1
 #
-AOSCONFIG="StackSize 1024  DisplaySize 100  FastNEW 1  Color 0"
+AOSCONFIG="StackSize 128  DisplaySize 100  Color 0"
 export AOSCONFIG
 
 

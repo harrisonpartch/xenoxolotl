@@ -77,20 +77,9 @@ VAR
 	dot,d: REAL;
 	inside: BOOLEAN;
 BEGIN
-(*	CASE ray.face OF
-		0: inside := TRUE
-		|1: nx := -1
-		|2: ny := -1
-		|3: nz := -1
-		|4: nx := 1
-		|5: ny := 1
-		|6: nz := 1
-	ELSE
-	END;
-*)
 	d := (nx*ray.dxyz.x + ny*ray.dxyz.y+ nz*ray.dxyz.z); 
 (*	dot := d*(1/2-ray.lxyz.x); *)
-	ray.ra := ray.ra- 0.9; 
+	ray.ra := ray.ra- 0.1; 
 	ray.ga := ray.ga- 0.1; 
 	ray.ba := ray.ba- 0.1; 
 	mirror(ray);

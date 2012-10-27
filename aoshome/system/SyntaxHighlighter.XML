@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+	<!DOCTYPE SyntaxHighlighter [
+		<!ELEMENT SyntaxHighlighter (Styles, Highlighters)>
+		<!ELEMENT Styles (Style*)>
+		<!ELEMENT Style EMPTY>
+		<!ELEMENT Highlighters (Highlighter*)>
+		<!ELEMENT Highlighter (Words?, Regions?)>
+		<!ELEMENT Words (#PCDATA)>
+		<!ELEMENT Regions (Region*)>
+		<!ELEMENT Region EMPTY>
+		<!ATTLIST Style
+			name NMTOKEN #REQUIRED
+			fontname NMTOKEN "Oberon"
+			fontsize NMTOKEN "*"
+			fontstyle CDATA "{}"
+			color NMTOKEN "FF"
+			bgcolor NMTOKEN "0"
+			voff NMTOKEN "0"
+		>
+		<!ATTLIST Highlighter
+			name CDATA #REQUIRED
+			defaultstyle CDATA #IMPLIED>
+		<!ATTLIST Words allowCharacters CDATA #IMPLIED>
+		<!ATTLIST Group name CDATA #REQUIRED>
+		<!ATTLIST Region
+			style CDATA #REQUIRED
+			styleOpen CDATA #REQUIRED
+			styleClose CDATA #REQUIRED
+			open CDATA #REQUIRED
+			close CDATA #REQUIRED
+			nesting CDATA #REQUIRED
+			multiline CDATA #REQUIRED
+		>
+	]>
+
+<SyntaxHighlighter>
+
+	<Styles>
+		<Style name="Default" fontsize="10"/>
+		<Style name="Bold" fontstyle="{0}"/>
+		<Style name="Italic" fontstyle="{1}"/>
+		<Style name="Red" fontsize="10" color="7F0000FF"/>
+		<Style name="Blue" color="FFFF"/>
+		<Style name="Green" fontsize="10" fontstyle="{0}" color="9000FF"/>
+		<Style name="Comment" fontsize="10" color="7F7F7FFF"/>
+		<Style name="ToDo" color = "FF0000FF" fontstyle="{0}"/>
+		<Style name="CommentItalic" fontsize="10" fontstyle="{1}" color="7F7F7FFF"/>
+		<Style name="Control" fontstyle="{0}" color="FFFF"/>
+		<Style name="Modifiers" fontsize="10" color="A000FF"/>
+		<Style name="Locking" fontsize="10" color="FF00FFFF"/>
+		<Style name="Checks" fontsize="10" fontstyle="{0}" color="FFFF"/>
+		<Style name="Threads" fontsize="10" color="FF00FFFF"/>
+		<Style name="Structure" fontstyle="{0}" color="FF"/>
+		<Style name="Operators" fontstyle="{}" color="C02020FF"/>
+		<Style name="Values" fontsize="10" color="108070FF"/>
+		<Style name="StdValues" fontsize="8" fontstyle="{0}" color="20A8A8FF"/>
+		<Style name="ComplexTypes" fontstyle="{0}" color="FFFF"/>
+		<Style name="Dangerous" fontsize="8" fontstyle="{0}" color="FF0000FF"/>
+		<Style name="Debug" color="FFFF"/>
+		<Style name="String" fontsize="10" color="7F002FFF"/>
+		<Style name="Error" bgcolor="FF0000FF"/>
+		
+		<Style name="Keywords" fontsize="8" fontstyle="{0}" color="7090FFFF"/>
+		<Style name="KeywordsL" fontsize="10" fontstyle="{0}" color="7090FFFF"/>
+		<Style name="OpKeywords" fontsize="8" fontstyle="{0}" color="C06060FF"/>
+		<Style name="OpKeywordsL" fontsize="10" fontstyle="{0}" color="C06060FF"/>
+		<Style name="BasicTypes" fontsize="10" fontstyle="{}" color="5070D0FF"/>
+		<Style name="StdFuncts" fontsize="10" fontstyle="{}" color="207080FF"/>
+
+	</Styles>
+	
+	<Highlighters>
+		<Highlighter name="Oberon" defaultstyle="Default">
+			<Tokens>
+				<Group style="Green">
+					(* 
+				</Group>
+				<Group style="Error">
+					*)
+				</Group>
+				<Group style="Operators">
+					:= * + - / = #
+					&lt;  &lt;=  &gt;=  &gt;  &amp;  ~
+				</Group>
+				<Group style="Comment">
+					; : ,
+				</Group>
+			</Tokens>
+
+			<Words allowCharacters="._" numberStyle="Values">
+				<Group style="Keywords">
+					FOR TO WHILE DO REPEAT UNTIL IF THEN ELSE ELSIF
+					LOOP CASE BY WITH
+					BEGIN END CODE FINALLY
+					OF
+				</Group>
+				<Group style="Green">
+					RETURN EXIT NEW
+				</Group>
+				<Group style="Keywords">
+					VAR CONST
+					ARRAY POINTER
+					CELL CELLNET PORT				
+				</Group>
+				<Group style="StdFuncts">
+					SELF SELF.* DISPOSE
+				</Group>
+				<Group style="OpKeywords">
+					DIV MOD IN IS OR
+				</Group>
+				<Group style="StdFuncts">
+					ABS ASH CAP CHR ORD
+					COPY GETPROCEDURE LEN
+					MAX MIN ODD SIZEOF SHORT LONG ENTIER ENTIERH
+					RE IM
+					INCL EXCL INC DEC
+					SEND RECEIVE
+					OUT
+				</Group>
+				<Group style="Modifiers">
+					DELEGATE REALTIME C
+				</Group>
+				<Group style="Locking">
+					KernelLog.Enter
+					KernelLog.Exit
+					Acquire Release
+					*.Acquire *.Release
+					AcquireRead ReleaseRead
+					AcquireWrite ReleaseWrite
+					*.AcquireRead 	*.ReleaseRead
+					*.AcquireWrite *.ReleaseWrite
+					mtxLock mtxUnlock conWait conSignal
+				</Group>
+				<Group style="Checks">
+					ASSERT
+				</Group>
+				<Group style="Threads">
+					ACTIVE SHARED PRIORITY AWAIT EXCLUSIVE
+				</Group>
+				<Group style="Keywords">
+					MODULE IMPORT TYPE DEFINITION REFINES IMPLEMENTS PROCEDURE
+					OBJECT RECORD
+				</Group>
+				<Group style="StdValues">
+					NIL TRUE FALSE
+				</Group>
+				<Group style="BasicTypes">
+					BOOLEAN
+					SHORTINT INTEGER LONGINT HUGEINT
+					REAL LONGREAL
+					SET
+					CHAR
+					ANY
+				</Group>
+				<Group style="Dangerous">
+					S*.GET S*.GET8 S*.GET16 S*.GET32 S*.GET64
+					S*.ADDRESS S*.SIZE S*.BYTE
+					S*.SIZEOF S*.TYPEOF
+					S*.PUT S*.PUT8 S*.PUT16 S*.PUT32 S*.PUT64
+					S*.VAL
+					S*.ADR
+					S*.MOVE
+					S*.PORTIN S*.PORTOUT
+					S*.ROT S*.LSH
+					S*.CLI S*.STI
+					SYSTEM
+					S*.BIT S*.MSK
+					HALT
+					UNTRACED
+				</Group>
+				<Group style="Default">
+					KernelLog
+					KernelLog.Send
+					KernelLog.String KernelLog.Ln
+					KernelLog.Char KernelLog.Int KernelLog.Boolean
+					KernelLog.IntSuffix KernelLog.Hex
+					KernelLog.Address KernelLog.HIntHex
+					KernelLog.Memory KernelLog.Buffer
+					KernelLog.Bits
+					KernelLog.OpenBuffer
+					KernelLog.CloseBuffer
+					Trace
+					Trace.Send
+					Trace.Ln Trace.String Trace.StringLn
+					Trace.Int Trace.Boolean Trace.IntSuffix
+					Trace.Hex Trace.Address
+					Trace.HIntHex
+					Trace.Memory Trace.Buffer Trace.Bits
+					Trace.Blue Trace.Green Trace.Red Trace.Yellow Trace.Default
+				</Group>
+			</Words>
+
+			<Regions>
+				<Region
+					style="Comment" styleOpen="Comment" styleClose="Comment"
+					open="(*" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="ToDo" styleOpen="Comment" styleClose="Comment"
+					open="(*!" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="Red" styleOpen="Comment" styleClose="Comment"
+					open="(*?" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="CommentItalic" styleOpen="CommentItalic" styleClose="CommentItalic"
+					open="(**" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				
+				<Region
+					style="String" styleOpen="String" styleClose="String"
+					open='"' close='"' nesting="FALSE" multiline="FALSE"
+				/>
+				<Region
+					style="String" styleOpen="String" styleClose="String"
+					open="'" close="'" nesting="FALSE" multiline="FALSE"
+				/>
+				<Region
+					style="Default" styleOpen="Keywords" styleClose="Keywords"
+					open="CODE" close="END" nesting="FALSE" multiline="TRUE"
+				/>
+			</Regions>
+
+		</Highlighter>
+
+		<Highlighter name="LowercaseOberon" defaultstyle="Default">
+			<Tokens>
+				<Group style="Green">
+					(* 
+				</Group>
+				<Group style="Error">
+					*)
+				</Group>
+				<Group style="Operators">
+					:= * + - / = #
+					&lt;  &lt;=  &gt;=  &gt;  &amp;  ~
+				</Group>
+				<Group style="Comment">
+					; : ,
+				</Group>
+			</Tokens>
+
+			<Words allowCharacters="._" numberStyle="Values">
+				<Group style="KeywordsL">
+					for to while do repeat until if then else elsif
+					loop case by with
+					begin end code finally
+					of
+				</Group>
+				<Group style="Green">
+					return exit new
+				</Group>
+				<Group style="KeywordsL">
+					var const
+					array pointer
+					cell cellnet port				
+				</Group>
+				<Group style="StdFuncts">
+					self self.* dispose
+				</Group>
+				<Group style="OpKeywordsL">
+					div mod in is or
+				</Group>
+				<Group style="StdFuncts">
+					abs ash cap chr ord
+					copy getprocedure len
+					max min odd sizeof short long entier entierh
+					re im
+					incl excl inc dec
+					send receive
+					out
+				</Group>
+				<Group style="Modifiers">
+					delegate realtime c
+				</Group>
+				<Group style="Locking">
+					KernelLog.Enter
+					KernelLog.Exit
+					Acquire Release
+					*.Acquire *.Release
+					AcquireRead ReleaseRead
+					AcquireWrite ReleaseWrite
+					*.AcquireRead 	*.ReleaseRead
+					*.AcquireWrite *.ReleaseWrite
+					mtxLock mtxUnlock conWait conSignal
+				</Group>
+				<Group style="Checks">
+					assert
+				</Group>
+				<Group style="Threads">
+					ACTIVE SHARED PRIORITY await EXCLUSIVE
+				</Group>
+				<Group style="KeywordsL">
+					module import type definition refines implements procedure
+					object record
+				</Group>
+				<Group style="Values">
+					nil true false
+				</Group>
+				<Group style="BasicTypes">
+					boolean
+					shortint integer longint hugeint
+					real longreal
+					set
+					char
+					any
+				</Group>
+				<Group style="Dangerous">
+					S*.GET S*.GET8 S*.GET16 S*.GET32 S*.GET64
+					S*.ADDRESS S*.SIZE S*.BYTE
+					S*.SIZEOF S*.TYPEOF
+					S*.PUT S*.PUT8 S*.PUT16 S*.PUT32 S*.PUT64
+					S*.VAL
+					S*.ADR
+					S*.MOVE
+					S*.PORTIN S*.PORTOUT
+					S*.ROT S*.LSH
+					S*.CLI S*.STI
+					SYSTEM
+					S*.BIT S*.MSK
+					HALT
+					UNTRACED
+				</Group>
+				<Group style="Default">
+					KernelLog
+					KernelLog.Send
+					KernelLog.String KernelLog.Ln
+					KernelLog.Char KernelLog.Int KernelLog.Boolean
+					KernelLog.IntSuffix KernelLog.Hex
+					KernelLog.Address KernelLog.HIntHex
+					KernelLog.Memory KernelLog.Buffer
+					KernelLog.Bits
+					KernelLog.OpenBuffer
+					KernelLog.CloseBuffer
+					Trace
+					Trace.Send
+					Trace.Ln Trace.String Trace.StringLn
+					Trace.Int Trace.Boolean Trace.IntSuffix
+					Trace.Hex Trace.Address
+					Trace.HIntHex
+					Trace.Memory Trace.Buffer Trace.Bits
+					Trace.Blue Trace.Green Trace.Red Trace.Yellow Trace.Default
+				</Group>
+			</Words>
+
+			<Regions>
+				<Region
+					style="Comment" styleOpen="Comment" styleClose="Comment"
+					open="(*" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="ToDo" styleOpen="Comment" styleClose="Comment"
+					open="(*!" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="Red" styleOpen="Comment" styleClose="Comment"
+					open="(*?" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="CommentItalic" styleOpen="CommentItalic" styleClose="CommentItalic"
+					open="(**" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				
+				<Region
+					style="String" styleOpen="String" styleClose="String"
+					open='"' close='"' nesting="FALSE" multiline="FALSE"
+				/>
+				<Region
+					style="String" styleOpen="String" styleClose="String"
+					open="'" close="'" nesting="FALSE" multiline="FALSE"
+				/>
+				<Region
+					style="Default" styleOpen="Keywords" styleClose="Keywords"
+					open="CODE" close="END" nesting="FALSE" multiline="TRUE"
+				/>
+			</Regions>
+
+		</Highlighter>
+
+		<Highlighter name="DataflowOberon" defaultstyle="">
+			<Tokens>
+				<Group style="Green">
+					( (* )
+				</Group>
+				<Group style="Error">
+					*)
+				</Group>
+				<Group style="Red">
+					= := * + - /
+					&lt; &lt;= &gt;= &gt; #
+				</Group>
+				<Group style="Comment">
+					; : ,
+				</Group>
+			</Tokens>
+
+			<Words allowCharacters="._" numberStyle="Values">
+				<Group style="Bold">
+					FOR TO WHILE DO REPEAT UNTIL IF THEN ELSE ELSIF
+					LOOP CASE BY
+					BEGIN END CODE FINALLY
+					OF
+				</Group>
+				<Group style="Green">
+					RETURN EXIT
+				</Group>
+				<Group style="Bold">
+					VAR CONST
+					ARRAY POINTER
+					ACTOR ASSEMBLY STREAM
+				</Group>
+				<Group style="Bold">
+					NEW SELF CONNECT DELEGATE
+				</Group>
+				<Group style="Italic">
+					ABS ASH CAP CHR ORD
+					COPY GETPROCEDURE LEN
+					MAX MIN ODD SIZEOF SHORT LONG ENTIER ENTIERH
+					DIV MOD IN IS OR
+					INCL EXCL INC DEC
+					SEND RECEIVE
+					OUT
+				</Group>
+				<Group style="Checks">
+					ASSERT
+				</Group>
+				<Group style="Threads">
+					ACTIVE SHARED PRIORITY AWAIT EXCLUSIVE
+				</Group>
+				<Group style="Structure">
+					MODULE IMPORT TYPE DEFINITION REFINES IMPLEMENTS PROCEDURE
+					OBJECT RECORD
+				</Group>
+				<Group style="Values">
+					NIL TRUE FALSE
+				</Group>
+				<Group style="Bold">
+					BOOLEAN
+					SHORTINT INTEGER LONGINT HUGEINT
+					REAL LONGREAL
+					SET
+					CHAR
+					ANY
+				</Group>
+				<Group style="Dangerous">
+					SYSTEM.GET SYSTEM.GET8 SYSTEM.GET16 SYSTEM.GET32 SYSTEM.GET64
+					SYSTEM.ADDRESS SYSTEM.SIZE
+					SYSTEM.SIZEOF SYSTEM.TYPEOF
+					SYSTEM.PUT SYSTEM.PUT8 SYSTEM.PUT16 SYSTEM.PUT32 SYSTEM.PUT64
+					SYSTEM.VAL
+					SYSTEM.ADR
+					SYSTEM.MOVE
+					SYSTEM.PORTIN SYSTEM.PORTOUT
+					SYSTEM.ROT SYSTEM.LSH
+					SYSTEM.CLI SYSTEM.STI
+					SYSTEM
+					SYSTEM.BIT SYSTEM.MSK
+					HALT
+					UNTRACED
+				</Group>
+				<Group style="Debug">
+					TRACE
+				</Group>
+			</Words>
+
+			<Regions>
+				<Region
+					style="Comment" styleOpen="Comment" styleClose="Comment"
+					open="(*" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="Blue" styleOpen="Comment" styleClose="Comment"
+					open="(*!" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="Red" styleOpen="Comment" styleClose="Comment"
+					open="(*?" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="Comment" styleOpen="CommentItalic" styleClose="CommentItalic"
+					open="(**" close="*)" nesting="TRUE" multiline="TRUE"
+				/>
+				<Region
+					style="String" styleOpen="Bold" styleClose="Bold"
+					open='"' close='"' nesting="FALSE" multiline="FALSE"
+				/>
+				<Region
+					style="String" styleOpen="Bold" styleClose="Bold"
+					open="'" close="'" nesting="FALSE" multiline="FALSE"
+				/>
+			</Regions>
+
+		</Highlighter>
+
+		<Highlighter name="XML">
+			<Words allowCharacters="?&amp;!#;:">
+				<Group style="Bold">
+					?xml
+					!DOCTYPE !ELEMENT !ATTLIST
+				</Group>
+				<Group style="Italic">
+					#DEFAULT #FIXED
+					#REQUIRED #IMPLIED
+					#PCDATA #CDATA
+				</Group>
+				<Group style="Bold">
+					EMPTY ANY CDATA PCDATA
+					ID IDREF IDREFS NMTOKEN NMTOKENS ENTITY ENTITIES NOTATION
+					xml:*
+				</Group>
+			</Words>
+			<Regions>
+				<Region
+					style="Comment" styleOpen="Comment" styleClose="Comment"
+					open="&lt;!--" close="-->" nesting="FALSE" multiline="TRUE"
+				/>
+				<Region
+					style="String" styleOpen="Bold" styleClose="Bold"
+					open='"' close='"' nesting="FALSE" multiline="TRUE"
+				/>
+				<Region
+					style="String" styleOpen="Bold" styleClose="Bold"
+					open="'" close="'" nesting="FALSE" multiline="TRUE"
+				/>
+			</Regions>
+		</Highlighter>
+
+		<Highlighter name="C">
+			<Tokens>
+				<Group style="Green">
+					( )
+				</Group>
+				<Group style="Red">
+					= * + - / &amp;
+					&lt; &lt;= &gt;= &gt; #
+				</Group>
+				<Group style="Comment">
+					; : ,
+				</Group>
+			</Tokens>
+			<Words>
+				<Group style="Bold">
+					signed unsigned
+					short long
+					char, int
+					float double
+					void
+				</Group>
+				<Group style="Bold">
+					typedef
+					union struct enum
+					sizeof
+				</Group>
+				<Group style="Bold">
+					auto default extern inline register volatile
+					restrict
+					static
+					const
+				</Group>
+				<Group style="Bold">
+					break continue
+					switch case for
+					if else
+					do while
+					goto
+					return
+				</Group>
+			</Words>
+			<Regions>
+				<Region
+					style="Comment" styleOpen="Comment" styleClose="Comment"
+					open="/*" close="*/" nesting="FALSE" multiline="TRUE"
+				/>
+				<Region
+					style="Comment" styleOpen="Comment" styleClose="Comment"
+					open="//" close="" nesting="FALSE" multiline="FALSE"
+				/>
+				<Region
+					style="String" styleOpen="Bold" styleClose="Bold"
+					open='"' close='"' nesting="FALSE" multiline="TRUE"
+				/>
+				<Region
+					style="String" styleOpen="Bold" styleClose="Bold"
+					open="'" close="'" nesting="FALSE" multiline="TRUE"
+				/>
+			</Regions>
+		</Highlighter>
+
+		<Highlighter name="ReleaseTool">
+			<Words allowCharacters=".">
+				<Group style="Bold">
+					HEADER VERSION END
+					PACKAGE ARCHIVE SOURCE DESCRIPTION
+					BUILDS
+				</Group>
+				<Group style="Italic">
+					INCLUDE COMPILER COMPILEOPTIONS TARGET EXTENSION PATH EXCLUDEPACKAGES DISABLED
+				</Group>
+				<Group style="Red">
+					WIN iWIN eWIN
+				</Group>
+				<Group style="Blue">
+					NATIVE AMD64 I386
+				</Group>
+				<Group style="Green">
+					UNIX DARWIN LINUX SOLARIS
+				</Group>
+			</Words>
+			<Regions>
+				<Region
+					style="Comment" styleOpen="Comment" styleClose="Comment"
+					open="#" close="" nesting="FALSE" multiline="FALSE"
+				/>
+				<Region
+					style="String" styleOpen="Bold" styleClose="Bold"
+					open='"' close='"' nesting="FALSE" multiline="FALSE"
+				/>
+			</Regions>
+		</Highlighter>
+
+		<Highlighter name="Assembler">
+			<Words allowCharacters=":">
+				<Group style="Bold">
+					*:
+				</Group>
+			</Words>
+			<Regions>
+				<Region
+					style="Comment" styleOpen="Comment" styleClose="Comment"
+					open =";" close="" nesting="FALSE" multiline="FALSE"
+				/>
+			</Regions>
+		</Highlighter>
+
+	</Highlighters>
+
+</SyntaxHighlighter>

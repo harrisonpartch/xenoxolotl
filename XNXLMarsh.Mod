@@ -1,7 +1,7 @@
 MODULE XNXLMarsh;
 IMPORT  Base:=XNXLBase , XNXLEngrainer, XNXLVoxel, XNXLVoxel4, XNXLLifeVox, XNXLTexVox, Random, 
-M2:=XNXLM2Space, M3:=XNXLM3Space, XNXLFRep, XNXLRotaVox, XNXLSierp, XNXLHalfSpace,
-(*XNXLUDPClient, *)Files, Streams, Out:=KernelLog;
+M2:=XNXLM2Space, M3:=XNXLM3Space, M5:=XNXLM5Space,  XNXLFRep, XNXLRotaVox, XNXLSierp, XNXLHalfSpace,
+XNXLVoxConsole, Files, Streams, Out:=KernelLog;
 
 CONST sfile="marshstrokes.text"
 TYPE Voxel=Base.Voxel;
@@ -96,7 +96,7 @@ END mstroker;
 
 VAR
 	marshv: vloop;
-	Cursor: XNXLVoxel.BiVox;
+	Cursor, cloud1,cloud2: XNXLVoxel.BiVox;
 	cursormark: XNXLTexVox.TexCubeVox;
 	cursorsave,drawvox: Voxel;
 	cursorTF*,lines*:BOOLEAN;
@@ -104,7 +104,7 @@ VAR
 	sfish,gxy,w10,w11,v,EMPTY,lobster, btx,ash, dotz, GREEN,PURPLE,MCUBE:Voxel;
 	rd,blu, die,gren,granite,sand,whiteblock,pdestroyer,axolotl,xen,sky1,sky2,tigerlily,cloud: Voxel;
 	die0,die1,die2,die3,die4,die5,etile0,etile1,etile2,etile3,etile4,grass,sparx:Voxel;
-	sky,dieone, serp,cthulhu,greenball,rat,conglomerate,conglo2: Voxel;
+	sky,dieone, serp,cthulhu,greenball,rat,conglomerate,conglo2,caption,gorge: Voxel;
 	i,j,k,ii,jj,kk,iii,jjj,kkk,t,s: LONGINT;
 	cost: REAL;
 	up,flat,down,right,away,slant,p,pp,q,qq,center,undercenter, normal,xaxis,yaxis,zaxis: PT;
@@ -113,12 +113,13 @@ VAR
 	red,blue,green: REAL;
 	EARTH: XNXLVoxel.DiffuseVox;
 	rand: Random.Generator;
-	z10: M3.cell;
-	q10,x10,y10: M3.cell;
+	z10: M3.torus;
+	x10,q10,y10: M2.cell;
 	YELLOW: XNXLVoxel.DiffuseVox;
 	BLACK,GREY, WHITE: XNXLVoxel.DiffuseVox;
 	 GREENO: XNXLVoxel.COutlineVox;
 	MIRROR: XNXLVoxel.DiffuseMVox;
+	MIRRORSPHERE: XNXLVoxel4.MirrorSphereInVox;
 	PINK, BROWN: XNXLVoxel.OutlineVox;
 	NIGHT, TGREEN, TDGREEN, TYELLOW, TBROWN, TORANGE: M3.cell;
 	TWHITE, TBLACK: XNXLVoxel.TransparaVox;
@@ -168,25 +169,23 @@ VAR
 	SNIPE*,SNIPEINTO*:BOOLEAN;
 
 PROCEDURE draw*;
-VAR 
-	p: PT;
-	ray: Base.Ray;
 BEGIN
-	ASSERT(marshv#NIL);
 	stroke(Base.cursorPT,cursorsize,marshv.vox)
 END draw;
 
+PROCEDURE key*(CONST c:CHAR);
+BEGIN
+	stroke(Base.cursorPT,cursorsize,XNXLVoxConsole.charvox(c));
+END key;
+
 PROCEDURE clear*;
-VAR 
-	p: PT;
-	ray: Base.Ray;
 BEGIN
 	stroke(Base.cursorPT,cursorsize,EMPTY)
 END clear;
 
 PROCEDURE line*;
 BEGIN
-	Base.world.line(A,B,cursorsize,Cursor.v2);	
+	Base.world.line(A,B,cursorsize,marshv.vox);	
 END line;
 
 PROCEDURE stroke(p:PT; resolution:LONGINT; voxel:Voxel);
@@ -247,6 +246,8 @@ BEGIN
 	IF Base.world.passprobe(Base.cursorPT.x,Base.cursorPT.y,Base.cursorPT.z) THEN
 		XNXLUDPClient.stroke(Base.cursorPT,3000,1)
 	END *)
+	stroke(Base.cameraPT,cursorsize,EMPTY);
+	stroke(Base.cameraPT,cursorsize,Base.avatar)
 END drawavatar;
 
 PROCEDURE engrain*;
@@ -313,7 +314,7 @@ BEGIN
 	etile1:=Base.VoxelFromName("NhYOBdcESgNhNEXS2S3OXsw"); 	
 	etile2:=Base.VoxelFromName("NiHWuC6tiaYe9Qxl3e1DNqw"); 	
 	etile3:=Base.VoxelFromName("N6illtDKEH5g6dsUifexH1Q"); 	
-	etile4:=Base.VoxelFromName("NxrglfWf3ZTXHHNB8BJ3sSQ"); 	
+	caption:=Base.VoxelFromName("NxrglfWf3ZTXHHNB8BJ3sSQ"); 	
 	grass:=Base.VoxelFromName("NJOFc7qhMXMly3lot71bNUw"); 	
 	sparx:=Base.VoxelFromName("NSIsnYBTYL9BajD8fbPDSqg"); 
 	xen:=Base.VoxelFromName("NZjDHYA8YHHcuymIh1fhHgg"); 		
@@ -327,16 +328,19 @@ BEGIN
 	sky1:=Base.VoxelFromName("N5a2g4M6HYjPJxYSNQvYyvw"); 	
 	sky2:=Base.VoxelFromName("NUzl1lqmBmaKyswkc70kO3w"); 	
 	tigerlily:=Base.VoxelFromName("NUzl1lqmBmaKyswkc70kO1w"); 				
+	gorge:=Base.VoxelFromName("NxxxGAernhjFK40xASZZVoQ"); 
       Out.String("EEEEP!");	
-	push(greenball);
 	push(rat);
-	push(serp);
+	push(tigerlily);
 	push(rd);
 	push(cloud);
 	push(blu);
 	push(gren);
+	push(conglomerate);	
 	NEW(MIRROR);
 	push(MIRROR);
+	NEW(MIRRORSPHERE);
+	push(MIRRORSPHERE);
 	push(lobster);
 	push(dieone);	
 	push(GREEN);
@@ -357,53 +361,187 @@ BEGIN
 	push(sparx);	
 	push(cthulhu);
 	push(greenball);
-	push(conglomerate);
+
 	push(conglo2);
 	push(tigerlily);
 	push(dieone);	
 	push(die); 
+	push(caption); 
+	push(serp);
+	push(whiteblock);
 	xaxis:=Base.mkPT(1,0,0);
 	yaxis:=Base.mkPT(0,1,0);	
 	zaxis:=Base.mkPT(0,0,1);	
 
-	NEW(LIFE,axolotl,NIL,die);
-	LIFE.passable:=TRUE;
 
-	NEW(cursormark, "harrisonavatar.png");
+	NEW(arrow,"next.png");
+	arrow.passable:=TRUE;
+	push(arrow);
+	NEW(meeba,"XNXL.meeba.png");	
+
+	NEW(founder,"XNXL.ourfounder.png");	
+
+	 
+	NEW(mutatis,"XNXL.mutatis.png");
+	NEW(weev,"XNXL.Freeweev.jpg");	
+	NEW(qdog,"XNXL.qdog.png");	
+	NEW(galaxy,"XNXL.axolotl.jpg");	
+	NEW(gwal,"XNXL.meeba.png");
+
+	NEW(bwal,"XNXL.grass.png");	
+	NEW(checkerfloor,"XNXL.checkerfloor.png");	
+	NEW(stone,"XNXL.sand.png");	
+
+	NEW(sky3,"XNXL.sky3.jpg");	
+	NEW(sky4,"XNXL.sky4.jpg");	
+	NEW(TEX,"XNXL.tree.png");
+	NEW(sky4,"yessongs.jpg");	
+	NEW(formica,"XNXL.granite.png");
+	NEW(linolium,"XNXL.linolium.png");
+
+	NEW(beholdthexenopus,"beholdthexenopus.png");
+(*	push(beholdthexenopus);
+	push(mutatis); push(qdog); push(weev); push(galaxy); push(EMPTY);
+	push(bwal); push(stone); push(sky2); push(sky3); push(sky4); push(formica);
+	NEW(starfish,"fruitstripe.png");		
+	NEW(MCUBE);	
+	push(MCUBE); *)
+
+	NEW(y10);
+	y10.setcolor(0,0,0,40,10);
+	
+	
+	NEW(YELLOW); NEW(BROWN);  
+	YELLOW.setcolor(1,1,0); 
+	BROWN.setcolor(2/3,2/3,1); 	
+	NEW(sperea,whiteblock,YELLOW);
+	sperea.setSize(11/16);
+	NEW(spereb,axolotl,tigerlily);
+	spereb.setSize(10/16);	
+	FOR i :=0 TO 100 DO
+		Base.setPT(center,Base.rand.Uniform(),1/2,1/2);
+		y10.stroke(center,28,sperea);
+		Base.setPT(center,1/2,1/2,Base.rand.Uniform());
+		y10.stroke(center,28,sperea);		
+		Base.setPT(center,1/2,Base.rand.Uniform(),1/2);
+		y10.stroke(center,28,sperea);	
+		Base.setPT(center,Base.rand.Uniform(),1/2,1/2);
+		y10.stroke(center,28,spereb);
+		Base.setPT(center,1/2,1/2,Base.rand.Uniform());
+		y10.stroke(center,28,spereb);		
+		Base.setPT(center,1/2,Base.rand.Uniform(),1/2);
+		y10.stroke(center,28,spereb);				
+	END;	
+	push(y10);
+	TEX.passable:=TRUE;
+	NEW(MGREEN);
+	MGREEN.setcolor(1/4,0,0,1/3); 
+
+	NEW(BLUE); 
+	BLUE.setcolor(3/6,4/6,1);
+	NEW(RED); 
+	RED.setcolor(1,0,0); 
+	NEW(MIRROR);
+	NEW(WHITE); 
+	WHITE.setcolor(1,1,1);
+	NEW(BLACK);
+	BLACK.setcolor(0.1,0.1,0.1);
+
+	WHITE.imposter:=BLUE;
+	NEW(GREENO); NEW(PURPLE);
+	push(GREENO);		
+	GREENO.setcolor(0.8,1,0.8); 			
+	GREENO.setoutline(0,0,0,1/50);
+	GREENO.passable:=TRUE;
+
+	NEW(GREY);
+	GREY.setcolor(5/6, 5/6, 5/6);
+	NEW(PINK); PINK.setcolor(1,1,8/9);
+	PINK.setoutline(1,2/3,2/3);
+	NEW(TWHITE); 	TWHITE.setcolor(0.8,0.9,0.9,0);
+	TWHITE.passable:=TRUE;
+	NEW(TBLUE); TBLUE.setcolor(0,0,1,3); 	
+	NEW(TORANGE); TORANGE.setcolor(1,2/3,0,3,0);
+	NEW(TDGREEN); TDGREEN.setcolor(0,0.6,0,1,0);
+	NEW(TGREEN); TGREEN.setcolor(0,1,0,1,0);
+(*	push(TGREEN);
+	push(TDGREEN);	
+*)	NEW(TRED); TRED.setcolor(0.9,0.00,0.1, 0.9); 
+	NEW(TPURPLE); TPURPLE.setcolor(10,10,10,0);
+	NEW(TYELLOW); TYELLOW.setcolor(1.7,1.7,0,0,0); 
+	NEW(TBROWN); TBROWN.setcolor(2/3,2/3,0,10,0);
+	NEW(TBLACK);
+	TBLACK.setcolor(0,0,0,0.1);
+(*	push(TWHITE); push(TGREEN); push(TYELLOW); push(TORANGE); *)
+	TORANGE.passable:=FALSE;
+	TBLUE.passable:=FALSE;
+	NEW(NIGHT);
+	NIGHT.setcolor(1/3,5,3,2,0);
+	TRED.passable:=TRUE;
+	diameter:=1/3;
+
+	NEW(cloud1);
+	cloud1.set(GREENO,cloud);
+	cloud1.passable:=TRUE;
+	push(cloud1);
+
+	NEW(x10);	
+	NEW(cloud2);
+	cloud2.set(GREENO,whiteblock);	
+	x10.blox[1,1,1]:=y10;
+	Base.setPT(up,0,0,1);	
+	Base.setPT(right,1,0,0);
+	NEW(Q,x10,up, right, 1/30, 1/100);
+	
+	push(Q);
+
+	NEW(cursormark, "harrisonavatar.0.png");
 	push(cursormark);	
 	Base.setPT(slant,1,1,1);
-	NEW(z10);
-	z10.setcolor(0,0,1,1,0);
 	Base.setPT(center,1/2,1/2,1/2);
 	xaxis:=Base.mkPT(1,0,0);
 	yaxis:=Base.mkPT(0,1,0);	
 	zaxis:=Base.mkPT(0,0,1);	
+	Base.setPT(up,0,0,1);
+	Base.setPT(center,1/2,1/2,0);	
 	NEW(plane,center,zaxis);
-	plane.setvoxel(whiteblock);	
+	plane.setvoxel(sand);	
+	sand.lockTF:=TRUE;		
+	NEW(gorgeplane,center,up,"XNXL.gorge.png","XNXL.gorge.png");
+	gorgeplane.vox:= whiteblock;
+	gorgeplane.rarevox:= MIRROR;
+	NEW(z10);
+	z10.setcolor(0,0,1,1,1);
+	z10.FRaster(gorgeplane,248);
+	z10.FRaster(plane,28); 	
 	NEW(noise);
-	noise.setvoxel(grass);
+	noise.setvoxel(whiteblock);
 	noise.seed:=54362;
 	noise.octaves:=4;
 	noise.persistence:=3;
 	noise.a:=1;
 	noise.b:=1;
 	noise.c:=1;		
-	z10.FRaster(noise,28);
+	z10.FRaster(noise,32); 
 
-	noise.setvoxel(sand);
 	noise.seed:=54362;
 	noise.octaves:=5;
 	noise.persistence:=4;
 	noise.a:=1;
 	noise.b:=1;
 	noise.c:=1;		
-	z10.FRaster(noise,28);		
+	noise.setvoxel(sand);	
+	z10.FRaster(noise,82);	
 
+	cursormark.passable:=TRUE;	
+	Base.avatar:=cursormark;
 	Base.world:=z10; 	
 (*	engrain;  
 	sprout;	
+*)	push(z10);
+	push(y10);
 	push(Base.world);
-*)
+
 
 END dawn;
 

@@ -24,6 +24,7 @@ BEGIN
 	FOR i :=0 TO 200 DO
 		Base.setPT(center,Base.rand.Uniform(),Base.rand.Uniform(),Base.rand.Uniform());
 		NEW(ball,center,1/40);
+		ball.setvoxel(v);
 		ball.setcolor(Base.rand.Uniform(),Base.rand.Uniform(),Base.rand.Uniform());		
 		conglomerate.FRaster(ball,81)
 	END;

@@ -8,6 +8,7 @@ Examples:
 
 Compiler.Compile 
 OpenALinfo.Mod
+OpenALUtil.Mod
 TestOpenAL0.Mod
 TestOpenALWav.Mod 
 ~ 
