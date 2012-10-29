@@ -1,0 +1,53 @@
+File Trap_20121028__150625.txt
+---------------------------
+
+LinuxAos (rev.4947)
+
+Trap   5.8  (ASSERT failed)
+SP = EEF7A088H, FP = EEF7A090H, PC = F7255C69H
+
+Dates.CompareDateTime:84 pc=2401 [00000961H] = 2317 + 84 crc=1999F7FE
+  t1=Rec@00000004H
+  t2=Rec@00000004H
+  result=0
+State Dates:
+  Months="January"...
+  Days="nday"...
+  NoDays=28 (001CH), 31 (001FH), 30 (001EH), 31 (001FH), 30 (001EH), 31 (001FH), 31 (001FH), 30 (001EH)...
+Dates.TimeDifference:60 pc=2713 [00000A99H] = 2653 + 60 crc=1999F7FE
+  t1=Rec@00000004H
+  t2=Rec@00000004H
+  days=0
+  hours=0
+  minutes=0
+  seconds=0
+  start=Rec@00000004H
+  end=Rec@00000004H
+  year=0
+  month=0
+  second=0
+  @hiddenIRVar0=0
+Strings.ShowTimeDifference:69 pc=15795 [00003DB3H] = 15726 + 69 crc=4E0197C2
+  t1=Rec@0000002CH
+  t2=Rec@0000002CH
+  out=F297A3A0H (PET.TextWriter)
+  days=0
+  hours=0
+  minutes=0
+  seconds=0
+  show=FALSE
+SystemTools.Timer:445 pc=10543 [0000292FH] = 10098 + 445 crc=3021B5D9
+  context=F504F270H (Commands.Context)
+  string="elapsed"...
+  nbr1=0
+  nbr2=0
+  @hiddenIRVar0=Rec@00000370H
+Commands.Runner.@Body:584 pc=2040 [000007F8H] = 1456 + 584 crc=68BAE6F9
+Objects.BodyStarter:319 pc=3318 [00000CF6H] = 2999 + 319 crc=8B6328EE
+  p=F504F4F0H (Objects.Process)
+  res=0
+  prevBP=-285760616
+
+
+----------------------------------------------------
+

@@ -1,0 +1,86 @@
+File Trap_20121027__220423.txt
+---------------------------
+
+LinuxAos (rev.4947)
+
+Trap   11 (Segmentation violation)
+SP = 00000000H, FP = CE0EE5E0H, PC = F7087551H
+
+exception handler found
+
+
+----------------------------------------------------
+
+LinuxAos (rev.4947)
+
+Trap   5.100  (programmed HALT)
+SP = CE0EE984H, FP = CE0EEAA8H, PC = F09CE591H
+
+FoxAMDBackend.BackendAMD64.ProcessIntermediateCodeModule:1076 pc=57225 [0000DF89H] = 56149 + 1076 crc=D9551061
+  intermediateCodeModule=E97E1CE0H (FoxSections.Module)
+State FoxAMDBackend:
+  registerOperands=-1, -1, -1, -1, 1 (01H), 0, 0, 0...
+  usePool=255
+  opEAX=Rec@00000468H
+  opECX=Rec@00000468H
+  opEDX=Rec@00000468H
+  opEBX=Rec@00000468H
+  opESP=Rec@00000468H
+  opEBP=Rec@00000468H
+  opESI=Rec@00000468H
+  opEDI=Rec@00000468H
+  opAX=Rec@00000468H
+  opCX=Rec@00000468H
+  opDX=Rec@00000468H
+  opBX=Rec@00000468H
+  opSI=Rec@00000468H
+  opDI=Rec@00000468H
+  opAL=Rec@00000468H
+  opCL=Rec@00000468H
+  opDL=Rec@00000468H
+  opBL=Rec@00000468H
+  opAH=Rec@00000468H
+  opCH=Rec@00000468H
+  opDH=Rec@00000468H
+  opBH=Rec@00000468H
+  opST0=Rec@00000468H
+  opRSP=Rec@00000468H
+  opRBP=Rec@00000468H
+  unusable=FFFFFFFFH (NIL)
+  split=FFFFFFFFH (NIL)
+  blocked=00000001H (NIL)
+  free=00000013H (NIL)
+  traceStackSize=0
+FoxIntermediateBackend.IntermediateBackend.ProcessSyntaxTreeModule:81 pc=218800 [000356B0H] = 218719 + 81 crc=CC5A2673
+  syntaxTreeModule=D3521A20H (FoxSyntaxTree.Module)
+  @hiddenIRVar0=00000000H (NIL)
+  @hiddenIRVar1=E97E1CE0H (FoxSections.Module)
+Compiler.Modules:1543 pc=1550 [0000060EH] = 7 + 1543 crc=CC697437
+  source="XNXLRender.Mod"...
+  reader=E2AA3210H (Files.Reader)
+  position=0
+  diagnostics=F0431DE0H (Diagnostics.StreamDiagnostics)
+  log=EFED7800H (PET.TextWriter)
+  options=Rec@00000004H
+  importCache=D45B2D60H (FoxSyntaxTree.ModuleScope)
+Compiler.Compile:538 pc=7215 [00001C2FH] = 6677 + 538 crc=CC697437
+  context=DFC9B950H (Commands.Context)
+  filename="XNXLRender.Mod"...
+  path=""...
+  file=""...
+  error=FALSE
+  diagnostics=F0431DE0H (Diagnostics.StreamDiagnostics)
+  time=11720377 (00B2D6B9H)
+  reader=E2AA3210H (Files.Reader)
+  importCache=D45B2D60H (FoxSyntaxTree.ModuleScope)
+  options=Rec@00000004H
+  @hiddenIRVar0=F0431DE0H (Diagnostics.StreamDiagnostics)
+Commands.Runner.@Body:584 pc=2040 [000007F8H] = 1456 + 584 crc=68BAE6F9
+Objects.BodyStarter:319 pc=3318 [00000CF6H] = 2999 + 319 crc=8B6328EE
+  p=F5F6D810H (Objects.Process)
+  res=0
+  prevBP=-837880936
+
+
+----------------------------------------------------
+

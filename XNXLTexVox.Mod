@@ -42,38 +42,47 @@ VAR
 	X,Y, xblend, yblend,blendx,blendy: REAL;
 	r,g,b,a: REAL;
 	dr,dg,db,da,blackness:REAL;
-	bb,c, lx, ly: REAL;
+	bb,c, lx, ly,lx1,ly1,lx2,ly2,tq: REAL;
 	i,j: INTEGER;
 	dot, nx, ny, nz: REAL;
 	bpdx,bpdy: REAL;
 	xov,yov,zov:REAL;
 	inside: BOOLEAN;
-	color: XNXLBase.Color;
+	color,color1,color2: XNXLBase.Color;
 	txcube: TexCube;
 BEGIN
 	CASE ray.face OF
-		 0: lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
-		|1: lx := ray.lxyz.x; ly := 1-ray.lxyz.z; 
-		|2: lx := ray.lxyz.x; ly := ray.lxyz.y;
-		|3: lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
-		|4: lx := ray.lxyz.x; ly := 1-ray.lxyz.z; 
-		|5: lx := ray.lxyz.x; ly := ray.lxyz.y;  
+		 0: lx := ray.xyz.y; ly := 1-ray.xyz.z; 
+		|1: lx := ray.xyz.x; ly := 1-ray.xyz.z; 
+		|2: lx := ray.xyz.x; ly := ray.xyz.y;
+		|3: lx := ray.xyz.y; ly := 1-ray.xyz.z; 
+		|4: lx := ray.xyz.x; ly := 1-ray.xyz.z; 
+		|5: lx := ray.xyz.x; ly := ray.xyz.y;  
 	ELSE
 	END;
-	color:=texcube.side[ray.face].pixel(lx,ly);
+	lx1:=lx*1000-ENTIER(lx*1000); 
+	ly1:=ly*1000-ENTIER(ly*1000); 
+	lx2:=lx*10-ENTIER(lx*10); 
+	ly2:=ly*10-ENTIER(ly*10); 
+	color1:=texcube.side[ray.face].pixel(lx1,ly1);
+	color2:=texcube.side[ray.face].pixel(lx2,ly2);	
+	tq:=1/(ray.length*243);
+	XNXLBase.clamp(tq);
+	color.red:=(color1.red*tq+color2.red*(1-tq));
+	color.green:=(color1.green*tq+color2.green*(1-tq));
+	color.blue:=(color1.blue*tq+color2.blue*(1-tq));
+	XNXLBase.clamp3(color.red,color.green,color.blue);
 	dot := ABS(ray.normal.x*ray.dxyz.x + ray.normal.y*ray.dxyz.y+ ray.normal.z*ray.dxyz.z)*0.7+0.4; 
 	dr:=color.red*dot*ray.ra;
 	dg:=color.green*dot*ray.ga;
-	db:=color.blue*dot*ray.ba;	
+	db:=color.blue*dot*ray.ba;
 	ray.r := ray.r + dr;
 	ray.g := ray.g + dg;
 	ray.b := ray.b + db;
 	ray.ra := ray.ra - dr - 0.1;
 	ray.ga := ray.ga - dg - 0.1;
 	ray.ba := ray.ba - db - 0.1;	
-	IF color.alpha>0.1 THEN
-		ray.terminate:=TRUE
-	END;
+	ray.terminate:=TRUE
 END Shade;
 
 PROCEDURE play*();
@@ -119,26 +128,37 @@ VAR
 	x,y,xi,yj: LONGINT;
 	X,Y, xblend, yblend,blendx,blendy: REAL;
 	r,g,b,a: REAL;
-	dr,dg,db:REAL;
-	bb,c, lx, ly: REAL;
+	dr,dg,db,da,blackness:REAL;
+	bb,c, lx, ly,lx1,ly1,lx2,ly2,tq: REAL;
 	i,j: INTEGER;
 	dot, nx, ny, nz: REAL;
 	bpdx,bpdy: REAL;
 	xov,yov,zov:REAL;
 	inside: BOOLEAN;
-	color: XNXLBase.Color
+	color,color1,color2: XNXLBase.Color;
+	txcube: TexCube;
 BEGIN
 	CASE ray.face OF
-		 0: lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
-		|1: lx := ray.lxyz.x; ly := 1-ray.lxyz.z; 
-		|2: lx := ray.lxyz.x; ly := ray.lxyz.y;
-		|3: lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
-		|4: lx := ray.lxyz.x; ly := 1-ray.lxyz.z; 
-		|5: lx := ray.lxyz.x; ly := ray.lxyz.y;  
+		 0: lx := ray.xyz.y; ly := 1-ray.xyz.z; 
+		|1: lx := ray.xyz.x; ly := 1-ray.xyz.z; 
+		|2: lx := ray.xyz.x; ly := ray.xyz.y;
+		|3: lx := ray.xyz.y; ly := 1-ray.xyz.z; 
+		|4: lx := ray.xyz.x; ly := 1-ray.xyz.z; 
+		|5: lx := ray.xyz.x; ly := ray.xyz.y;  
 	ELSE
-		ray.face:=0; lx := ray.lxyz.y; ly := 1-ray.lxyz.z; 
 	END;
-	color:=texcube.side[ray.face].pixel(lx,ly);
+	lx1:=lx*1000-ENTIER(lx*1000); 
+	ly1:=ly*1000-ENTIER(ly*1000); 
+	lx2:=lx*10-ENTIER(lx*10); 
+	ly2:=ly*10-ENTIER(ly*10); 
+	color1:=texcube.side[ray.face].pixel(lx1,ly1);
+	color2:=texcube.side[ray.face].pixel(lx2,ly2);	
+	tq:=1/(ray.length*243);
+	XNXLBase.clamp(tq);
+	color.red:=(color1.red*tq+color2.red*(1-tq));
+	color.green:=(color1.green*tq+color2.green*(1-tq));
+	color.blue:=(color1.blue*tq+color2.blue*(1-tq));
+	XNXLBase.clamp3(color.red,color.green,color.blue);
 	dot := ABS(ray.normal.x*ray.dxyz.x + ray.normal.y*ray.dxyz.y+ ray.normal.z*ray.dxyz.z)*0.7+0.4; 
 	dr:=color.red*dot*ray.ra;
 	dg:=color.green*dot*ray.ga;
@@ -150,9 +170,7 @@ BEGIN
 	ray.ga := ray.ga - (dr+db)/2;
 	ray.ba := ray.ba - (dr+dg)/2;
 	ray.bla := ray.bla -(dr+dg+db)/3;	
-	IF color.alpha>0.1 THEN
-		ray.terminate:=TRUE
-	END;
+	ray.terminate:=TRUE
 END Shade;
 
 PROCEDURE play*();

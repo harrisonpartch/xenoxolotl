@@ -353,7 +353,6 @@ BEGIN
 	push(whiteblock);
 	push(pdestroyer);
 	push(axolotl);
-	push(granite);
 	push(etile1);
 	push(etile2);
 	push(etile3);
@@ -386,7 +385,9 @@ BEGIN
 	NEW(weev,"XNXL.Freeweev.jpg");	
 	NEW(qdog,"XNXL.qdog.png");	
 	NEW(galaxy,"XNXL.axolotl.jpg");	
-	NEW(gwal,"XNXL.meeba.png");
+	NEW(gwal,"mule.png");
+	
+	push(gwal);
 
 	NEW(bwal,"XNXL.grass.png");	
 	NEW(checkerfloor,"XNXL.checkerfloor.png");	
@@ -408,9 +409,8 @@ BEGIN
 	push(MCUBE); *)
 
 	NEW(y10);
-	y10.setcolor(0,0,0,40,10);
-	
-	
+	y10.setcolor(100,0,0,1000,100);
+
 	NEW(YELLOW); NEW(BROWN);  
 	YELLOW.setcolor(1,1,0); 
 	BROWN.setcolor(2/3,2/3,1); 	
@@ -432,6 +432,7 @@ BEGIN
 		Base.setPT(center,1/2,Base.rand.Uniform(),1/2);
 		y10.stroke(center,28,spereb);				
 	END;	
+	y10.lockTF:=TRUE;	
 	push(y10);
 	TEX.passable:=TRUE;
 	NEW(MGREEN);
@@ -505,10 +506,9 @@ BEGIN
 	Base.setPT(up,0,0,1);
 	Base.setPT(center,1/2,1/2,0);	
 	NEW(plane,center,zaxis);
-	plane.setvoxel(sand);	
-	sand.lockTF:=TRUE;		
+	plane.setvoxel(granite);		
 	NEW(gorgeplane,center,up,"XNXL.gorge.png","XNXL.gorge.png");
-	gorgeplane.vox:= whiteblock;
+	gorgeplane.vox:= granite;
 	gorgeplane.rarevox:= MIRROR;
 	NEW(z10);
 	z10.setcolor(0,0,1,1,1);
@@ -522,7 +522,7 @@ BEGIN
 	noise.a:=1;
 	noise.b:=1;
 	noise.c:=1;		
-	z10.FRaster(noise,32); 
+(*	z10.FRaster(noise,32); *)
 
 	noise.seed:=54362;
 	noise.octaves:=5;
@@ -531,7 +531,7 @@ BEGIN
 	noise.b:=1;
 	noise.c:=1;		
 	noise.setvoxel(sand);	
-	z10.FRaster(noise,82);	
+(*	z10.FRaster(noise,82);	*)
 
 	cursormark.passable:=TRUE;	
 	Base.avatar:=cursormark;

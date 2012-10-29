@@ -285,7 +285,8 @@ BEGIN
 			Base.rays[i, j].oxyz:=Base.rays[i, j].xyz;
 		END
 	END;
-		w:= aperture.width/3;
+	IF ~XNXLRetina.SACCADE THEN
+	w:= aperture.width/3;
 	h:=aperture.height/3;
 	w:=fisheye*w;
 	h:= fisheye*h;
@@ -309,6 +310,7 @@ BEGIN
 			Base.frays[i, j].xyz := cam;
 			Base.frays[i, j].oxyz:=Base.frays[i, j].dxyz;
 		END
+	END
 	END;
 END initrays;
 
@@ -351,7 +353,7 @@ BEGIN
 	move;	
 	cam.x := cx; cam.y := cy; cam.z := cz;
 	a:=FWard.x*Base.cursordist; b:=FWard.y*Base.cursordist; c:=FWard.z*Base.cursordist;
-	Base.updatecamera(cx,cy,cz+0.001,a,b,c);	
+	Base.updatecamera(cx,cy,cz,a,b,c);	
 	IF SCULL THEN GLIDE:=0.7 ELSE GLIDE:=0.85 END;		
 	cvz := cvz*GLIDE-Base.gravity;	cvx := cvx*GLIDE; cvy := cvy*GLIDE; 
 	cvl :=cvl*0.0; cvu := cvu*0.0;
@@ -818,7 +820,7 @@ PROCEDURE KeyEvent(keysym: X11.KeySym);
 VAR
 	v: Voxel;   
 BEGIN
-	XNXLMarsh.key(CHAR(SHORT(keysym)));
+(*	XNXLMarsh.key(CHAR(SHORT(keysym))); *)
 	CASE keysym OF
 		   KS.XK_s1 : camera.backward(0.51)
 		| KS.XK_w1 :camera.forward(0.51) 
@@ -960,7 +962,7 @@ BEGIN
 			END;
 			i3:=i3+PX
 		END;
-		IF ~(XNXLRetina.SACCADE OR XNXLRetina.SACCADE1) THEN 
+		IF ~(XNXLRetina.SACCADE) THEN 
 			i3:=Base.W;
 			FOR i:= 0 TO Base.W-1 DO 
 				j3:=Base.H;
@@ -1035,8 +1037,8 @@ BEGIN
 	centerx:=200;
 	centery:=200;
 	fogdensity:=0.11;
-	leftsticky:=10.0;
-	upsticky:=10.0;	
+	leftsticky:=50.0;
+	upsticky:=50.0;	
 	NEW(camera,Base.W, Base.H); 
 	mainloop; 
 	Out.Char('*');
