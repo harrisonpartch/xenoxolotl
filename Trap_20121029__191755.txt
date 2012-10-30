@@ -1,0 +1,76 @@
+File Trap_20121029__191755.txt
+---------------------------
+
+LinuxAos (rev.4947)
+
+Trap   5.8  (ASSERT failed)
+SP = ECDBB1A4H, FP = ECDBB1B8H, PC = EFEACE9BH
+
+WMTextView.Layout.FullLayout:49 pc=1619 [00000653H] = 1570 + 49 crc=3AE3A788
+  textChanged=TRUE
+  i=0
+  pos=0
+  oldpos=0
+  @hiddenIRVar0=00000000H (NIL)
+State WMTextView:
+  manager=EFFBCD98H (NIL)
+  cursorBlinker=EFFBDC20H (WMProperties.ColorProperty)
+  PTVIsMultiLine=EFFBDD20H (WMProperties.ColorProperty)
+  PTVIsPassword=EFFBCF00H (WMProperties.BooleanProperty)
+  PTVShowBorder=EFFBD900H (WMProperties.Int32Property)
+  PTValwaysShowCursor=EFFBDA00H (WMProperties.Int32Property)
+  PTVShowLabels=EFFBDB00H (WMProperties.Int32Property)
+  PTVAllowCommandExecution=EFFBCFE0H (WMProperties.BooleanProperty)
+  PTVAllowTextSelection=EFFBDE20H (WMProperties.RectangleProperty)
+  PTVAllowPiemenu=EFFBD2C0H (WMProperties.BooleanProperty)
+  PTVWrapMode=EFFBD3C0H (WMProperties.BooleanProperty)
+  PTVMouseWheelScrollSpeed=EFFBD0A0H (WMProperties.BooleanProperty)
+  PTVfirstLine=EFFBD1A0H (WMProperties.Int32Property)
+  PTVleftShift=EFFBD4C0H (WMProperties.Int32Property)
+  PTVPasswordChar=EFFBD600H (WMProperties.BooleanProperty)
+  PTVdefaultTextColor=EFFBD720H (WMProperties.BooleanProperty)
+  PTVdefaultTextBgColor=EFFBD800H (WMProperties.BooleanProperty)
+  PTVborders=EFFBE260H (WMProperties.StringProperty)
+  PTVonLinkClick=EFFBDFE0H (WMProperties.BooleanProperty)
+  PTVonLinkClickInfo=EFFBE0A0H (WMProperties.ColorProperty)
+  PTVonCtrlLinkClick=EFFBE180H (WMProperties.ColorProperty)
+  PTVonCtrlLinkClickInfo=EFFBDF20H (WMProperties.BooleanProperty)
+  PTVShowLineNumbers=EFFBE360H (WMProperties.ColorProperty)
+  PTVIndicateTabs=EFFBCDD8H (NIL)
+  PTVHighlighting=EFFBCE18H (NIL)
+  PTVLineNumberColor=EFFBCE78H (NIL)
+  PTVLineNumberBgColor=EFFBCEB8H (NIL)
+  PTVclBgCurrentLine=EF2C86D0H (WindowManager.WindowManager)
+  currentTextView=EFFBC350H (WMTextView.CursorBlinker)
+  StrTextView=F1BB34D0H (WMTextView.TextView)
+  DefaultStyle=EFFBCD60H (WMTextView.Anonymous@135526)
+WMTextView.TextView.SetTabStops:47 pc=23700 [00005C94H] = 23653 + 47 crc=3AE3A788
+  ts=F1961C00H (WMTextView.CustomTabStops)
+WMPlayer.InfoWindow.CreateForm:536 pc=553 [00000229H] = 17 + 536 crc=CD3C57F5
+  panel=F1CEA6B0H (WMStandardComponents.Panel)
+  tabPositions=F249E9B8H (NIL)
+  tabStops=F1961C00H (WMTextView.CustomTabStops)
+  @hiddenIRVar0=F1CEA6B0H (WMStandardComponents.Panel)
+  @hiddenIRVar1=F2753290H (WMTextView.TextView)
+  @hiddenIRVar2=F1961C00H (WMTextView.CustomTabStops)
+WMPlayer.InfoWindow.New:53 pc=2688 [00000A80H] = 2635 + 53 crc=CD3C57F5
+  setupData=F27B59E0H (MediaPlayer.Setup)
+  vc=00000000H (NIL)
+  @hiddenIRVar0=00000000H (NIL)
+WMPlayer.Window.ButtonHandler:521 pc=3549 [00000DDDH] = 3028 + 521 crc=CD3C57F5
+  sender=F2342870H (WMStandardComponents.Button)
+  data=00000000H (NIL)
+  b=F2342870H (WMStandardComponents.Button)
+  info=00000000H (NIL)
+  @hiddenIRVar0=F1EA3150H (WMPlayer.InfoWindow)
+WMMessages.MsgSequencer.Handle:163 pc=8304 [00002070H] = 8141 + 163 crc=2C59AA80
+  msg=Rec@00000004H
+WMMessages.MsgSequencer.@Body:294 pc=10673 [000029B1H] = 10379 + 294 crc=2C59AA80
+Objects.BodyStarter:319 pc=3318 [00000CF6H] = 2999 + 319 crc=8B6328EE
+  p=D9CD57F0H (Objects.Process)
+  res=0
+  prevBP=-321145960
+
+
+----------------------------------------------------
+

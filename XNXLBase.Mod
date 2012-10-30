@@ -452,6 +452,7 @@ VAR
 	vlist*: ARRAY 100 OF Voxel;
 	copy*: Raster.Mode;
 	skydistance*:REAL;
+	rnf*:REAL; (*random number for frame*)
 	
 PROCEDURE VoxelFromName*(modname: Name): Voxel;
 	VAR voxel: Voxel;  fackery: VoxelFackery;

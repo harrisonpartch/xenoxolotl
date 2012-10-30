@@ -421,7 +421,7 @@ VAR
 	light, blend,raster: BOOLEAN; (* Whether or not lighting is on,  Whether or not blending is on *)
 	filter: LONGINT; (* type of filter *)		
 	ptlist: LONGINT;	
-	CAPTUREMOUSE, GO,TRAIL,AVATAR,SCULL,ZENITHER: BOOLEAN;	
+	CAPTUREMOUSE, GO,TRAIL,AVATAR,SCULL,ZENITHER,METASLASH: BOOLEAN;	
 	camera:Camera;
 	fogdensity:REAL;
 	leftsticky,upsticky: REAL;
@@ -820,7 +820,9 @@ PROCEDURE KeyEvent(keysym: X11.KeySym);
 VAR
 	v: Voxel;   
 BEGIN
-(*	XNXLMarsh.key(CHAR(SHORT(keysym))); *)
+	IF METASLASH THEN 
+		XNXLMarsh.key(CHR(keysym))
+	ELSE
 	CASE keysym OF
 		   KS.XK_s1 : camera.backward(0.51)
 		| KS.XK_w1 :camera.forward(0.51) 
@@ -864,8 +866,10 @@ BEGIN
 		| KS.XK_Control_R: XNXLMarsh.SNIPEINTO:=~XNXLMarsh.SNIPEINTO	
 		| KS.XK_l1: XNXLMarsh.lines:=~XNXLMarsh.lines
 		| KS.XK_b1: ZENITHER:=~ZENITHER
+		| KS.XK_slash: METASLASH:=~METASLASH		
 	ELSE	
-	END;	
+	END
+	END	
 END KeyEvent;
 
 PROCEDURE MouseVent(x,y: LONGINT);
@@ -999,11 +1003,13 @@ BEGIN
 	NEW(timer);
 	NEW(rand);
 	WHILE alive DO
+		Base.rnf:=rand.Uniform();
 		Kernel.SetTimer(ftimer,1000);
 		PollXQueue; 
-		IF ~PAUSE THEN camera.tick END;
-		PollXQueue; 
-		IF ~PAUSE THEN draw  END;
+		IF ~PAUSE THEN 
+			camera.tick ;
+			draw  
+		 END;
 		framems:=Kernel.Elapsed(ftimer);
 		Out.Int(framems, 6);
 		Out.Ln;

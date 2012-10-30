@@ -1,0 +1,157 @@
+File Trap_20121029__172551.txt
+---------------------------
+
+LinuxAos (rev.4947)
+
+Trap   5.-287055984  (unknown trap, division error?)
+SP = EEE3DF8CH, FP = EEE3DFDCH, PC = F0C8F587H
+
+XNXLM3Space?.cell.FRasterrec:574 pc=14975 [00003A7FH] = 14401 + 574 crc=4C7D85B2
+  f=F11D66C0H (XNXLFRep.landscape)
+  resolution=248 (000000F8H)
+  origin=Rec@00000004H
+  scale=81 (00000051H)
+  i=0
+  j=2 (0002H)
+  k=1 (0001H)
+  o=Rec@00000004H
+  p=Rec@00000004H
+  d2s= -3.848913E-003
+  MS=  2.430000E+002 (43730000H)
+  TWOMS=  4.860000E+002 (43F30000H)
+  CRDS=  9.259259E-003 (3C17B426H)
+  CRDNS=  3.086420E-003 (3B4A4588H)
+  nextscale=243 (000000F3H)
+  v=00000000H (NIL)
+  newcell=E13D1E40H (XNXLM3Space?.cell)
+  @hiddenIRVar0=2 (0002H)
+  @hiddenIRVar1=2 (0002H)
+  @hiddenIRVar2=2 (0002H)
+  @hiddenIRVar3=E13D2240H (XNXLM3Space?.cell)
+State XNXLM3Space?:
+XNXLM3Space?.cell.FRasterrec:825 pc=15226 [00003B7AH] = 14401 + 825 crc=4C7D85B2
+  f=F11D66C0H (XNXLFRep.landscape)
+  resolution=248 (000000F8H)
+  origin=Rec@00000004H
+  scale=27 (0000001BH)
+  i=1 (0001H)
+  j=0
+  k=2 (0002H)
+  o=Rec@00000004H
+  p=Rec@00000004H
+  d2s=  2.425596E-003 (3B1EF6C0H)
+  MS=  8.100000E+001 (42A20000H)
+  TWOMS=  1.620000E+002 (43220000H)
+  CRDS=  2.777778E-002 (3CE38E39H)
+  CRDNS=  9.259259E-003 (3C17B426H)
+  nextscale=81 (00000051H)
+  v=00000000H (NIL)
+  newcell=E13D0640H (XNXLM3Space?.cell)
+  @hiddenIRVar0=2 (0002H)
+  @hiddenIRVar1=2 (0002H)
+  @hiddenIRVar2=2 (0002H)
+  @hiddenIRVar3=E13D0640H (XNXLM3Space?.cell)
+XNXLM3Space?.cell.FRasterrec:825 pc=15226 [00003B7AH] = 14401 + 825 crc=4C7D85B2
+  f=F11D66C0H (XNXLFRep.landscape)
+  resolution=248 (000000F8H)
+  origin=Rec@00000004H
+  scale=9 (00000009H)
+  i=1 (0001H)
+  j=1 (0001H)
+  k=1 (0001H)
+  o=Rec@00000004H
+  p=Rec@00000004H
+  d2s=  6.928131E-003 (3BE30560H)
+  MS=  2.700000E+001 (41D80000H)
+  TWOMS=  5.400000E+001 (42580000H)
+  CRDS=  8.333334E-002 (3DAAAAABH)
+  CRDNS=  2.777778E-002 (3CE38E39H)
+  nextscale=27 (0000001BH)
+  v=00000000H (NIL)
+  newcell=E13ADE40H (XNXLM3Space?.cell)
+  @hiddenIRVar0=2 (0002H)
+  @hiddenIRVar1=2 (0002H)
+  @hiddenIRVar2=2 (0002H)
+  @hiddenIRVar3=E13ADE40H (XNXLM3Space?.cell)
+XNXLM3Space?.cell.FRasterrec:825 pc=15226 [00003B7AH] = 14401 + 825 crc=4C7D85B2
+  f=F11D66C0H (XNXLFRep?.landscape)
+  resolution=248 (000000F8H)
+  origin=Rec@00000004H
+  scale=3 (00000003H)
+  i=0
+  j=0
+  k=2 (0002H)
+  o=Rec@00000004H
+  p=Rec@00000004H
+  d2s=  6.928131E-003 (3BE30560H)
+  MS=  9.000000E+000 (41100000H)
+  TWOMS=  1.800000E+001 (41900000H)
+  CRDS=  2.500000E-001 (3E800000H)
+  CRDNS=  8.333334E-002 (3DAAAAABH)
+  nextscale=9 (00000009H)
+  v=00000000H (NIL)
+  newcell=E121CE40H (XNXLM3Space?.cell)
+  @hiddenIRVar0=2 (0002H)
+  @hiddenIRVar1=2 (0002H)
+  @hiddenIRVar2=2 (0002H)
+  @hiddenIRVar3=E121CE40H (XNXLM3Space?.cell)
+XNXLM3Space?.cell.FRasterrec:825 pc=15226 [00003B7AH] = 14401 + 825 crc=4C7D85B2
+  f=F11D66C0H (XNXLFRep?.landscape)
+  resolution=248 (000000F8H)
+  origin=Rec@00000004H
+  scale=1 (00000001H)
+  i=1 (0001H)
+  j=2 (0002H)
+  k=2 (0002H)
+  o=Rec@00000004H
+  p=Rec@00000004H
+  d2s=  9.215688E-002 (3DBCBCBFH)
+  MS=  3.000000E+000 (40400000H)
+  TWOMS=  6.000000E+000 (40C00000H)
+  CRDS=  7.500000E-001 (3F400000H)
+  CRDNS=  2.500000E-001 (3E800000H)
+  nextscale=3 (00000003H)
+  v=00000000H (NIL)
+  newcell=E121A640H (XNXLM3Space?.cell)
+  @hiddenIRVar0=2 (0002H)
+  @hiddenIRVar1=2 (0002H)
+  @hiddenIRVar2=2 (0002H)
+  @hiddenIRVar3=E121A640H (XNXLM3Space?.cell)
+XNXLM3Space?.cell.FRaster:77 pc=18400 [000047E0H] = 18323 + 77 crc=4C7D85B2
+  f=F11D66C0H (XNXLFRep?.landscape)
+  resolution=248 (000000F8H)
+  origin=Rec@00000004H
+XNXLMarsh?.dawn:9718 pc=11896 [00002E78H] = 2178 + 9718 crc=721B38E2
+  @hiddenIRVar0=F2005180H (XNXLMarsh?.mstroker)
+  @hiddenIRVar1=F08F3B00H (XNXLVoxel.BiVox)
+  @hiddenIRVar2=F0724AE0H (XNXLBase.Voxel)
+  @hiddenIRVar3=F07308E0H (XNXLVoxel.DiffuseMVox)
+  @hiddenIRVar4=EFF6A4A0H (XNXLVoxel4.MirrorSphereInVox)
+  @hiddenIRVar5=F06F0A20H (XNXLTexVox?.TexVox)
+  @hiddenIRVar6=EA0716A0H (XNXLM2Space?.cell)
+  @hiddenIRVar7=F07B5CE0H (XNXLVoxel.DiffuseVox)
+  @hiddenIRVar8=F07DBC40H (XNXLVoxel.OutlineVox)
+  @hiddenIRVar9=F0724A40H (XNXLVoxel4.SphereInVox)
+  @hiddenIRVar10=100 (00000064H)
+  @hiddenIRVar11=F071A300H (XNXLVoxel.ColoredMVox)
+  @hiddenIRVar12=F07A05A0H (XNXLVoxel.COutlineVox)
+  @hiddenIRVar13=F07DC440H (XNXLVoxel.TransparaVox)
+  @hiddenIRVar14=EA0712A0H (XNXLM3Space?.cell)
+  @hiddenIRVar15=F09FCE00H (XNXLRotaVox?.RVox)
+  @hiddenIRVar16=F09FCE80H (XNXLTexVox?.TexCubeVox)
+  @hiddenIRVar17=F11CA580H (XNXLFRep?.halfspace)
+  @hiddenIRVar18=F11D66C0H (XNXLFRep?.landscape)
+  @hiddenIRVar19=EA071820H (XNXLM3Space?.torus)
+  @hiddenIRVar20=00000000H (NIL)
+XNXLRender?.Open:365 pc=18428 [000047FCH] = 18063 + 365 crc=E4F4A264
+  @hiddenIRVar0=00000000H (NIL)
+  @hiddenIRVar1=00000000H (NIL)
+Commands.Runner.@Body:527 pc=1983 [000007BFH] = 1456 + 527 crc=68BAE6F9
+Objects.BodyStarter:319 pc=3318 [00000CF6H] = 2999 + 319 crc=8B6328EE
+  p=EF1FC010H (Objects.Process)
+  res=0
+  prevBP=-287054952
+
+
+----------------------------------------------------
+

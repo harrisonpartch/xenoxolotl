@@ -1,0 +1,261 @@
+File Trap_20121029__190016.txt
+---------------------------
+
+LinuxAos (rev.4947)
+
+Trap   5.120  (programmed HALT)
+SP = EE927D74H, FP = EE927D90H, PC = F72E3FD9H
+
+Raster.Bind:116 pc=26609 [000067F1H] = 26493 + 116 crc=7BE79F74
+  mode=Rec@00000018H
+  src=Rec@0000000CH
+  dst=Rec@0000000CH
+  op=0
+  val=0
+  i=0
+  @hiddenIRVar0=0
+State Raster:
+  A1=Rec@0000000CH
+  A8=Rec@0000000CH
+  D8=Rec@0000000CH
+  BGR555=Rec@0000000CH
+  BGR565=Rec@0000000CH
+  BGR466=Rec@0000000CH
+  BGR888=Rec@0000000CH
+  BGRA8888=Rec@0000000CH
+  PixelFormat=Rec@0000000CH
+  Clamp=""...
+  Zero=""
+  Bit=FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE...
+  Set=""!...
+  Clr=""...
+  MMXenabled=TRUE
+  SSE2enabled=TRUE
+Raster.Get:160 pc=31715 [00007BE3H] = 31555 + 160 crc=7BE79F74
+  img=F1B65260H (WMGraphics.Image)
+  x=1065 (00000429H)
+  y=282 (0000011AH)
+  pix=""
+  mode=Rec@00000018H
+  bit=0
+  adr=-173334036
+XNXLBase.Texture.pixel:260 pc=1802 [0000070AH] = 1542 + 260 crc=6E9CD13E
+  x=  9.878001E-001 (3F7CE078H)
+  y=  2.616386E-001 (3E85F580H)
+  i=1065 (00000429H)
+  j=282 (0000011AH)
+  p=""
+  c=Rec@00000014H
+XNXLTexVox.TexVox.Shade:690 pc=1041 [00000411H] = 351 + 690 crc=77F74F2D
+  ray=Rec@00000008H
+  p=""
+  x=0
+  y=0
+  xi=0
+  yj=0
+  X=  0.000000E+000
+  Y=  0.000000E+000
+  xblend=  0.000000E+000
+  yblend=  0.000000E+000
+  blendx=  0.000000E+000
+  blendy=  0.000000E+000
+  r=  0.000000E+000
+  g=  0.000000E+000
+  b=  0.000000E+000
+  a=  0.000000E+000
+  dr=  0.000000E+000
+  dg=  0.000000E+000
+  db=  0.000000E+000
+  da=  0.000000E+000
+  blackness=  0.000000E+000
+  bb=  0.000000E+000
+  c=  0.000000E+000
+  lx=  7.299878E-001 (3F3AE07BH)
+  ly=  6.272616E-001 (3F209438H)
+  lx1=  9.878001E-001 (3F7CE078H)
+  ly1=  2.616386E-001 (3E85F580H)
+  lx2=  2.584202E-001 (3E844FA6H)
+  ly2=  2.726164E-001 (3E8B9460H)
+  tq=  0.000000E+000
+  i=0
+  j=0
+  dot=  0.000000E+000
+  nx=  0.000000E+000
+  ny=  0.000000E+000
+  nz=  0.000000E+000
+  rn=  9.943208E-001 (3F7E8BCEH)
+  bpdx=  0.000000E+000
+  bpdy=  0.000000E+000
+  xov=  0.000000E+000
+  yov=  0.000000E+000
+  zov=  0.000000E+000
+  inside=FALSE
+  color=Rec@00000020H
+  color1=Rec@00000020H
+  color2=Rec@00000020H
+  txcube=00000000H (NIL)
+XNXLVoxel.BiVox.Shade:99 pc=7568 [00001D90H] = 7469 + 99 crc=6D67198D
+  ray=Rec@00000008H
+XNXLM3Space.cell.Shade:3426 pc=3433 [00000D69H] = 7 + 3426 crc=4C7D85B2
+  ray=Rec@0000000CH
+  pushxyz=Rec@00000004H
+  newxyz=Rec@00000004H
+  xyz=Rec@00000004H
+  ijk=Rec@00000020H
+  drx=  1.496140E+000 (3FBF8182H)
+  dry=  2.866058E+000 (40376D7DH)
+  drz=  1.135869E+000 (3F916424H)
+  dr=  1.135869E+000 (3F916424H)
+  rr=  0.000000E+000
+  gr=  0.000000E+000
+  br=  9.602627E-004 (3A7BBA24H)
+  blr=  1.371742E-003 (3AB3CC07H)
+  bla=  1.371742E-003 (3AB3CC07H)
+  scaleInv=  1.371742E-003 (3AB3CC07H)
+  out=FALSE
+  shadenil=FALSE
+  A=TRUE
+  B=FALSE
+  C=FALSE
+  v=F1567A40H (XNXLVoxel.BiVox)
+  vdepth=  1.371742E-003 (3AB3CC07H)
+  last=FALSE
+XNXLM3Space.cell.Shade:3426 pc=3433 [00000D69H] = 7 + 3426 crc=4C7D85B2
+  ray=Rec@0000000CH
+  pushxyz=Rec@00000004H
+  newxyz=Rec@00000004H
+  xyz=Rec@00000004H
+  ijk=Rec@00000020H
+  drx=  1.244330E+000 (3F9F4631H)
+  dry=  3.060829E+000 (4043E49EH)
+  drz=  0.000000E+000
+  dr=  0.000000E+000
+  rr=  0.000000E+000
+  gr=  0.000000E+000
+  br=  0.000000E+000
+  blr=  0.000000E+000
+  bla=  0.000000E+000
+  scaleInv=  4.115226E-003 (3B86D905H)
+  out=FALSE
+  shadenil=FALSE
+  A=TRUE
+  B=FALSE
+  C=FALSE
+  v=DD98D420H (XNXLM3Space.cell)
+  vdepth=  0.000000E+000
+  last=FALSE
+XNXLM3Space.cell.Shade:3426 pc=3433 [00000D69H] = 7 + 3426 crc=4C7D85B2
+  ray=Rec@0000000CH
+  pushxyz=Rec@00000004H
+  newxyz=Rec@00000004H
+  xyz=Rec@00000004H
+  ijk=Rec@00000020H
+  drx=  7.933993E-001 (3F4B1C38H)
+  dry=  5.609851E+000 (40B383E7H)
+  drz=  0.000000E+000
+  dr=  0.000000E+000
+  rr=  0.000000E+000
+  gr=  0.000000E+000
+  br=  0.000000E+000
+  blr=  0.000000E+000
+  bla=  0.000000E+000
+  scaleInv=  1.234568E-002 (3C4A4588H)
+  out=FALSE
+  shadenil=FALSE
+  A=TRUE
+  B=FALSE
+  C=FALSE
+  v=DD98B420H (XNXLM3Space.cell)
+  vdepth=  0.000000E+000
+  last=FALSE
+XNXLM3Space.cell.Shade:3426 pc=3433 [00000D69H] = 7 + 3426 crc=4C7D85B2
+  ray=Rec@0000000CH
+  pushxyz=Rec@00000004H
+  newxyz=Rec@00000004H
+  xyz=Rec@00000004H
+  ijk=Rec@00000020H
+  drx=  1.991225E+000 (3FFEE075H)
+  dry=  0.000000E+000
+  drz=  6.141486E-001 (3F1D38D7H)
+  dr=  0.000000E+000
+  rr=  0.000000E+000
+  gr=  0.000000E+000
+  br=  0.000000E+000
+  blr=  0.000000E+000
+  bla=  0.000000E+000
+  scaleInv=  3.703704E-002 (3D17B426H)
+  out=FALSE
+  shadenil=FALSE
+  A=FALSE
+  B=FALSE
+  C=TRUE
+  v=DD949020H (XNXLM3Space.cell)
+  vdepth=  0.000000E+000
+  last=FALSE
+XNXLM3Space.cell.Shade:3426 pc=3433 [00000D69H] = 7 + 3426 crc=4C7D85B2
+  ray=Rec@0000000CH
+  pushxyz=Rec@00000004H
+  newxyz=Rec@00000004H
+  xyz=Rec@00000004H
+  ijk=Rec@00000020H
+  drx=  1.583265E+000 (3FCAA86BH)
+  dry=  4.384859E+000 (408C50C4H)
+  drz=  0.000000E+000
+  dr=  0.000000E+000
+  rr=  0.000000E+000
+  gr=  0.000000E+000
+  br=  0.000000E+000
+  blr=  0.000000E+000
+  bla=  0.000000E+000
+  scaleInv=  1.111111E-001 (3DE38E39H)
+  out=FALSE
+  shadenil=FALSE
+  A=TRUE
+  B=FALSE
+  C=FALSE
+  v=DD7B1420H (XNXLM3Space.cell)
+  vdepth=  0.000000E+000
+  last=FALSE
+XNXLM3Space.torus.Shade:453 pc=20502 [00005016H] = 20049 + 453 crc=4C7D85B2
+  ray=Rec@0000000CH
+  pushxyz=Rec@00000004H
+  newxyz=Rec@00000004H
+  xyz=Rec@00000004H
+  ijk=Rec@00000020H
+  drx=  0.000000E+000
+  dry=  0.000000E+000
+  drz=  0.000000E+000
+  dr=  0.000000E+000
+  rr=  0.000000E+000
+  gr=  0.000000E+000
+  br=  0.000000E+000
+  blr=  0.000000E+000
+  bla=  0.000000E+000
+  scaleInv=  0.000000E+000
+  out=FALSE
+  shadenil=FALSE
+  A=FALSE
+  B=FALSE
+  C=FALSE
+  v=DD11EC20H (XNXLM3Space.cell)
+  vdepth=  0.000000E+000
+  last=FALSE
+XNXLRetina.Subtile.trace:248 pc=1225 [000004C9H] = 977 + 248 crc=FA629DDD
+  ii=0
+  jj=0
+  @hiddenIRVar0=4 (0004H)
+  @hiddenIRVar1=4 (0004H)
+XNXLRetina.Tile.trace:120 pc=1717 [000006B5H] = 1597 + 120 crc=FA629DDD
+  i=0
+  j=0
+  @hiddenIRVar0=4 (0004H)
+  @hiddenIRVar1=4 (0004H)
+XNXLRetina.Tile.@Body:65 pc=1821 [0000071DH] = 1756 + 65 crc=FA629DDD
+Objects.BodyStarter:319 pc=3318 [00000CF6H] = 2999 + 319 crc=8B6328EE
+  p=F1FFA310H (Objects.Process)
+  res=0
+  prevBP=-292387944
+
+
+----------------------------------------------------
+

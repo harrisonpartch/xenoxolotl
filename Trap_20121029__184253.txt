@@ -1,0 +1,23 @@
+File Trap_20121029__184253.txt
+---------------------------
+
+LinuxAos (rev.4947)
+
+Trap   11 (Segmentation violation)
+SP = 00000000H, FP = EEE5D53CH, PC = E1837DF1H
+
+exception handler found
+
+
+----------------------------------------------------
+
+LinuxAos (rev.4947)
+
+Trap   5.100  (programmed HALT)
+SP = EEE5D8E0H, FP = EEE5DA04H, PC = E171F171H
+
+exception handler found
+
+
+----------------------------------------------------
+

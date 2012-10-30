@@ -175,6 +175,7 @@ END draw;
 
 PROCEDURE key*(CONST c:CHAR);
 BEGIN
+	Out.Char(c);
 	stroke(Base.cursorPT,cursorsize,XNXLVoxConsole.charvox(c));
 END key;
 

@@ -537,6 +537,18 @@ BEGIN
 	p.x := p.x-a; p.y := p.y-b; p.z := p.z-c;
 END reflect;
 
+PROCEDURE normalize*(VAR p: PT);
+VAR
+	d: REAL;
+BEGIN
+	d := Math.sqrt(p.x*p.x + p.y*p.y+p.z*p.z);
+	IF d = 0 THEN 
+		p.x := 1;
+		d := 1;
+	END;	
+	p.x := p.x/d; p.y := p.y/d; p.z:= p.z/d
+END normalize;	
+
 PROCEDURE greatest(a,b,c: REAL):REAL;
 BEGIN
 	IF a>b THEN
