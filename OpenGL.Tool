@@ -1,14 +1,18 @@
  OpenGL Framework for A2- WinAos and LinuxAos versions
 
 # =================================================
-#        OpenGL 4.2 - Headertranslation
-#        Version 4.2
-#        Date : 08.08.2011
-#        Works with : LinuxAos and WinAos
+# OpenGL 4.5 - Header translation
+# Version 4.5
+# Date : 17.10.2014
+# Works with : LinuxAos and WinAos
 #
-#        All contributions and corrections are welcome ...
-#        Available at:  http://code.google.com/p/opengloberon
+# All contributions and corrections are welcome ...
+# Available at:  https://github.com/fnec/opengloberon
 # =================================================
+
+System.FreeDownTo OpenGLConst ~
+
+System.CollectGarbage ~ 
 
 # 1- Compile platform dependent bindings:
 
@@ -17,61 +21,80 @@
 Compiler.Compile
 	OpenGLConst.Mod
 	Unix.OpenGL.Mod
-	Unix.GLContext.Mod
-	Unix.GLContextFB.Mod
-	Unix.OGLWindow.Mod
+	Unix.GLU.Mod	
+	GLShaderUtils.Mod
+	Unix.GLContext.Mod	
 	Unix.WMGLWindow.Mod
 	Unix.GLXinfo.Mod
+	GLShadersBuild.Mod
+	Unix.XF86VMode.Mod
+	Unix.OGLWindow.Mod	
 	~
 	
-	GLXinfo.Do~  # display opengl info
+	GLXinfo.Do ~  # display opengl info
 	
 # WinAos:
 
-Compiler.Compile
+Compiler.Compile 
 	OpenGLConst.Mod
-	WinApi.Mod
+	Win32.WinApi.Mod	
 	Win32.OpenGL.Mod
-	Win32.GLContext.Mod
-	Win32.OGLWindow.Mod
+	Win32.GLU.Mod
+	GLShaderUtils.Mod	
 	Win32.WMGLWindow.Mod
+	Win32.GLContext.Mod	
+	Win32.WGLinfo.Mod
+	GLShadersBuild.Mod
+	Win32.OGLWindow.Mod
 	 ~
 
-# 2- Compile platform independent demo examples of GLContext :
-
-Compiler.Compile
-	GLTest.Mod GLinfo.Mod
-	GLLib.Mod
-	GLShaderUtils.Mod
-	WMGLDemo.Mod
-	WMGLDemo1.Mod
-	WMGLDemo2.Mod
-	WMGLDemo3.Mod
-	WMGLDemo4.Mod
-	WMGLDemo6.Mod
-	WMGLDemo7.Mod
-	WMGLDemo9.Mod
-	WMGLDemoFlags.Mod
-	WMGLDemoLorenz.Mod
-	WMGLPlotSurface.Mod
-	WMGLSteamEngine.Mod
-	WMGLPolyStipple.Mod
-	WMGLSLBricks.Mod
+	WGLinfo.Do ~ # display opengl info
+#==========================================
+# utilities
+# =========================================
+Compiler.Compile 
+	GLLib.Mod	
+	Containers.Mod
+	Decoder3DS.Mod	
 	~
 
+# =========================================
+# 2- Compile platform independent demo examples of GLContext :
 
+Compiler.Compile 
+	 GLTest.Mod
+	 WMGLDemo.Mod
+	 WMGLDemo1.Mod
+	 WMGLDemo2.Mod
+	 WMGLDemo3.Mod
+	 WMGLDemo4.Mod
+	 WMGLDemo6.Mod
+	 WMGLDemo7.Mod
+	 WMGLDemo9.Mod
+	 WMGLDemoFlags.Mod
+	 WMGLDemoLorenz.Mod
+	 WMGLPlotSurface.Mod
+	 WMGLSteamEngine.Mod
+	 WMGLPolyStipple.Mod
+	 WMGLSLBricks.Mod
+	WMSpaceSim3.Mod	 
+	~
+# =========================================
 
 # LinuxAos specific demos (using linux native X11-Window ):
 Compiler.Compile
-	Unix.X11KeySymDef.Mod Unix.XF86VMode.Mod MyXGear.Mod  MyXGear1.Mod MyXGear2.Mod ~
+	Unix.X11KeySymDef.Mod
+	MyXGear.Mod
+	MyXGear1.Mod
+	MyXGear2.Mod
+	~
 
 
 # WinAos specific version of WMGLDemo7.Mod by tobj..@ .., thanks :
 Compiler.Compile  Win32.WMGLDemo7b.Mod ~  WMGLDemo7b.Open ~
 
 # Run the following commands,  click Midle Mouse (MM) on the following commands
-
-	GLinfo.Do ~ # display opengl info
+	
 	WMGLDemo.Open ~
 	WMGLDemo1.Open ~
 	WMGLDemo2.Open ~
@@ -87,17 +110,16 @@ Compiler.Compile  Win32.WMGLDemo7b.Mod ~  WMGLDemo7b.Open ~
 	WMGLSteamEngine.Open ~
 	WMGLPolyStipple.Open ~
 	WMGLSLBricks.Open ~
-
+	WMSpaceSim3.Open ~ 
+ 
 # ***************************************
 # 3- Compile demo examples of OGLWindow:
 
 Compiler.Compile
-	GLLib.Mod
 	OGLDemo.Mod
 	OGLDemo1.Mod
 	OGLDemo2.Mod
-
-	OGLDemoFonts.Mod
+	SpaceSim3.Mod 
 	~
 
 # Run Demos, click Midle Mouse (MM) on the following commands
@@ -105,20 +127,13 @@ Compiler.Compile
 	OGLDemo.Open ~
 	OGLDemo1.Open ~
 	OGLDemo2.Open ~
-	OGLDemoFonts.Open ~
-
-# **********************
-# **********************
-# A 3DS model Loader example
-	Compiler.Compile Lists.Mod Decoder3DS.Mod SpaceSim3.Mod WMSpaceSim3.Mod~
-
 	SpaceSim3.Open ~
-	WMSpaceSim3.Open ~ 
+	
 # **********************
 # **********************
 
 # Free OpenGL related modules from the memory:
-SystemTools.FreeDownTo OpenGL ~
+System.FreeDownTo OpenGL ~
 
 
 
@@ -154,9 +169,9 @@ VAR
 
 	width := 300; height := 300;
 
-	(* create an image object using Raster module with RGBA8888 mode (32 bpp image *)
+	(* create an image object using Raster module with BGRA8888 mode (32 bpp image *)
 	NEW(image);
-	Raster.Create(image, width, height, Raster.RGBA8888);
+	Raster.Create(image, width, height, Raster.BGRA8888);
 
  	NEW(context);
 
@@ -220,15 +235,21 @@ VAR
 	  	
 	  	PROCEDURE Reshape(w, h: LONGINT);
 		BEGIN
-			GL.glViewport(0,0,w, h);
+			MakeCurrent();
+				(* GL codes *)
+				GL.Viewport(0,0,w, h);
+				
+			DeActivate();
 	  	END Reshape;
 	  	
 	  	PROCEDURE UpdateImage;
 	  	BEGIN
-	  		context.MakeCurrent();
-	  			(* your GL codes *)
-	  			context.RenderInto(backImg);  (* render into back image *)
-	  		context.DeActivate();
+	  		MakeCurrent();
+	  			(* your GL codes ... *)
+	  			
+	  			SwapGLBuffer();  (* render into back image *)
+	  			
+	  		DeActivate();
 	  		Swap(); (* swap double buffered window *)
 	  		Invalidate(WMRectangles.MakeRect(0, 0, GetWidth(), GetHeight()));	
 	  	END UpdateImage;
@@ -273,7 +294,7 @@ VAR
 		END Reshape;
 
 		BEGIN
-			MainLoop; (* run event processing *)
+			
 		END GLWindow.
 	.....
 
@@ -281,7 +302,7 @@ VAR
 ....
   	create an instance of this object in a command procedure.
 
-  	NEW(win, width, height, xofset, yofset, "Title");
+  	NEW(win, width, height, xofset, yofset, fulscreen);
 
  	that is all ...
 
@@ -293,25 +314,18 @@ VAR
 NOTE:
 
  By default, all OpenGL core functions loaded by the driver. If you would like to use higher extensions,
- 1.2 .. 4.x,  use OpenGL.ReadExtensions after context.MakeCurrent().
+ 1.2 .. 4.x,  use OpenGL.ReadExtensions after MakeCurrent().
 
-
- OpenGL driver uses different floating point exceptions while using floating point operations in
- coordinate transfomations, etc. These operations are in the driver side. So, these floating operations conflicts
- with the Oberons' floating operations and may produce unpredictable results. In the OpenGL binding module,
- SetFCR and DelFCR functions may be used to set Floating Point Control Register and recover this problem just
- before the these OpenGL functions and after respectively. See the provided examples for usage.
- This problem exists in LinuxAos version only, WinAos version do not have but, for interoperation reasons
- SetFCR and DelFCR functions are also used as they are set empty in OpenGL biding module of WinAos version.
 
  While using OpenGL with WMWindowManager.Window care should be taken. The OpenGL contexts
  is process and thread sensitive. One context to one one thread. If more than one available, as in Active objects,
  after first thread acquires the OpenGL context using context.MakeCurrent the other thread can not access the
- context untill previous thread release it (context.DeActivate).
+ context untill previous thread release it (DeActivate).
 
   Nvidia, Ati, Intel, Mesa drivers may behave differently depending on extensions. The examples are tested on
-  Nvidia 8500GT GPU vith latest driver (Windows-XP32-SP3, Ubuntu 10.04 X64, Pardus-32bit-2011 with MESA) and not
-  all OpenGL functions are not tested, there can be missing and miss-definition in the OpenGL.Mod functions.
+  Nvidia 8500GT GPU vith latest driver (Windows-XP32-SP3, Ubuntu 10.04 AMD64, i386 and Ubuntu 12.04 AMD64, 
+  i386, Pardus-32bit-2011 with MESA) and not  all OpenGL functions are not tested, there can be missing and 
+  miss-definitions in the OpenGL.Mod mudule.
 
 
 # =============================================================================

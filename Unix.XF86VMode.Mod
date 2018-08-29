@@ -1,81 +1,83 @@
 MODULE XF86VMode; (** AUTHOR "fnecati"; PURPOSE "unix <X/xf86vmode.h>"; *)
 
 IMPORT
-  X11 , Unix, SYSTEM, Modules, Trace;
+  X11 , Unix, Modules, KernelLog;
 
 CONST
-  libXxf86vm = 'libXxf86vm.so';
+	libname = 'libXxf86vm.so.1';
+VAR
+	lib: ADDRESS;
 
 TYPE
-	ADDRESS = SYSTEM.ADDRESS;
-	PChar = POINTER TO ARRAY OF CHAR;
+
+	PChar = POINTER {UNSAFE} TO ARRAY OF CHAR;
 	cuchar = CHAR; (* int8 *)
-	Pcushort = POINTER TO ARRAY OF INTEGER;
+	Pcushort = POINTER {UNSAFE} TO ARRAY OF INTEGER;
 
 	Bool = X11.Bool;
-	
+
 	DisplayPtr = X11.DisplayPtr;
 	Time = X11.Time;
 	Window = X11.Window;
-	
-CONST
-	X_XF86VidModeQueryVersion*     = 0;
-	X_XF86VidModeGetModeLine*      = 1;
-	X_XF86VidModeModModeLine*      = 2;
-	X_XF86VidModeSwitchMode*       = 3;
-	X_XF86VidModeGetMonitor*       = 4;
-	X_XF86VidModeLockModeSwitch*   = 5;
-	X_XF86VidModeGetAllModeLines*  = 6;
-	X_XF86VidModeAddModeLine*      = 7;
-	X_XF86VidModeDeleteModeLine*   = 8;
-	X_XF86VidModeValidateModeLine* = 9;
-	X_XF86VidModeSwitchToMode*     = 10;
-	X_XF86VidModeGetViewPort*      = 11;
-	X_XF86VidModeSetViewPort*      = 12;
-	(* new for version 2.x of this extension *)
-	X_XF86VidModeGetDotClocks*     = 13;
-	X_XF86VidModeSetClientVersion* = 14;
-	X_XF86VidModeSetGamma*         = 15;
-	X_XF86VidModeGetGamma*         = 16;
-	X_XF86VidModeGetGammaRamp*     = 17;
-	X_XF86VidModeSetGammaRamp*     = 18;
-	X_XF86VidModeGetGammaRampSize* = 19;
-	X_XF86VidModeGetPermissions*   = 20;
 
-	CLKFLAG_PROGRAMABLE*           = 1;
+CONST
+	XVidQueryVersion* = 0;
+	XVidGetModeLine* = 1;
+	XVidModModeLine* = 2;
+	XVidSwitchMode* = 3;
+	XVidGetMonitor* = 4;
+	XVidLockModeSwitch* = 5;
+	XVidGetAllModeLines*  = 6;
+	XVidAddModeLine* = 7;
+	XVidDeleteModeLine* = 8;
+	XVidValidateModeLine* = 9;
+	XVidSwitchToMode* = 10;
+	XVidGetViewPort* = 11;
+	XVidSetViewPort* = 12;
+	(* new for version 2.x of this extension *)
+	XVidGetDotClocks* = 13;
+	XVidSetClientVersion* = 14;
+	XVidSetGamma* = 15;
+	XVidVidGetGamma* = 16;
+	XVidetGammaRamp* = 17;
+	XVidSetGammaRamp* = 18;
+	XVidGetGammaRampSize* = 19;
+	XVidGetPermissions* = 20;
+
+	CLKFLAG_PROGRAMABLE* = 1;
 
 	(*$IFDEF XF86VIDMODE_EVENTS*)
-	XF86VidModeNotify*             = 0;
-	XF86VidModeNumberEvents*       = (XF86VidModeNotify + 1);
+	XVidNotify*             = 0;
+	XVidNumberEvents* = (XVidNotify + 1);
 
-	XF86VidModeNotifyMask*         = 00000001H;
+	XVidNotifyMask* = 00000001H;
 
-	XF86VidModeNonEvent*           = 0;
-	XF86VidModeModeChange*         = 1;
+	XVidNonEvent* = 0;
+	XVidModeChange* = 1;
 	(* (*$ELSE XF86VIDMODE_EVENTS*)
-	XF86VidModeNumberEvents*       = 0;
+	XVidNumberEvents* = 0;
 	(*$ENDIF XF86VIDMODE_EVENTS*)
 	*)
-	XF86VidModeBadClock*           = 0;
-	XF86VidModeBadHTimings*        = 1;
-	XF86VidModeBadVTimings*        = 2;
-	XF86VidModeModeUnsuitable*     = 3;
-	XF86VidModeExtensionDisabled*  = 4;
-	XF86VidModeClientNotLocal*     = 5;
-	XF86VidModeZoomLocked*         = 6;
-	XF86VidModeNumberErrors*       = (XF86VidModeZoomLocked + 1);
+	XVidBadClock* = 0;
+	XVidBadHTimings* = 1;
+	XVidBadVTimings* = 2;
+	XVidModeUnsuitable* = 3;
+	XVidExtensionDisabled*  = 4;
+	XVidClientNotLocal* = 5;
+	XVidZoomLocked* = 6;
+	XVidNumberErrors* = (XVidZoomLocked + 1);
 
 	XF86VM_READ_PERMISSION*  = 1;
 	XF86VM_WRITE_PERMISSION* = 2;
 
 	(* Video Mode Settings: *)
 TYPE
- 	 	 XF86VidModeModeLine* = RECORD
+	ModeLine* = POINTER {UNSAFE} TO RECORD
 		hdisplay* : INTEGER; (* Number of display pixels horizontally *)
 		hsyncstart* : INTEGER; (* Horizontal sync start *)
 		hsyncend * : INTEGER;  (* Horizontal sync end *)
 		htotal * : INTEGER;  (* Total horizontal pixels *)
-		hskew * : INTEGER; 
+		hskew * : INTEGER;
 		vdisplay * : INTEGER; (* Number of display pixels vertically *)
 		vsyncstart * : INTEGER; (* Vertical sync start *)
 		vsyncend * : INTEGER;  (* Vertical sync start *)
@@ -86,15 +88,14 @@ TYPE
 	END;
 
 
-	PPXF86VidModeModeInfo* = POINTER TO ARRAY OF PXF86VidModeModeInfo;
-	PXF86VidModeModeInfo* = POINTER TO XF86VidModeModeInfo;
-	XF86VidModeModeInfo* = RECORD
+	PModeInfo* = POINTER {UNSAFE} TO ARRAY OF ModeInfo;
+	ModeInfo* = POINTER {UNSAFE} TO RECORD
 		dotclock * : LONGINT; (* Pixel clock *)
 		hdisplay * : INTEGER; (* Number of display pixels horizontally *)
 		hsyncstart * : INTEGER; (* Horizontal sync start *)
 		hsyncend * : INTEGER;  (* Horizontal sync end *)
 		htotal * : INTEGER; (* Total horizontal pixels *)
-		hskew * : INTEGER; 
+		hskew * : INTEGER;
 		vdisplay * : INTEGER; (* Number of display pixels vertically *)
 		vsyncstart * : INTEGER;  (* Vertical sync start *)
 		vsyncend * : INTEGER; (* Vertical sync start *)
@@ -105,22 +106,22 @@ TYPE
 	END;
 
 	(* Monitor information: *)
-	XF86VidModeSyncRange* = RECORD
+	SyncRange* = RECORD
 		hi* : REAL; (* Top of range *)
 		lo* : REAL; (* Bottom of range *)
 	END;
 
-	XF86VidModeMonitor* = RECORD
+	Monitor* = POINTER {UNSAFE} TO RECORD
 		vendor * : PChar;  (* Name of manufacturer *)
 		model * : PChar; (* Model name *)
 		empty * : REAL; (* Monitor bandwidth *)
 		nhsync * : cuchar; (* Number of horiz sync ranges *)
-		hsync * : XF86VidModeSyncRange; (* Horizontal sync ranges *)
+		hsync * : SyncRange; (* Horizontal sync ranges *)
 		nvsync * : cuchar; (* Number of vert sync ranges *)
-		vsync * : XF86VidModeSyncRange; (* Vertical sync ranges *)
+		vsync * : SyncRange; (* Vertical sync ranges *)
 	END;
 
-	XF86VidModeNotifyEvent* = RECORD
+	NotifyEvent* = RECORD
 		typ * : LONGINT;       (* of event *)
 		serial * : LONGINT;    (* # of last request processed by server *)
 		sendEvent * : Bool; (* true if this came from a SendEvent req *)
@@ -132,7 +133,7 @@ TYPE
 		time * : Time;       (* event timestamp *)
 	END;
 
-	XF86VidModeGamma* = RECORD
+	Gamma* = RECORD
 		red * : REAL;   (* Red Gamma value *)
 		green * : REAL; (* Green Gamma value *)
 		blue * : REAL;  (* Blue Gamma value *)
@@ -141,110 +142,78 @@ TYPE
 
 VAR
 
-	XF86VidModeQueryVersion- : PROCEDURE {C} (dpy: DisplayPtr; VAR majorVersion : LONGINT; VAR minorVersion : LONGINT) : Bool; 
-	XF86VidModeQueryExtension- : PROCEDURE {C} (dpy : DisplayPtr; VAR eventBaseReturn : LONGINT; VAR errorBaseReturn : LONGINT ) : Bool;
-	XF86VidModeSetClientVersion- : PROCEDURE {C} (dpy : DisplayPtr) : Bool; 
-	XF86VidModeGetModeLine- : PROCEDURE {C} ( dpy : DisplayPtr; screen : LONGINT; VAR dotclockReturn : LONGINT; VAR modeline :  XF86VidModeModeLine) : Bool;
-	XF86VidModeGetAllModeLines- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT;  VAR modecountReturn : LONGINT; modelinesPtr : ADDRESS (*PPPXF86VidModeModeInfo*) ) : Bool; 
-	XF86VidModeAddModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR new_modeline : XF86VidModeModeInfo; VAR after_modeline : XF86VidModeModeInfo ) : Bool; 
-	XF86VidModeDeleteModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeInfo ) : Bool; 
-	XF86VidModeModModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeLine) : Bool; 
-	XF86VidModeValidateModeLine- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeInfo ) : LONGINT (* Api.Status *);  
-	XF86VidModeSwitchMode- : PROCEDURE {C} ( dpy : DisplayPtr; screen : LONGINT; zoom : LONGINT ) : Bool;
-	XF86VidModeSwitchToMode- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR modeline : XF86VidModeModeInfo ) : Bool;
-	XF86VidModeLockModeSwitch- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; lock : LONGINT) : Bool;
-	XF86VidModeGetMonitor- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR monitor : XF86VidModeMonitor) : Bool;
-	XF86VidModeGetViewPort- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR xreturn : LONGINT; VAR yreturn : LONGINT ) : Bool;
-	XF86VidModeSetViewPort- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; x : LONGINT; y : LONGINT ) : Bool;
-	XF86VidModeGetDotClocks- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR flagsReturn : SET; VAR numberOffClocksReturn : LONGINT;  VAR maxDotClockReturn : LONGINT;
-	    clocksReturn : ADDRESS (*Xlib.PPcint *) ) : Bool;
-	XF86VidModeGetGamma- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR gamma : XF86VidModeGamma ) : Bool; 
-	XF86VidModeSetGamma- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR gamma : XF86VidModeGamma ) : Bool;
-	XF86VidModeSetGammaRamp-: PROCEDURE {C} ( dpy : DisplayPtr; screen : LONGINT; asize : LONGINT; redarray : Pcushort; greenarray : Pcushort; bluearray : Pcushort ) : Bool;
-	XF86VidModeGetGammaRamp- : PROCEDURE {C} ( dpy : DisplayPtr; screen : LONGINT; asize : LONGINT; redarray : Pcushort;  greenarray : Pcushort; bluearray : Pcushort ) : Bool;
-	XF86VidModeGetGammaRampSize- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR asize : LONGINT ) : Bool;
-	XF86VidModeGetPermissions- : PROCEDURE {C} (dpy : DisplayPtr; screen : LONGINT; VAR permissions : LONGINT ) : Bool;
-
-
-xlib: LONGINT;
+	QueryVersion- : PROCEDURE {PlatformCC} (dpy: DisplayPtr; VAR majorVersion : LONGINT; VAR minorVersion : LONGINT) : Bool;
+	QueryExtension- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; VAR eventBaseReturn : LONGINT; VAR errorBaseReturn : LONGINT ) : Bool;
+	SetClientVersion- : PROCEDURE {PlatformCC} (dpy : DisplayPtr) : Bool;
+	GetModeLine- : PROCEDURE {PlatformCC} ( dpy : DisplayPtr; screen : LONGINT; VAR dotclockReturn : LONGINT; VAR modeline :  ModeLine) : Bool;
+	GetAllModeLines- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT;  VAR modecountReturn : LONGINT; VAR modelinesr : PModeInfo ) : Bool;
+	AddModeLine- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT;  new_modeline : ModeInfo;  VAR after_modeline : ModeInfo ) : Bool;
+	DeleteModeLine- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; modeline : ModeInfo ) : Bool;
+	ModModeLine- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; modeline : ModeLine) : Bool;
+	ValidateModeLine- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; modeline : ModeInfo ) : LONGINT (* Api.Status *);
+	SwitchMode- : PROCEDURE {PlatformCC} ( dpy : DisplayPtr; screen : LONGINT; zoom : LONGINT ) : Bool;
+	SwitchToMode- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; modeline : ModeInfo ) : Bool;
+	LockModeSwitch- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; lock : LONGINT) : Bool;
+	GetMonitor- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT;  monitor : Monitor) : Bool;
+	GetViewPort- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; VAR xreturn : LONGINT; VAR yreturn : LONGINT ) : Bool;
+	SetViewPort- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; x : LONGINT; y : LONGINT ) : Bool;
+	GetDotClocks- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; VAR flagsReturn : SET; VAR numberOffClocksReturn : LONGINT;  VAR maxDotClockReturn : LONGINT;
+	    VAR clocksReturn : Pcushort ) : Bool;
+	GetGamma- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; VAR gamma : Gamma ) : Bool;
+	SetGamma- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; VAR gamma : Gamma ) : Bool;
+	SetGammaRamp-: PROCEDURE {PlatformCC} ( dpy : DisplayPtr; screen : LONGINT; asize : LONGINT; redarray : Pcushort; greenarray : Pcushort; bluearray : Pcushort ) : Bool;
+	GetGammaRamp- : PROCEDURE {PlatformCC} ( dpy : DisplayPtr; screen : LONGINT; asize : LONGINT; redarray : Pcushort;  greenarray : Pcushort; bluearray : Pcushort ) : Bool;
+	GetGammaRampSize- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; VAR asize : LONGINT ) : Bool;
+	GetPermissions- : PROCEDURE {PlatformCC} (dpy : DisplayPtr; screen : LONGINT; VAR permissions : LONGINT ) : Bool;
 
 (* *********** Wrapper macros ************* *)
 
-PROCEDURE XF86VidModeSelectNextMode*(disp : DisplayPtr; scr : LONGINT) : Bool;
+PROCEDURE SelectNextMode*(disp : DisplayPtr; scr : LONGINT) : Bool;
 BEGIN
-    RETURN XF86VidModeSwitchMode(disp, scr, 1);
-END XF86VidModeSelectNextMode;
+    RETURN SwitchMode(disp, scr, 1);
+END SelectNextMode;
 
-PROCEDURE XF86VidModeSelectPrevMode*(disp : DisplayPtr; scr : LONGINT) : Bool;
+PROCEDURE SelectPrevMode*(disp : DisplayPtr; scr : LONGINT) : Bool;
 BEGIN
-    RETURN XF86VidModeSwitchMode(disp, scr, -1);
-END XF86VidModeSelectPrevMode;
-
-PROCEDURE VidModeGetAllModeLines*(display: DisplayPtr; screen: LONGINT; VAR vidlines: PPXF86VidModeModeInfo): LONGINT;
-VAR 
-      mlines1: PPXF86VidModeModeInfo;
-      mlinesadr: ADDRESS;
-      mcount: LONGINT;
-      res: LONGINT;
-      i: LONGINT;
-BEGIN
-X11.Lock;
-
-(* get  TXF86VidModeModeInfo*** info   C structure array  *) 
-res := XF86VidModeGetAllModeLines(display, screen, mcount, SYSTEM.ADR(mlinesadr));
-
-mlines1 := SYSTEM.VAL(PPXF86VidModeModeInfo, mlinesadr-16); (*  ????  *)
- IF mlines1 = NIL THEN 
-	vidlines := NIL;
-	RETURN res;
- END;
-
-NEW(vidlines, mcount); (* create oberon friendly array, and copy to it*)
- FOR i:=0 TO mcount-1 DO vidlines[i] := mlines1[i];  END;
-
- X11.Free(mlinesadr); 
- X11.Unlock;
- mlines1 := NIL;
- RETURN res;
-END VidModeGetAllModeLines;
-
+    RETURN SwitchMode(disp, scr, -1);
+END SelectPrevMode;
 
 PROCEDURE LoadX11Functions;
-BEGIN {EXCLUSIVE}
-	xlib := Unix.Dlopen( libXxf86vm, 2 );
-	ASSERT(xlib # 0, 301);
-	
-	Unix.Dlsym( xlib, "XF86VidModeQueryVersion", SYSTEM.VAL( ADDRESS, XF86VidModeQueryVersion));
-	Unix.Dlsym( xlib, "XF86VidModeQueryExtension", SYSTEM.VAL( ADDRESS, XF86VidModeQueryExtension));
-	Unix.Dlsym( xlib, "XF86VidModeSetClientVersion", SYSTEM.VAL( ADDRESS, XF86VidModeSetClientVersion));
-	Unix.Dlsym( xlib, "XF86VidModeGetModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeGetModeLine));
-	Unix.Dlsym( xlib, "XF86VidModeGetAllModeLines", SYSTEM.VAL( ADDRESS, XF86VidModeGetAllModeLines));
-	Unix.Dlsym( xlib, "XF86VidModeAddModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeAddModeLine));
-	Unix.Dlsym( xlib, "XF86VidModeDeleteModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeDeleteModeLine));
-	Unix.Dlsym( xlib, "XF86VidModeModModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeModModeLine));	
-	Unix.Dlsym( xlib, "XF86VidModeValidateModeLine", SYSTEM.VAL( ADDRESS, XF86VidModeValidateModeLine));
-	Unix.Dlsym( xlib, "XF86VidModeSwitchMode", SYSTEM.VAL( ADDRESS, XF86VidModeSwitchMode));
-	Unix.Dlsym( xlib, "XF86VidModeSwitchToMode", SYSTEM.VAL( ADDRESS, XF86VidModeSwitchToMode));
-	Unix.Dlsym( xlib, "XF86VidModeLockModeSwitch", SYSTEM.VAL( ADDRESS, XF86VidModeLockModeSwitch));
-	Unix.Dlsym( xlib, "XF86VidModeGetMonitor", SYSTEM.VAL( ADDRESS, XF86VidModeGetMonitor));
-	Unix.Dlsym( xlib, "XF86VidModeGetViewPort", SYSTEM.VAL( ADDRESS, XF86VidModeGetViewPort));
-	Unix.Dlsym( xlib, "XF86VidModeSetViewPort", SYSTEM.VAL( ADDRESS, XF86VidModeSetViewPort));
-	Unix.Dlsym( xlib, "XF86VidModeGetDotClocks", SYSTEM.VAL( ADDRESS, XF86VidModeGetDotClocks));
-	Unix.Dlsym( xlib, "XF86VidModeGetGamma", SYSTEM.VAL( ADDRESS, XF86VidModeGetGamma));
-	Unix.Dlsym( xlib, "XF86VidModeSetGamma", SYSTEM.VAL( ADDRESS, XF86VidModeSetGamma));
-	Unix.Dlsym( xlib, "XF86VidModeSetGammaRamp", SYSTEM.VAL( ADDRESS, XF86VidModeSetGammaRamp));
-	Unix.Dlsym( xlib, "XF86VidModeGetGammaRamp", SYSTEM.VAL( ADDRESS, XF86VidModeGetGammaRamp));	
-	Unix.Dlsym( xlib, "XF86VidModeGetGammaRampSize", SYSTEM.VAL( ADDRESS, XF86VidModeGetGammaRampSize));
-	Unix.Dlsym( xlib, "XF86VidModeGetPermissions", SYSTEM.VAL( ADDRESS, XF86VidModeGetPermissions));
+BEGIN
+	lib := Unix.Dlopen( libname, 2 );
+	ASSERT(lib # 0, 301);
 
-	Trace.String(libXxf86vm); Trace.StringLn(' loaded.');
+	Unix.Dlsym( lib, "XF86VidModeQueryVersion", ADDRESSOF( QueryVersion));
+	Unix.Dlsym( lib, "XF86VidModeQueryExtension", ADDRESSOF( QueryExtension));
+	Unix.Dlsym( lib, "XF86VidModeSetClientVersion", ADDRESSOF( SetClientVersion));
+	Unix.Dlsym( lib, "XF86VidModeGetModeLine", ADDRESSOF( GetModeLine));
+	Unix.Dlsym( lib, "XF86VidModeGetAllModeLines", ADDRESSOF( GetAllModeLines));
+	Unix.Dlsym( lib, "XF86VidModeAddModeLine", ADDRESSOF( AddModeLine));
+	Unix.Dlsym( lib, "XF86VidModeDeleteModeLine", ADDRESSOF( DeleteModeLine));
+	Unix.Dlsym( lib, "XF86VidModeModModeLine", ADDRESSOF( ModModeLine));
+	Unix.Dlsym( lib, "XF86VidModeValidateModeLine", ADDRESSOF( ValidateModeLine));
+	Unix.Dlsym( lib, "XF86VidModeSwitchMode", ADDRESSOF( SwitchMode));
+	Unix.Dlsym( lib, "XF86VidModeSwitchToMode", ADDRESSOF( SwitchToMode));
+	Unix.Dlsym( lib, "XF86VidModeLockModeSwitch", ADDRESSOF( LockModeSwitch));
+	Unix.Dlsym( lib, "XF86VidModeGetMonitor", ADDRESSOF( GetMonitor));
+	Unix.Dlsym( lib, "XF86VidModeGetViewPort", ADDRESSOF( GetViewPort));
+	Unix.Dlsym( lib, "XF86VidModeSetViewPort", ADDRESSOF( SetViewPort));
+	Unix.Dlsym( lib, "XF86VidModeGetDotClocks", ADDRESSOF( GetDotClocks));
+	Unix.Dlsym( lib, "XF86VidModeGetGamma", ADDRESSOF( GetGamma));
+	Unix.Dlsym( lib, "XF86VidModeSetGamma", ADDRESSOF( SetGamma));
+	Unix.Dlsym( lib, "XF86VidModeSetGammaRamp", ADDRESSOF( SetGammaRamp));
+	Unix.Dlsym( lib, "XF86VidModeGetGammaRamp", ADDRESSOF( GetGammaRamp));
+	Unix.Dlsym( lib, "XF86VidModeGetGammaRampSize", ADDRESSOF( GetGammaRampSize));
+	Unix.Dlsym( lib, "XF86VidModeGetPermissions", ADDRESSOF( GetPermissions));
+
+	KernelLog.String(libname); KernelLog.String(' loaded.'); KernelLog.Ln;
 END LoadX11Functions;
 
 PROCEDURE OnClose;
-BEGIN {EXCLUSIVE}
- IF xlib # 0 THEN
-       Unix.Dlclose(xlib);
-       Trace.String(libXxf86vm); Trace.StringLn(' unloaded.');
+BEGIN
+ IF lib # 0 THEN
+       Unix.Dlclose(lib);
+       KernelLog.String(libname); KernelLog.String(' unloaded.'); KernelLog.Ln;
 END;
 END OnClose;
 
@@ -259,39 +228,39 @@ END XF86VMode.
 
 Arguments:
 display
-    Specifies the connection to the X server. 
+    Specifies the connection to the X server.
 screen
-    Specifies which screen number the setting apply to. 
+    Specifies which screen number the setting apply to.
 event_base_return
-    Returns the base event number for the extension. 
+    Returns the base event number for the extension.
 error_base_return
-    Returns the base error number for the extension. 
+    Returns the base error number for the extension.
 major_version_return
-    Returns the major version number of the extension. 
+    Returns the major version number of the extension.
 minor_version_return
-    Returns the minor version number of the extension. 
+    Returns the minor version number of the extension.
 dotclock_return
-    Returns the clock for the mode line. 
+    Returns the clock for the mode line.
 modecount_return
-    Returns the number of video modes available in the server. 
+    Returns the number of video modes available in the server.
 zoom
-    If greater than zero, indicates that the server should switch to the next mode, otherwise switch to the previous mode. 
+    If greater than zero, indicates that the server should switch to the next mode, otherwise switch to the previous mode.
 lock
-    Indicates that mode switching should be locked, if non-zero. 
+    Indicates that mode switching should be locked, if non-zero.
 modeline
-    Specifies or returns the timing values for a video mode. 
+    Specifies or returns the timing values for a video mode.
 modesinfo
-    Returns the timing values and dotclocks for all of the available video modes. 
+    Returns the timing values and dotclocks for all of the available video modes.
 monitor
-    Returns information about the monitor. 
+    Returns information about the monitor.
 x
-    Specifies the desired X location for the viewport. 
+    Specifies the desired X location for the viewport.
 x_return
-    Returns the current X location of the viewport. 
+    Returns the current X location of the viewport.
 y
-    Specifies the desired Y location for the viewport. 
+    Specifies the desired Y location for the viewport.
 y_return
-    Returns the current Y location of the viewport. 
+    Returns the current Y location of the viewport.
 
 *)
 

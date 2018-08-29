@@ -1,7 +1,7 @@
 MODULE XNXLMarsh;
 IMPORT  Base:=XNXLBase , XNXLEngrainer, XNXLVoxel, XNXLVoxel4, XNXLLifeVox, XNXLTexVox, Random, 
 M2:=XNXLM2Space, M3:=XNXLM3Space, M5:=XNXLM5Space,  XNXLFRep, XNXLRotaVox, XNXLSierp, XNXLHalfSpace,
-XNXLVoxConsole, Files, Streams, Out:=KernelLog;
+(* XNXLVoxConsole, *) Files, Streams, Out:=KernelLog;
 
 CONST sfile="marshstrokes.text"
 TYPE Voxel=Base.Voxel;
@@ -176,7 +176,7 @@ END draw;
 PROCEDURE key*(CONST c:CHAR);
 BEGIN
 	Out.Char(c);
-	stroke(Base.cursorPT,cursorsize,XNXLVoxConsole.charvox(c));
+(*	stroke(Base.cursorPT,cursorsize,XNXLVoxConsole.charvox(c)); *)
 END key;
 
 PROCEDURE clear*;

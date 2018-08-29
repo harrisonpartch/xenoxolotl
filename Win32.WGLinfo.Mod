@@ -1,4 +1,4 @@
-MODULE  GLXinfo; (** AUTHOR "fnecati"; PURPOSE "Print GLX, GL and GLU  version, vendor and extension info"; *)
+MODULE  WGLinfo; (** AUTHOR "fnecati"; PURPOSE "Print GL and GLU  version, vendor and extension info"; *)
 IMPORT
 	GL := OpenGL, GLC:= OpenGLConst, GLU, KernelLog, GLContext, Strings;
 
@@ -11,16 +11,13 @@ BEGIN
 	NEW(context);
 	context.Init(100, 100);
 	context.MakeCurrent;
+	GL.Read_WGL_EXT_extensions_string();
+	GL.Read_WGL_ARB_extensions_string();
 
-	(* GLX server and client info *)
-	s := GL.GLXQueryServerString(context.GetDisplay(), 0, GLC.GLX_VENDOR); KernelLog.String("Server GLX_VENDOR: "); KernelLog.String(s^); KernelLog.Ln;
-	s := GL.GLXQueryServerString(context.GetDisplay(), 0, GLC.GLX_VERSION); KernelLog.String("Server GLX_VERSION: "); KernelLog.String(s^); KernelLog.Ln;
-	s := GL.GLXQueryServerString(context.GetDisplay(), 0, GLC.GLX_EXTENSIONS); KernelLog.String("Server GLX_EXTENSIONS: "); KernelLog.String(s^); KernelLog.Ln;
+	(* WGL info *)
 	KernelLog.Ln;
-
-	s := GL.GLXGetClientString(context.GetDisplay(), GLC.GLX_VENDOR); KernelLog.String("Client GLX_VENDOR: "); KernelLog.String(s^); KernelLog.Ln;
-	s := GL.GLXGetClientString(context.GetDisplay(), GLC.GLX_VERSION); KernelLog.String("Client GLX_VERSION: "); KernelLog.String(s^); KernelLog.Ln;
-	s := GL.GLXGetClientString(context.GetDisplay(), GLC.GLX_EXTENSIONS); KernelLog.String("Client GLX_EXTENSIONS: "); KernelLog.String(s^); KernelLog.Ln;
+	s := GL.wglEXTStrings();  KernelLog.String("WGL EXTString: ");  KernelLog.String(s^); KernelLog.Ln;
+	s := GL.wglARBStrings(); KernelLog.String("WGL ARBStrings : "); KernelLog.String(s^); KernelLog.Ln;
 	KernelLog.Ln;
 
 	(* OpenGL info *)
@@ -29,7 +26,6 @@ BEGIN
 	s := GL.GetString(GLC.GL_VERSION); KernelLog.String("OpenGL GL_VERSION: "); KernelLog.String(s^); KernelLog.Ln;
 	s := GL.GetString(GLC.GL_SHADING_LANGUAGE_VERSION); KernelLog.String("OpenGL GL_SHADING_LANGUAGE_VERSION: "); KernelLog.String(s^); KernelLog.Ln;
 	s := GL.GetString(GLC.GL_EXTENSIONS); KernelLog.String("OpenGL GL_EXTENSIONS: "); KernelLog.String(s^); KernelLog.Ln;
-
 	KernelLog.Ln;
 
 	(* GLU info *)
@@ -43,13 +39,11 @@ BEGIN
 END Do;
 
 BEGIN
-END GLXinfo.
+END  WGLinfo.
 
-GLXinfo.Do ~
+WGLinfo.Do ~
 
-System.Free GLXinfo GLContext ~
-
-System.FreeDownTo OpenGLConst ~
+System.Free WGLinfo GLContext ~
 
 
 
